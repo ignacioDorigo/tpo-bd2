@@ -88,8 +88,7 @@ public class ControladorInterfaz {
     }
 
     private Optional<List<String>> buscarCuenta(String correo) {
-        jedis.set("foo", "bar");
-        System.out.println(jedis.get("foo")); // prints "bar"
+
 
 
         return Optional.empty();

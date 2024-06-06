@@ -13,8 +13,6 @@ public class Usuario {
     private String email;
     private String direccion;
     private String documento;
-    //private Carrito carrito;
-    //private List<Carrito> estadosCarrito;
 
     // Getters y Setters
     public String getId() {
