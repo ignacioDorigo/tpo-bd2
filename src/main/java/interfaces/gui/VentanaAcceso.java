@@ -2,14 +2,14 @@
 package interfaces.gui;
 
 
-import aplicacion.ControladorInterfaz;
+import aplicacion.Controlador;
 import aplicacion.InfoInicioSesionDTO;
 
 public class VentanaAcceso extends javax.swing.JFrame {
-    private ControladorInterfaz controladorInterfaz;
+    private Controlador controlador;
   
-    public VentanaAcceso(ControladorInterfaz controladorInterfaz) {
-        this.controladorInterfaz = controladorInterfaz;
+    public VentanaAcceso(Controlador controlador) {
+        this.controlador = controlador;
         initComponents();
     }
 
@@ -186,7 +186,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
 
     private void botonRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarmeActionPerformed
 
-        VentanaRegistro vr = new VentanaRegistro(controladorInterfaz);
+        VentanaRegistro vr = new VentanaRegistro(controlador);
         vr.setVisible(true);
         vr.pack();
         vr.setLocationRelativeTo(null);
@@ -199,10 +199,10 @@ public class VentanaAcceso extends javax.swing.JFrame {
         char[] aux = cajaContrasena.getPassword();
         String contrasena = new String(aux);
 
-        InfoInicioSesionDTO info = controladorInterfaz.iniciarSesion(email, contrasena);
+        InfoInicioSesionDTO info = controlador.iniciarSesion(email, contrasena);
 
         if (info.isExito()) {
-            VentanaHomePage vd = new VentanaHomePage(controladorInterfaz);
+            VentanaHomePage vd = new VentanaHomePage(controlador);
             vd.setLocationRelativeTo(null);
             vd.setVisible(true);
             this.dispose();

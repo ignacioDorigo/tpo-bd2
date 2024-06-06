@@ -1,15 +1,19 @@
 package interfaces.gui;
 
-
-import aplicacion.ControladorInterfaz;
+import aplicacion.Controlador;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     
-    private ControladorInterfaz controladorInterfaz;
-    public VentanaPrincipal(ControladorInterfaz controladorInterfaz) {
-        this.controladorInterfaz = controladorInterfaz;
+    private Controlador controlador;
+
+    public VentanaPrincipal() {
+        this.controlador = new Controlador();
         initComponents();
     }
+    public static void main(String[] args) {
+        new VentanaPrincipal().setVisible(true);
+    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -90,7 +94,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonAdministradorActionPerformed
 
     private void BotonUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonUsuarioActionPerformed
-        VentanaAcceso va = new VentanaAcceso(controladorInterfaz);
+        VentanaAcceso va = new VentanaAcceso(controlador);
         va.setLocationRelativeTo(null);
         va.setVisible(true);
         this.dispose();

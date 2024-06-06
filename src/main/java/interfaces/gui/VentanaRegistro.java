@@ -2,13 +2,13 @@
 package interfaces.gui;
 
 
-import aplicacion.ControladorInterfaz;
+import aplicacion.Controlador;
 
 public class VentanaRegistro extends javax.swing.JFrame {
-    private ControladorInterfaz controladorInterfaz;
+    private Controlador controlador;
  
-    public VentanaRegistro(ControladorInterfaz controladorInterfaz) {
-        this.controladorInterfaz = controladorInterfaz;
+    public VentanaRegistro(Controlador controlador) {
+        this.controlador = controlador;
         initComponents();
     }
 
@@ -233,7 +233,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
     private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioSesionActionPerformed
         // TODO add your handling code here:
-        VentanaAcceso va = new VentanaAcceso(controladorInterfaz);
+        VentanaAcceso va = new VentanaAcceso(controlador);
         va.setVisible(true);
         va.pack();
         va.setLocationRelativeTo(null);

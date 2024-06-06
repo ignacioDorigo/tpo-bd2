@@ -5,26 +5,18 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
 
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPooled;
 
-
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import jakarta.validation.ConstraintViolation;
-
-import java.util.Set;
-
-public class ControladorInterfaz {
+public class Controlador {
 
     private String referenciaUsuario;
     private JedisPooled jedis;
 
-    private static final Logger logger = Logger.getLogger(ControladorInterfaz.class.getName());
+    private static final Logger logger = Logger.getLogger(Controlador.class.getName());
 
-    public ControladorInterfaz() {
+    public Controlador() {
         this.jedis = new JedisPooled("localhost", 6379);
+
     }
 
     public boolean crearUsuario(InfoRegistroDTO info){
