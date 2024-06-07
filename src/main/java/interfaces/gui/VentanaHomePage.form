@@ -234,7 +234,7 @@
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Component id="bienvenido1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bienvenido" min="-2" max="-2" attributes="0"/>
+                      <Component id="LabelNombreUsuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="281" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -245,7 +245,7 @@
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="bienvenido1" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bienvenido" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="LabelNombreUsuario" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="423" max="32767" attributes="0"/>
                   </Group>
@@ -253,7 +253,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="bienvenido">
+            <Component class="javax.swing.JLabel" name="LabelNombreUsuario">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="36" style="1"/>
