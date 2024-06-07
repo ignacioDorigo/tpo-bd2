@@ -2,17 +2,17 @@
 package interfaces.gui;
 
 
-import aplicacion.ControladorInterfaz;
+import aplicacion.Controlador;
+import aplicacion.InfoRegistroDTO;
 
 public class VentanaRegistro extends javax.swing.JFrame {
-    private ControladorInterfaz controladorInterfaz;
+    private final Controlador controlador;
  
-    public VentanaRegistro(ControladorInterfaz controladorInterfaz) {
-        this.controladorInterfaz = controladorInterfaz;
+    public VentanaRegistro(Controlador controlador) {
+        this.controlador = controlador;
         initComponents();
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -26,7 +26,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         cajaDocumento = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        cajaEmail = new javax.swing.JTextField();
+        cajaCorreo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cajaContrasena = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
@@ -36,9 +36,15 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         cajaDireccion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        campoObligatorioNombre = new javax.swing.JLabel();
+        campoObligatorioNombre.setVisible(false);
+        campoObligatorioCorreo = new javax.swing.JLabel();
+        campoObligatorioCorreo.setVisible(false);
+        campoObligatorioContrasena = new javax.swing.JLabel();
+        campoObligatorioContrasena.setVisible(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registrarse");
+        setTitle("Registro");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -97,8 +103,13 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         jLabel6.setText("Correo electrónico");
 
-        cajaEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cajaEmail.setForeground(new java.awt.Color(102, 102, 102));
+        cajaCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cajaCorreo.setForeground(new java.awt.Color(102, 102, 102));
+        cajaCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cajaCorreoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setBackground(new java.awt.Color(102, 102, 102));
         jLabel7.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
@@ -115,9 +126,14 @@ public class VentanaRegistro extends javax.swing.JFrame {
         botonRegistrarse.setForeground(new java.awt.Color(255, 255, 255));
         botonRegistrarse.setText("Registrarse");
         botonRegistrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarseActionPerformed(evt);
+            }
+        });
 
-        botonInicioSesion.setFont(new java.awt.Font("Microsoft YaHei", 0, 12)); // NOI18N
-        botonInicioSesion.setForeground(new java.awt.Color(255, 51, 51));
+        botonInicioSesion.setFont(new java.awt.Font("Microsoft YaHei", 1, 12)); // NOI18N
+        botonInicioSesion.setForeground(new java.awt.Color(22, 22, 216));
         botonInicioSesion.setText("Iniciar sesión");
         botonInicioSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonInicioSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +161,15 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         jLabel10.setText("Dirección");
 
+        campoObligatorioNombre.setForeground(new java.awt.Color(255, 51, 51));
+        campoObligatorioNombre.setText("campo obligatorio");
+
+        campoObligatorioCorreo.setForeground(new java.awt.Color(255, 51, 51));
+        campoObligatorioCorreo.setText("campo invalido");
+
+        campoObligatorioContrasena.setForeground(new java.awt.Color(255, 51, 51));
+        campoObligatorioContrasena.setText("campo obligatorio");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -157,14 +182,23 @@ public class VentanaRegistro extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cajaDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                                .addComponent(cajaEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                                .addComponent(cajaCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                                 .addComponent(cajaContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                                 .addComponent(cajaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel7)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(campoObligatorioNombre))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(campoObligatorioContrasena))
                                 .addComponent(jLabel9)
                                 .addComponent(botonRegistrarse))
-                            .addComponent(jLabel6))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoObligatorioCorreo)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +216,9 @@ public class VentanaRegistro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(campoObligatorioNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,11 +230,15 @@ public class VentanaRegistro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(campoObligatorioCorreo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cajaEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cajaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(campoObligatorioContrasena))
                 .addGap(7, 7, 7)
                 .addComponent(cajaContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -233,7 +273,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
     private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioSesionActionPerformed
         // TODO add your handling code here:
-        VentanaAcceso va = new VentanaAcceso(controladorInterfaz);
+        VentanaAcceso va = new VentanaAcceso(controlador);
         va.setVisible(true);
         va.pack();
         va.setLocationRelativeTo(null);
@@ -244,17 +284,85 @@ public class VentanaRegistro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cajaDocumentoActionPerformed
 
+    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
+        InfoRegistroDTO reg = new InfoRegistroDTO();
+        boolean operacionExitosa = false;
+        // Carga los datos de las cajas
+        String nombre = cajaNombre.getText();
+        String documento = cajaDocumento.getText();
+        String direccion = cajaDireccion.getText();
+        String correo = cajaCorreo.getText();
+        char[] aux = cajaContrasena.getPassword();
+        String contrasena = new String(aux);
 
+        // Valida que se ingrese nombre, un correo valido y contrasena para registrar usuario
+        if (!nombre.isEmpty() && controlador.validarFormatoCorreo(correo) && !contrasena.isEmpty()){
+            reg.nombre = nombre;
+            reg.correo = correo;
+            reg.contrasena = contrasena;
+            if (!documento.isEmpty()){
+                reg.documento = documento;
+            }
+            if (!direccion.isEmpty()){
+                reg.direccion = direccion;
+            }
+            operacionExitosa = controlador.crearUsuario(reg);
+            Controlador.logger.info("Registro validado");
 
+        }
+
+        else {
+            Controlador.logger.info("Registro fallido. Faltan campos obligatorios");
+            camposObligatorios(nombre, correo, contrasena);
+        }
+        // si el registro fue exitoso se abre la ventana de homepage
+        if(operacionExitosa){
+            VentanaHomePage vh = new VentanaHomePage(controlador);
+            vh.setVisible(true);
+            vh.pack();
+            vh.setLocationRelativeTo(null);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_botonRegistrarseActionPerformed
+
+    private void cajaCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cajaCorreoActionPerformed
+
+    private void camposObligatorios(String nombre, String correo, String contrasena){
+        // Despliega mensaje indicando los campos obligatorios vacios
+
+        boolean nombreValido= !nombre.isEmpty();
+        boolean correValido= controlador.validarFormatoCorreo(correo);
+        boolean contrasenaValida = !contrasena.isEmpty();
+
+        campoObligatorioNombre.setVisible(false);
+        campoObligatorioCorreo.setVisible(false);
+        campoObligatorioContrasena.setVisible(false);
+
+        if (!nombreValido){
+            campoObligatorioNombre.setVisible(true);
+        }
+        if (!correValido){
+            campoObligatorioCorreo.setVisible(true);
+        }
+        if (!contrasenaValida){
+            campoObligatorioContrasena.setVisible(true);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonInicioSesion;
     private javax.swing.JButton botonRegistrarse;
     private javax.swing.JPasswordField cajaContrasena;
+    private javax.swing.JTextField cajaCorreo;
     private javax.swing.JTextField cajaDireccion;
     private javax.swing.JTextField cajaDocumento;
-    private javax.swing.JTextField cajaEmail;
     private javax.swing.JTextField cajaNombre;
+    private javax.swing.JLabel campoObligatorioContrasena;
+    private javax.swing.JLabel campoObligatorioCorreo;
+    private javax.swing.JLabel campoObligatorioNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

@@ -19,20 +19,20 @@ public class LoggerConfig {
             String logFilePath = System.getProperty("user.dir") + "/app.log";
             FileHandler fileHandler = new FileHandler(logFilePath, true);
             fileHandler.setFormatter(new SimpleFormatter());
-            fileHandler.setLevel(Level.ALL);
+            fileHandler.setLevel(Level.INFO);
             System.out.println("FileHandler configurado.");
 
             // Configurar ConsoleHandler
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new SimpleFormatter());
-            consoleHandler.setLevel(Level.ALL);
+            consoleHandler.setLevel(Level.INFO);
 
             // Añadir manejadores al Logger
             logger.addHandler(fileHandler);
             logger.addHandler(consoleHandler);
 
             // Configurar nivel del Logger
-            logger.setLevel(Level.ALL);
+            logger.setLevel(Level.INFO);
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error al configurar el logger", e);

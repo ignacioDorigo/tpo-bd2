@@ -5,31 +5,45 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
 
-import redis.clients.jedis.Jedis;
+import com.mongodb.client.*;
+import org.bson.Document;
 import redis.clients.jedis.JedisPooled;
 
-
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import jakarta.validation.ConstraintViolation;
-
-import java.util.Set;
-
-public class ControladorInterfaz {
+public class Controlador {
 
     private String referenciaUsuario;
+
     private JedisPooled jedis;
+    private MongoClient mongoClient;
+    private MongoDatabase mongoDatabase;
+    private MongoCollection<Document> coleccionUsuarios;
+    private MongoCollection<Document> coleccionProductos;
+    private MongoCollection<Document> coleccionCarritos;
 
-    private static final Logger logger = Logger.getLogger(ControladorInterfaz.class.getName());
+    public static final Logger logger = Logger.getLogger(Controlador.class.getName());
 
-    public ControladorInterfaz() {
-        this.jedis = new JedisPooled("localhost", 6379);
+    public Controlador() {
+        try {
+            // conexion a base de datos redis
+            this.jedis = new JedisPooled("localhost", 6379);
+
+            // conexion a mongoDB
+            this.mongoClient = MongoClients.create("mongodb://localhost:27017"); // conexion al puerto
+            this.mongoDatabase = mongoClient.getDatabase("TPO_BD2"); // conexion a la base de datos correspondiente
+            this.coleccionUsuarios = mongoDatabase.getCollection("usuarios"); // conexion a las distintas colecciones
+            this.coleccionProductos = mongoDatabase.getCollection("productos");
+            this.coleccionCarritos = mongoDatabase.getCollection("carritos");
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        finally {
+            System.out.println("Conexion a las base de datos exitosa.");
+        }
     }
 
     public boolean crearUsuario(InfoRegistroDTO info){
-
-
 
         return true;
 
@@ -88,8 +102,7 @@ public class ControladorInterfaz {
     }
 
     private Optional<List<String>> buscarCuenta(String correo) {
-        jedis.set("foo", "bar");
-        System.out.println(jedis.get("foo")); // prints "bar"
+
 
 
         return Optional.empty();

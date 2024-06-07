@@ -1,14 +1,13 @@
 package interfaces.gui;
 
 
-import aplicacion.ControladorInterfaz;
-import aplicacion.InfoInicioSesionDTO;
+import aplicacion.Controlador;
 
 public class VentanaHomePage extends javax.swing.JFrame {
-    private ControladorInterfaz controladorInterfaz;
+    private Controlador controlador;
   
-    public VentanaHomePage(ControladorInterfaz controladorInterfaz) {
-        this.controladorInterfaz = controladorInterfaz;
+    public VentanaHomePage(Controlador controlador) {
+        this.controlador = controlador;
         initComponents();
     }
  
@@ -190,7 +189,7 @@ public class VentanaHomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void BotonCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesion1ActionPerformed
-        VentanaAcceso va = new VentanaAcceso(controladorInterfaz);
+        VentanaAcceso va = new VentanaAcceso(controlador);
         
         
         va.setLocationRelativeTo(null);
