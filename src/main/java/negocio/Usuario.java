@@ -1,13 +1,22 @@
 package negocio;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 public class Usuario {
 
     private String id;
     private String nombre;
-    private String email;
+    private String correo;
     private String direccion;
     private String documento;
 
+
+    public Usuario(String nombre, String correo){
+        this.id = new ObjectId().toHexString();
+        this.nombre = nombre;
+        this.correo = correo;
+    }
     // Getters y Setters
     public String getId() {
         return id;
@@ -23,12 +32,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getDireccion() {return direccion;}
@@ -38,4 +47,20 @@ public class Usuario {
     public String getDocumento() {return documento;}
 
     public void setDocumento(String documento) {this.documento = documento;}
+
+    public Document toDocument(){
+        Document doc = new Document("_id", id)
+                .append("nombre", nombre)
+                .append("correo", correo);
+
+        if (!documento.isEmpty()) {
+            doc.append("documento", documento);
+        }
+
+        if (!direccion.isEmpty()) {
+            doc.append("direccion", direccion);
+        }
+
+        return doc;
+    }
 }

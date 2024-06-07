@@ -1,9 +1,8 @@
-
 package interfaces.gui;
-
 
 import aplicacion.Controlador;
 import aplicacion.InfoRegistroDTO;
+import aplicacion.RegistroUsuarioResultado;
 
 public class VentanaRegistro extends javax.swing.JFrame {
     private final Controlador controlador;
@@ -269,7 +268,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
     private void cajaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cajaNombreActionPerformed
+    }
 
     private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioSesionActionPerformed
         // TODO add your handling code here:
@@ -278,63 +277,62 @@ public class VentanaRegistro extends javax.swing.JFrame {
         va.pack();
         va.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_botonInicioSesionActionPerformed
+    }
 
     private void cajaDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaDocumentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cajaDocumentoActionPerformed
+    }
 
     private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
         InfoRegistroDTO reg = new InfoRegistroDTO();
-        boolean operacionExitosa = false;
         // Carga los datos de las cajas
         String nombre = cajaNombre.getText();
-        String documento = cajaDocumento.getText();
-        String direccion = cajaDireccion.getText();
         String correo = cajaCorreo.getText();
         char[] aux = cajaContrasena.getPassword();
         String contrasena = new String(aux);
 
-        // Valida que se ingrese nombre, un correo valido y contrasena para registrar usuario
-        if (!nombre.isEmpty() && controlador.validarFormatoCorreo(correo) && !contrasena.isEmpty()){
+        // Valida que se ingrese nombre, un correo con formato valido y contrasena para registrar usuario
+        if (camposObligatorios(nombre, correo, contrasena)){
             reg.nombre = nombre;
             reg.correo = correo;
             reg.contrasena = contrasena;
-            if (!documento.isEmpty()){
-                reg.documento = documento;
-            }
-            if (!direccion.isEmpty()){
-                reg.direccion = direccion;
-            }
-            operacionExitosa = controlador.crearUsuario(reg);
-            Controlador.logger.info("Registro validado");
+            reg.documento = cajaDocumento.getText();
+            reg.direccion = cajaDireccion.getText();
 
+            RegistroUsuarioResultado resultado = controlador.registrarUsuario(reg);
+
+            switch (resultado) {
+                case USUARIO_EXISTENTE:
+                    Controlador.logger.info("Error: Ya existe un usuario con con esa direccion de correo.");
+                    usuarioExistente();
+                    break;
+                case ERROR_INESPERADO:
+                    Controlador.logger.info("Registro fallido. Ocurrio un error inesperado.");
+                    break;
+                case USUARIO_CREADO:
+                    VentanaHomePage vh = new VentanaHomePage(controlador);
+                    vh.setVisible(true);
+                    vh.pack();
+                    vh.setLocationRelativeTo(null);
+                    this.dispose();
+                    Controlador.logger.info("Registro exitoso");
+                    break;
+            }
         }
-
         else {
             Controlador.logger.info("Registro fallido. Faltan campos obligatorios");
-            camposObligatorios(nombre, correo, contrasena);
         }
-        // si el registro fue exitoso se abre la ventana de homepage
-        if(operacionExitosa){
-            VentanaHomePage vh = new VentanaHomePage(controlador);
-            vh.setVisible(true);
-            vh.pack();
-            vh.setLocationRelativeTo(null);
-            this.dispose();
-        }
-
-    }//GEN-LAST:event_botonRegistrarseActionPerformed
+    }
 
     private void cajaCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCorreoActionPerformed
+    }
 
-    private void camposObligatorios(String nombre, String correo, String contrasena){
+    private boolean camposObligatorios(String nombre, String correo, String contrasena){
         // Despliega mensaje indicando los campos obligatorios vacios
 
         boolean nombreValido= !nombre.isEmpty();
-        boolean correValido= controlador.validarFormatoCorreo(correo);
+        boolean correoValido= controlador.validarFormatoCorreo(correo);
         boolean contrasenaValida = !contrasena.isEmpty();
 
         campoObligatorioNombre.setVisible(false);
@@ -344,13 +342,22 @@ public class VentanaRegistro extends javax.swing.JFrame {
         if (!nombreValido){
             campoObligatorioNombre.setVisible(true);
         }
-        if (!correValido){
+        if (!correoValido){
+            campoObligatorioCorreo.setText("campo invalido");
             campoObligatorioCorreo.setVisible(true);
         }
         if (!contrasenaValida){
             campoObligatorioContrasena.setVisible(true);
         }
+        return nombreValido && correoValido && contrasenaValida;
     }
+
+    public void usuarioExistente(){
+        campoObligatorioCorreo.setText("Ya existe una cuenta con este correo.");
+        campoObligatorioCorreo.setVisible(true);
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonInicioSesion;
