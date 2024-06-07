@@ -11,7 +11,6 @@ public class Usuario {
     private String direccion;
     private String documento;
 
-
     public Usuario(String nombre, String correo){
         this.id = new ObjectId().toHexString();
         this.nombre = nombre;
@@ -25,7 +24,6 @@ public class Usuario {
         this.direccion = datosUsuario.containsKey("direccion") ? datosUsuario.getString("direccion") : null;
         this.documento = datosUsuario.containsKey("direccion") ? datosUsuario.getString("direccion") : null;
     }
-
 
     // Getters y Setters
     public String getId() {

@@ -1,6 +1,8 @@
 package aplicacion;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
@@ -13,19 +15,21 @@ import redis.clients.jedis.JedisPooled;
 
 public class Controlador {
 
+    public static final Logger logger = Logger.getLogger(Controlador.class.getName());
+
     private JedisPooled jedisPool;
+
     private MongoClient mongoClient;
     private MongoDatabase mongoDatabase;
     private MongoCollection<Document> coleccionUsuarios;
     private MongoCollection<Document> coleccionProductos;
     private MongoCollection<Document> coleccionCarritos;
 
-    public static final Logger logger = Logger.getLogger(Controlador.class.getName());
-
     private Usuario usuario;
-    private Carrito carrito;
-
     private String referenciaMongo;
+    private Carrito carrito;
+    private List<Carrito> estadosCarrito;
+
 
     public Controlador() {
         try {
@@ -77,10 +81,10 @@ public class Controlador {
             String id = usuario.getId();
             // Mongo--> Creacion del usuario en coleccion usuarios y su carrito en coleccion carritos
             usuarioMongo(info, id);
-            this.carrito = new Carrito(id);
 
             // Redis --> Creacion de los datos de acceso
             usuarioRedis(id, info);
+            crearCarrito(id);
             return true;
         }
         catch(Exception e){
@@ -89,7 +93,30 @@ public class Controlador {
         }
     }
 
+
+    private void crearCarrito(String id){
+        // el carrito tiene una referencia al usuario
+        this.carrito = new Carrito(id);
+        guardarCarrito(this.carrito);
+    }
+
+
+    private void guardarCarrito(Carrito carrito){
+        // guarda el carrito en la coleccion carritos de la base de datos de mongo
+        try{
+            Document doc = carrito.CarritoToDocument();
+            coleccionCarritos.insertOne(doc);
+            logger.info("Carrito guardado.");
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+
     private void usuarioMongo(InfoRegistroDTO info, String id){
+        // SEPARAR DE CONTROLADOR
         try{
             Document doc = usuario.toDocument();
             coleccionUsuarios.insertOne(doc);
@@ -101,6 +128,7 @@ public class Controlador {
         }
     }
 
+
     private void usuarioRedis(String usuarioMongoID, InfoRegistroDTO info){
         Map<String, String> hash = new HashMap<>();
         hash.put("contrasena", info.contrasena);
@@ -111,12 +139,12 @@ public class Controlador {
 
 
     public boolean usuarioExiste(String correo){
+        // buscar usuario con su direccion de correo en la base de redis
         return jedisPool.exists("correo:" + correo);
     }
 
 
     public boolean validarDatosSesion(String correo, String contrasena){
-
         // valida que el formato de correo sea correcto antes de hacer una consulta a la BD.
         if (!validarFormatoCorreo(correo)) {
             return false;
@@ -124,6 +152,7 @@ public class Controlador {
         // busca el usuario y compara las contrasenas
         return compararContrasenas(correo, contrasena);
     }
+
 
     public boolean validarFormatoCorreo(String correo){
         try {
@@ -142,24 +171,29 @@ public class Controlador {
         // Prioriza hacer UNA sola consulta.
 
         // obtiene todos los valores asociados al correo. si no existe la clave devuelve un map vacio.
-        Map<String, String> valores_campo = jedisPool.hgetAll("correo:" + correo);
-
-        // si existe una cuenta con el correo ingresado, compara las contrasenas
-        if (!valores_campo.isEmpty()){
-            if (contrasena.equals(valores_campo.get("contrasena"))){
-                logger.info("La contraseña ingresada es la correcta.");
-                // GUARDA REFERENCIA AL USUARIO EN MONGODB
-                this.referenciaMongo = valores_campo.get("mongoRef");
-                return true;
+        try{
+            Map<String, String> valores_campo = jedisPool.hgetAll("correo:" + correo);
+            // si existe una cuenta con el correo ingresado, compara las contrasenas
+            if (!valores_campo.isEmpty()){
+                if (contrasena.equals(valores_campo.get("contrasena"))){
+                    logger.info("La contraseña ingresada es la correcta.");
+                    // GUARDA REFERENCIA AL USUARIO EN MONGODB
+                    this.referenciaMongo = valores_campo.get("mongoRef");
+                    return true;
+                }
+                else {
+                    logger.info("CONTRASENA INCORRECTA.");
+                    return false;
+                }
             }
-            else {
-                logger.info("CONTRASENA INCORRECTA.");
-                return false;
-            }
+            logger.info("No existe una cuenta con esta dirección de correo.");
         }
-        logger.info("No existe una cuenta con esta dirección de correo.");
+        catch (Exception e){
+            logger.info("Error al conectar con redis: " + e.getMessage());
+        }
         return false;
     }
+
 
     public void cargarSesion() {
         // Carga los datos de mongodb en su variable usuario
@@ -174,15 +208,22 @@ public class Controlador {
             logger.info("Error al cargar la sesion: " + e.getMessage());
         }
     }
+
+
     private Document buscarUsuarioMongo(String refMongo){
         Document consulta = new Document("_id", refMongo);
         return this.coleccionUsuarios.find(consulta).first();
     }
 
+
     public void cerrarSesion(){
         this.usuario = null;
         this.referenciaMongo = null;
         this.carrito = null;
+        System.out.println("Sesion cerrada");
     }
+
+
+
 
 }

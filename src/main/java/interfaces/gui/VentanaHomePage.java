@@ -1,6 +1,5 @@
 package interfaces.gui;
 
-
 import aplicacion.Controlador;
 
 public class VentanaHomePage extends javax.swing.JFrame {

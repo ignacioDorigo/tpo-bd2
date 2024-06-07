@@ -4,6 +4,9 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class VentanaAcceso extends javax.swing.JFrame {
     private Controlador controlador;
   
@@ -76,6 +79,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
 
         Left.setBackground(new java.awt.Color(255, 255, 255));
         Left.setMaximumSize(null);
+        Left.setPreferredSize(new java.awt.Dimension(400, 500));
 
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
         jLabel1.setText("Iniciar Sesión");
@@ -88,7 +92,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
         cajaCorreo.setForeground(new java.awt.Color(102, 102, 102));
         cajaCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaEmailActionPerformed(evt);
+                cajaCorreoActionPerformed(evt);
             }
         });
 
@@ -191,7 +195,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarmeActionPerformed
+    private void botonRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         VentanaRegistro vr = new VentanaRegistro(controlador);
         vr.setVisible(true);
         vr.pack();
@@ -206,6 +210,11 @@ public class VentanaAcceso extends javax.swing.JFrame {
         if (controlador.validarDatosSesion(correo, contrasena)) {
             controlador.cargarSesion();
             VentanaHomePage vd = new VentanaHomePage(controlador);
+            vd.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent e) {
+                    controlador.cerrarSesion();
+                }
+            });
             vd.setLocationRelativeTo(null);
             vd.setVisible(true);
             this.dispose();
@@ -215,9 +224,9 @@ public class VentanaAcceso extends javax.swing.JFrame {
         }
     }
 
-    private void cajaEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaEmailActionPerformed
+    private void cajaCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cajaEmailActionPerformed
+    }//GEN-LAST:event_cajaCorreoActionPerformed
 
     private void cajaContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaContrasenaActionPerformed
         // TODO add your handling code here:
