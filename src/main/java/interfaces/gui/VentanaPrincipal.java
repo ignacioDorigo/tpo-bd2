@@ -1,19 +1,22 @@
 package interfaces.gui;
 
+
 import aplicacion.Controlador;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     private Controlador controlador;
-
     public VentanaPrincipal() {
         this.controlador = new Controlador();
         initComponents();
     }
-    public static void main(String[] args) {
-        new VentanaPrincipal().setVisible(true);
-    }
 
+    public static void main(String[] args) {
+        VentanaPrincipal vp = new VentanaPrincipal();
+        vp.setLocationRelativeTo(null);
+        vp.setVisible(true);
+
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

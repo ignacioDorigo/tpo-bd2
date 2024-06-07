@@ -116,8 +116,8 @@ public class VentanaAcceso extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         jLabel4.setText("¿No tienes una cuenta?");
 
-        botonRegistrarme.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        botonRegistrarme.setForeground(new java.awt.Color(255, 51, 51));
+        botonRegistrarme.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
+        botonRegistrarme.setForeground(new java.awt.Color(22, 22, 216));
         botonRegistrarme.setText("Registrarme");
         botonRegistrarme.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonRegistrarme.addActionListener(new java.awt.event.ActionListener() {
