@@ -1,9 +1,7 @@
 package aplicacion;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
 import org.bson.Document;
@@ -11,7 +9,6 @@ import org.bson.Document;
 import negocio.*;
 
 import com.mongodb.client.*;
-import org.bson.Document;
 import redis.clients.jedis.JedisPooled;
 
 public class Controlador {
@@ -27,6 +24,8 @@ public class Controlador {
 
     private Usuario usuario;
     private Carrito carrito;
+
+    private String referenciaMongo;
 
     public Controlador() {
         try {
@@ -46,22 +45,23 @@ public class Controlador {
             throw new RuntimeException(e);
         }
     }
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
+    public ResultadoRegistroUsuario registrarUsuario(InfoRegistroDTO info){
+        // Recibe un contenedor con datos del usuario. Verifica que no existan usuarios con el correo ingresado y
+        // crea el usuario en las distintas bases de datos.
 
-    public RegistroUsuarioResultado registrarUsuario(InfoRegistroDTO info){
-        // Recibe un contenedor con datos del usuario. Verifica que no existan usuarios con el correo ingresado y crea el usuario en las distintas bases de datos.
-
-        String correo = info.correo;
-
-        if(usuarioExiste(correo)){
+        if(usuarioExiste(info.correo)){
             logger.info("Registro fallido. Ya existe un usuario con el correo ingresado.");
-            return RegistroUsuarioResultado.USUARIO_EXISTENTE;
+            return ResultadoRegistroUsuario.USUARIO_EXISTENTE;
         }
         else{
             if (crearUsuario(info)){
-                return RegistroUsuarioResultado.USUARIO_CREADO;
+                return ResultadoRegistroUsuario.USUARIO_CREADO;
             }
-            return RegistroUsuarioResultado.ERROR_INESPERADO;
+            return ResultadoRegistroUsuario.ERROR_INESPERADO;
         }
     }
 
@@ -70,9 +70,9 @@ public class Controlador {
         // Devuelve si la operacion fue exitosa o no.
         try{
             // Carga del usuario en memoria
-            usuario = new Usuario(info.nombre, info.correo);
-            usuario.setDocumento(info.documento);
-            usuario.setDireccion(info.direccion);
+            this.usuario = new Usuario(info.nombre, info.correo);
+            this.usuario.setDocumento(info.documento);
+            this.usuario.setDireccion(info.direccion);
 
             String id = usuario.getId();
             // Mongo--> Creacion del usuario en coleccion usuarios y su carrito en coleccion carritos
@@ -89,7 +89,6 @@ public class Controlador {
         }
     }
 
-
     private void usuarioMongo(InfoRegistroDTO info, String id){
         try{
             Document doc = usuario.toDocument();
@@ -100,8 +99,6 @@ public class Controlador {
             logger.info("Mongo>Error al crear usuario: " + e.getMessage());
             throw new RuntimeException(e);
         }
-
-
     }
 
     private void usuarioRedis(String usuarioMongoID, InfoRegistroDTO info){
@@ -118,39 +115,14 @@ public class Controlador {
     }
 
 
-    public InfoInicioSesionDTO iniciarSesion(String correo, String contrasena){
-        InfoInicioSesionDTO info = new InfoInicioSesionDTO();
+    public boolean validarDatosSesion(String correo, String contrasena){
 
-        // valida que el formato de correo sea correcto
-//        if (!validarFormatoCorreo(correo)) {
-//            info.setMensaje("Correo electrónico inválido.");
-//            logger.info(info.getMensaje());
-//            return info;
-//        }
-//
-//        // busca el usuario usando la direccion de correo ingresada
-//        Optional<List<String>> infoUsuarioOpt = buscarCuenta(correo);
-//        if (infoUsuarioOpt.isEmpty()) {
-//            info.setMensaje("No existe una cuenta con esta dirección de correo.");
-//            logger.info(info.getMensaje());
-//            return info;
-//        }
-//
-//        // si existe un usuario con esa direccion de correo valida la contrasena ingresada
-//        List<String> infoUsuario = infoUsuarioOpt.get();
-//        if (!compararContrasenas(contrasena, infoUsuario.getFirst())) {
-//            info.setMensaje("Contraseña ingresada incorrecta.");
-//            logger.info(info.getMensaje());
-//            return info;
-//        }
-//
-//        // si la contrasena es la correcta guarda la referencia al usuario y marca la operacion como exitosa.
-//        this.referenciaUsuario = infoUsuario.get(1);
-//        info.setMensaje("La contraseña ingresada es la correcta.");
-//        info.setExito(true);
-//
-//        logger.info("Usuario autenticado correctamente: " + referenciaUsuario);
-        return info;
+        // valida que el formato de correo sea correcto antes de hacer una consulta a la BD.
+        if (!validarFormatoCorreo(correo)) {
+            return false;
+        }
+        // busca el usuario y compara las contrasenas
+        return compararContrasenas(correo, contrasena);
     }
 
     public boolean validarFormatoCorreo(String correo){
@@ -158,25 +130,59 @@ public class Controlador {
             InternetAddress direccionCorreo = new InternetAddress(correo);
             direccionCorreo.validate();
         } catch (Exception e) {
+            logger.info("Correo electrónico inválido.");
             return false;
         }
         return true;
     }
 
-    private Optional<List<String>> buscarCuenta(String correo) {
 
+    private boolean compararContrasenas(String correo, String contrasena){
+        // Busca y compara la contrasena de una cuenta con un correo en particular con la contrasena ingresada.
+        // Prioriza hacer UNA sola consulta.
 
+        // obtiene todos los valores asociados al correo. si no existe la clave devuelve un map vacio.
+        Map<String, String> valores_campo = jedisPool.hgetAll("correo:" + correo);
 
-        return Optional.empty();
-    }
-
-    private boolean compararContrasenas(String contrasenaIngresada, String contrasenaReal){
-        // Implementar una lógica de comparación segura, preferiblemente usando una librería de cifrado
-        return contrasenaReal.equals(contrasenaIngresada);
+        // si existe una cuenta con el correo ingresado, compara las contrasenas
+        if (!valores_campo.isEmpty()){
+            if (contrasena.equals(valores_campo.get("contrasena"))){
+                logger.info("La contraseña ingresada es la correcta.");
+                // GUARDA REFERENCIA AL USUARIO EN MONGODB
+                this.referenciaMongo = valores_campo.get("mongoRef");
+                return true;
+            }
+            else {
+                logger.info("CONTRASENA INCORRECTA.");
+                return false;
+            }
+        }
+        logger.info("No existe una cuenta con esta dirección de correo.");
+        return false;
     }
 
     public void cargarSesion() {
-        // recibe objectid del usuario y lo busca en mongoDB
-        logger.info("TEMPORAL: SESIÓN CARGADA...");
+        // Carga los datos de mongodb en su variable usuario
+        try{
+            Document datosUsuario = buscarUsuarioMongo(this.referenciaMongo);
+            if (datosUsuario != null){
+                this.usuario = new Usuario(datosUsuario);
+                logger.info("Sesion cargada con exito.");
+            }
+        }
+        catch(Exception e){
+            logger.info("Error al cargar la sesion: " + e.getMessage());
+        }
     }
+    private Document buscarUsuarioMongo(String refMongo){
+        Document consulta = new Document("_id", refMongo);
+        return this.coleccionUsuarios.find(consulta).first();
+    }
+
+    public void cerrarSesion(){
+        this.usuario = null;
+        this.referenciaMongo = null;
+        this.carrito = null;
+    }
+
 }

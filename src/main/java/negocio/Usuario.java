@@ -17,6 +17,16 @@ public class Usuario {
         this.nombre = nombre;
         this.correo = correo;
     }
+
+    public Usuario(Document datosUsuario){
+        this.id = datosUsuario.getString("id");
+        this.nombre = datosUsuario.getString("nombre");
+        this.correo = datosUsuario.getString("correo");
+        this.direccion = datosUsuario.containsKey("direccion") ? datosUsuario.getString("direccion") : null;
+        this.documento = datosUsuario.containsKey("direccion") ? datosUsuario.getString("direccion") : null;
+    }
+
+
     // Getters y Setters
     public String getId() {
         return id;
@@ -60,7 +70,6 @@ public class Usuario {
         if (!direccion.isEmpty()) {
             doc.append("direccion", direccion);
         }
-
         return doc;
     }
 }

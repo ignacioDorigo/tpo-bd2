@@ -2,7 +2,7 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 import aplicacion.InfoRegistroDTO;
-import aplicacion.RegistroUsuarioResultado;
+import aplicacion.ResultadoRegistroUsuario;
 
 public class VentanaRegistro extends javax.swing.JFrame {
     private final Controlador controlador;
@@ -299,7 +299,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
             reg.documento = cajaDocumento.getText();
             reg.direccion = cajaDireccion.getText();
 
-            RegistroUsuarioResultado resultado = controlador.registrarUsuario(reg);
+            ResultadoRegistroUsuario resultado = controlador.registrarUsuario(reg);
 
             switch (resultado) {
                 case USUARIO_EXISTENTE:

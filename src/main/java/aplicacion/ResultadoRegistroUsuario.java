@@ -1,6 +1,6 @@
 package aplicacion;
 
-public enum RegistroUsuarioResultado {
+public enum ResultadoRegistroUsuario {
     USUARIO_EXISTENTE,
     USUARIO_CREADO,
     ERROR_INESPERADO

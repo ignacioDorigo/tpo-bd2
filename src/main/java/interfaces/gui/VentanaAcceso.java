@@ -3,7 +3,6 @@ package interfaces.gui;
 
 
 import aplicacion.Controlador;
-import aplicacion.InfoInicioSesionDTO;
 
 public class VentanaAcceso extends javax.swing.JFrame {
     private Controlador controlador;
@@ -25,12 +24,13 @@ public class VentanaAcceso extends javax.swing.JFrame {
         Left = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cajaEmail = new javax.swing.JTextField();
+        cajaCorreo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cajaContrasena = new javax.swing.JPasswordField();
         botonInicioSesion = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         botonRegistrarme = new javax.swing.JButton();
+        mensajeError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -84,9 +84,9 @@ public class VentanaAcceso extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         jLabel2.setText("Correo electrónico");
 
-        cajaEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cajaEmail.setForeground(new java.awt.Color(102, 102, 102));
-        cajaEmail.addActionListener(new java.awt.event.ActionListener() {
+        cajaCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cajaCorreo.setForeground(new java.awt.Color(102, 102, 102));
+        cajaCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cajaEmailActionPerformed(evt);
             }
@@ -126,6 +126,10 @@ public class VentanaAcceso extends javax.swing.JFrame {
             }
         });
 
+        mensajeError.setForeground(new java.awt.Color(255, 51, 51));
+        mensajeError.setText("El correo electrónico o la contraseña proporcionados son incorrectos");
+        mensajeError.setVisible(false);
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
@@ -133,6 +137,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
             .addGroup(LeftLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mensajeError)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(botonInicioSesion)
@@ -142,18 +147,20 @@ public class VentanaAcceso extends javax.swing.JFrame {
                         .addComponent(botonRegistrarme, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cajaContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(cajaEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(cajaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mensajeError)
+                .addGap(2, 2, 2)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cajaEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cajaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +171,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(botonRegistrarme))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         jPanel1.add(Left);
@@ -185,35 +192,28 @@ public class VentanaAcceso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarmeActionPerformed
-
         VentanaRegistro vr = new VentanaRegistro(controlador);
         vr.setVisible(true);
         vr.pack();
         vr.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_botonRegistrarmeActionPerformed
+    }
 
-    private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioSesionActionPerformed
-        
-        String email = cajaEmail.getText();
+    private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {
+        String correo = cajaCorreo.getText();
         char[] aux = cajaContrasena.getPassword();
         String contrasena = new String(aux);
-
-        InfoInicioSesionDTO info = controlador.iniciarSesion(email, contrasena);
-
-        if (info.isExito()) {
+        if (controlador.validarDatosSesion(correo, contrasena)) {
+            controlador.cargarSesion();
             VentanaHomePage vd = new VentanaHomePage(controlador);
             vd.setLocationRelativeTo(null);
             vd.setVisible(true);
             this.dispose();
-
         }
         else {
-            System.out.println("TEMPORAL> VENTANA ACCESO>BOTINICIOSESION> MENSAJE: " + info.getMensaje());
+            mensajeError.setVisible(true);
         }
-        
-        
-    }//GEN-LAST:event_botonInicioSesionActionPerformed
+    }
 
     private void cajaEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaEmailActionPerformed
         // TODO add your handling code here:
@@ -232,7 +232,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
     private javax.swing.JButton botonInicioSesion;
     private javax.swing.JButton botonRegistrarme;
     private javax.swing.JPasswordField cajaContrasena;
-    private javax.swing.JTextField cajaEmail;
+    private javax.swing.JTextField cajaCorreo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -240,5 +240,6 @@ public class VentanaAcceso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel mensajeError;
     // End of variables declaration//GEN-END:variables
 }

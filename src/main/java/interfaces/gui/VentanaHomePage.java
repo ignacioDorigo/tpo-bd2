@@ -5,7 +5,7 @@ import aplicacion.Controlador;
 
 public class VentanaHomePage extends javax.swing.JFrame {
     private Controlador controlador;
-  
+
     public VentanaHomePage(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
@@ -24,7 +24,7 @@ public class VentanaHomePage extends javax.swing.JFrame {
         BotonMisCompras = new javax.swing.JButton();
         BotonCerrarSesion1 = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
-        bienvenido = new javax.swing.JLabel();
+        LabelNombreUsuario = new javax.swing.JLabel();
         bienvenido1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,9 +128,9 @@ public class VentanaHomePage extends javax.swing.JFrame {
         Derecha.setBackground(new java.awt.Color(255, 255, 255));
         Derecha.setMaximumSize(null);
 
-        bienvenido.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
-        bienvenido.setForeground(new java.awt.Color(22, 22, 216));
-        bienvenido.setText("Nombre");
+        LabelNombreUsuario.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        LabelNombreUsuario.setForeground(new java.awt.Color(22, 22, 216));
+        LabelNombreUsuario.setText(controlador.getUsuario().getNombre());
 
         bienvenido1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         bienvenido1.setForeground(new java.awt.Color(22, 22, 216));
@@ -144,7 +144,7 @@ public class VentanaHomePage extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addComponent(bienvenido1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bienvenido)
+                .addComponent(LabelNombreUsuario)
                 .addContainerGap(281, Short.MAX_VALUE))
         );
         DerechaLayout.setVerticalGroup(
@@ -153,11 +153,11 @@ public class VentanaHomePage extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bienvenido1)
-                    .addComponent(bienvenido))
+                    .addComponent(LabelNombreUsuario))
                 .addContainerGap(423, Short.MAX_VALUE))
         );
 
-        DerechaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bienvenido, bienvenido1});
+        DerechaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {LabelNombreUsuario, bienvenido1});
 
         jPanel1.add(Derecha);
         Derecha.setBounds(189, 0, 610, 500);
@@ -174,11 +174,11 @@ public class VentanaHomePage extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     private void BotonCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCatalogoActionPerformed
         
@@ -190,13 +190,12 @@ public class VentanaHomePage extends javax.swing.JFrame {
 
     private void BotonCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesion1ActionPerformed
         VentanaAcceso va = new VentanaAcceso(controlador);
-        
-        
         va.setLocationRelativeTo(null);
         va.pack();
         this.dispose();
         va.setVisible(true);
-    }//GEN-LAST:event_BotonCerrarSesion1ActionPerformed
+        controlador.cerrarSesion();
+    }
 
    
     
@@ -207,7 +206,7 @@ public class VentanaHomePage extends javax.swing.JFrame {
     private javax.swing.JButton BotonMisCompras;
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
-    private javax.swing.JLabel bienvenido;
+    private javax.swing.JLabel LabelNombreUsuario;
     private javax.swing.JLabel bienvenido1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
