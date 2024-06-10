@@ -1,6 +1,6 @@
 package aplicacion;
 
-import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +24,9 @@ public class Controlador {
     private MongoCollection<Document> coleccionUsuarios;
     private MongoCollection<Document> coleccionProductos;
     private MongoCollection<Document> coleccionCarritos;
-
     private Usuario usuario;
     private String referenciaMongo;
-    private Carrito carrito;
+    public Carrito carrito; // CAMBIAR
     private List<Carrito> estadosCarrito;
 
 
@@ -49,6 +48,8 @@ public class Controlador {
             throw new RuntimeException(e);
         }
     }
+
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -56,17 +57,19 @@ public class Controlador {
     public ResultadoRegistroUsuario registrarUsuario(InfoRegistroDTO info){
         // Recibe un contenedor con datos del usuario. Verifica que no existan usuarios con el correo ingresado y
         // crea el usuario en las distintas bases de datos.
-
-        if(usuarioExiste(info.correo)){
-            logger.info("Registro fallido. Ya existe un usuario con el correo ingresado.");
-            return ResultadoRegistroUsuario.USUARIO_EXISTENTE;
-        }
-        else{
+        try{
+            if(usuarioExiste(info.correo)){
+                logger.info("Registro fallido. Ya existe un usuario con el correo ingresado.");
+                return ResultadoRegistroUsuario.USUARIO_EXISTENTE;
+            }
             if (crearUsuario(info)){
                 return ResultadoRegistroUsuario.USUARIO_CREADO;
             }
-            return ResultadoRegistroUsuario.ERROR_INESPERADO;
         }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+        }
+        return ResultadoRegistroUsuario.ERROR_INESPERADO;
     }
 
     public boolean crearUsuario(InfoRegistroDTO info){
@@ -83,7 +86,7 @@ public class Controlador {
             usuarioMongo(info, id);
 
             // Redis --> Creacion de los datos de acceso
-            usuarioRedis(id, info);
+            guardarUsuarioRedis(id, info);
             crearCarrito(id);
             return true;
         }
@@ -93,56 +96,33 @@ public class Controlador {
         }
     }
 
-
-    private void crearCarrito(String id){
-        // el carrito tiene una referencia al usuario
-        this.carrito = new Carrito(id);
-        guardarCarrito(this.carrito);
-    }
-
-
-    private void guardarCarrito(Carrito carrito){
-        // guarda el carrito en la coleccion carritos de la base de datos de mongo
-        try{
-            Document doc = carrito.CarritoToDocument();
-            coleccionCarritos.insertOne(doc);
-            logger.info("Carrito guardado.");
-        }
-        catch(Exception e){
-            logger.info("Error: " + e.getMessage());
-            throw new RuntimeException();
-        }
-    }
-
-
     private void usuarioMongo(InfoRegistroDTO info, String id){
         // SEPARAR DE CONTROLADOR
+
         try{
             Document doc = usuario.toDocument();
             coleccionUsuarios.insertOne(doc);
-            logger.info("Mongo>Usuario registrado con exito.");
+            logger.info("Mongo-->Usuario registrado con exito.");
         }
         catch (Exception e) {
-            logger.info("Mongo>Error al crear usuario: " + e.getMessage());
+            logger.info("Mongo-->Error al crear usuario: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
 
-    private void usuarioRedis(String usuarioMongoID, InfoRegistroDTO info){
-        Map<String, String> hash = new HashMap<>();
-        hash.put("contrasena", info.contrasena);
-        hash.put("mongoRef", usuarioMongoID);
-        jedisPool.hset("correo:" + info.correo, hash);
-        logger.info("Usuario creado en redis con exito.");
+    private void guardarUsuarioRedis(String usuarioMongoID, InfoRegistroDTO info){
+        try{
+            Map<String, String> hash = new HashMap<>();
+            hash.put("contrasena", info.contrasena);
+            hash.put("mongoRef", usuarioMongoID);
+            jedisPool.hset("correo:" + info.correo, hash);
+            logger.info("Usuario creado en redis con exito.");
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+        }
     }
-
-
-    public boolean usuarioExiste(String correo){
-        // buscar usuario con su direccion de correo en la base de redis
-        return jedisPool.exists("correo:" + correo);
-    }
-
 
     public boolean validarDatosSesion(String correo, String contrasena){
         // valida que el formato de correo sea correcto antes de hacer una consulta a la BD.
@@ -195,12 +175,67 @@ public class Controlador {
     }
 
 
+    public boolean usuarioExiste(String correo){
+        // buscar usuario con su direccion de correo en la base de redis
+        return jedisPool.exists("correo:" + correo);
+    }
+
+    private Document buscarUsuarioMongo(String refMongo){
+        // busca el usuario con id correspondiente. si no lo encuentra retorna null
+
+        Document consulta = new Document("_id", refMongo);
+        return this.coleccionUsuarios.find(consulta).first();
+    }
+
+    private void crearCarrito(String id){
+        // el carrito tiene una referencia al usuario
+        this.carrito = new Carrito(id);
+        guardarCarrito(this.carrito);
+    }
+
+
+    public void guardarCarrito(Carrito carrito){
+        // guarda el carrito en la coleccion carritos de la base de datos de mongo
+        try{
+            Document documentoCarrito = carrito.CarritoToDocument();
+            coleccionCarritos.insertOne(documentoCarrito);
+            logger.info("Carrito guardado.");
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+    public Carrito estadoAnteriorCarrito(){
+        // devuelve la referencia al estado anterior del carrito, null si no hay estado anterior
+        if (estadosCarrito.size() > 1){
+            return estadosCarrito.get(estadosCarrito.size()-2);
+        }
+        else {
+            return null;
+        }
+    }
+
+    public Carrito buscarCarritoMongo(String referenciaMongo){
+        Document consulta = new Document("_id", referenciaMongo);
+        Document carritoDocumento = this.coleccionCarritos.find(consulta).first();
+
+        if (carritoDocumento != null){
+            return new Carrito(carritoDocumento);
+        }
+        return null;
+    }
+
     public void cargarSesion() {
-        // Carga los datos de mongodb en su variable usuario
+        // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
             Document datosUsuario = buscarUsuarioMongo(this.referenciaMongo);
             if (datosUsuario != null){
                 this.usuario = new Usuario(datosUsuario);
+                this.estadosCarrito = new ArrayList<>();
+                this.carrito = buscarCarritoMongo(this.referenciaMongo);
+                this.estadosCarrito.add(carrito);
                 logger.info("Sesion cargada con exito.");
             }
         }
@@ -209,21 +244,15 @@ public class Controlador {
         }
     }
 
-
-    private Document buscarUsuarioMongo(String refMongo){
-        Document consulta = new Document("_id", refMongo);
-        return this.coleccionUsuarios.find(consulta).first();
-    }
-
-
     public void cerrarSesion(){
+        // guarda los estados que deben persistir en sus bases de datos correspondientes y borra todas las variables locales
+
+        guardarCarrito(this.carrito);
+
         this.usuario = null;
         this.referenciaMongo = null;
         this.carrito = null;
-        System.out.println("Sesion cerrada");
+        this.estadosCarrito = null;
+        logger.info("Sesion cerrada");
     }
-
-
-
-
 }

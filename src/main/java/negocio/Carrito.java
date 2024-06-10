@@ -14,6 +14,11 @@ public class Carrito {
         this.items = new ArrayList<Item>();
     }
 
+    public Carrito(Document document) {
+        this.referenciaUsuario = document.getString("referenciaUsuario");
+        List<String> itemsDocumento = document.getList("items", String.class);
+    }
+
     public void agregarItem(Item item) {
         this.items.add(item);
     }

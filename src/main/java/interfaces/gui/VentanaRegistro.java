@@ -4,6 +4,9 @@ import aplicacion.Controlador;
 import aplicacion.InfoRegistroDTO;
 import aplicacion.ResultadoRegistroUsuario;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class VentanaRegistro extends javax.swing.JFrame {
     private final Controlador controlador;
  
@@ -36,14 +39,11 @@ public class VentanaRegistro extends javax.swing.JFrame {
         cajaDireccion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         campoObligatorioNombre = new javax.swing.JLabel();
-        campoObligatorioNombre.setVisible(false);
         campoObligatorioCorreo = new javax.swing.JLabel();
-        campoObligatorioCorreo.setVisible(false);
         campoObligatorioContrasena = new javax.swing.JLabel();
-        campoObligatorioContrasena.setVisible(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registro");
+        setTitle("Sign Up");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -164,7 +164,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         campoObligatorioNombre.setText("campo obligatorio");
 
         campoObligatorioCorreo.setForeground(new java.awt.Color(255, 51, 51));
-        campoObligatorioCorreo.setText("campo invalido");
+        campoObligatorioCorreo.setText("campo inválido");
 
         campoObligatorioContrasena.setForeground(new java.awt.Color(255, 51, 51));
         campoObligatorioContrasena.setText("campo obligatorio");
@@ -266,11 +266,11 @@ public class VentanaRegistro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cajaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaNombreActionPerformed
+    private void cajaNombreActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
     }
 
-    private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioSesionActionPerformed
+    private void botonInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
         VentanaAcceso va = new VentanaAcceso(controlador);
         va.setVisible(true);
@@ -279,11 +279,11 @@ public class VentanaRegistro extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void cajaDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaDocumentoActionPerformed
+    private void cajaDocumentoActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
     }
 
-    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
+    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         InfoRegistroDTO reg = new InfoRegistroDTO();
         // Carga los datos de las cajas
         String nombre = cajaNombre.getText();
@@ -310,12 +310,16 @@ public class VentanaRegistro extends javax.swing.JFrame {
                     Controlador.logger.info("Registro fallido. Ocurrio un error inesperado.");
                     break;
                 case USUARIO_CREADO:
-                    VentanaHomePage vh = new VentanaHomePage(controlador);
-                    vh.setVisible(true);
-                    vh.pack();
-                    vh.setLocationRelativeTo(null);
+                    controlador.cargarSesion();
+                    VentanaHomePage vd = new VentanaHomePage(controlador);
+                    vd.addWindowListener(new WindowAdapter() {
+                        public void windowClosed(WindowEvent e) {
+                            controlador.cerrarSesion();
+                        }
+                    });
+                    vd.setLocationRelativeTo(null);
+                    vd.setVisible(true);
                     this.dispose();
-                    Controlador.logger.info("Registro exitoso");
                     break;
             }
         }
@@ -324,7 +328,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         }
     }
 
-    private void cajaCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCorreoActionPerformed
+    private void cajaCorreoActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
     }
 
