@@ -49,7 +49,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
 
         BotonAdministrador.setBackground(new java.awt.Color(22, 22, 216));
-        BotonAdministrador.setFont(new java.awt.Font("Microsoft YaHei", 0, 14)); // NOI18N
+        BotonAdministrador.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         BotonAdministrador.setForeground(new java.awt.Color(255, 255, 255));
         BotonAdministrador.setText("ADMINISTRADOR");
         BotonAdministrador.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -61,7 +61,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         BotonUsuario.setBackground(new java.awt.Color(22, 22, 216));
-        BotonUsuario.setFont(new java.awt.Font("Microsoft YaHei", 0, 14)); // NOI18N
+        BotonUsuario.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         BotonUsuario.setForeground(new java.awt.Color(255, 255, 255));
         BotonUsuario.setText("USUARIO");
         BotonUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -77,9 +77,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(90, 90, 90)
                 .addComponent(BotonAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
                 .addComponent(BotonUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

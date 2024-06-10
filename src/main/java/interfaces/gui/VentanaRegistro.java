@@ -19,25 +19,24 @@ public class VentanaRegistro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        panelPrincipal = new javax.swing.JPanel();
+        panelIzquierda = new javax.swing.JPanel();
+        LabelTitulo = new javax.swing.JLabel();
+        panelDerecha = new javax.swing.JPanel();
+        LabelCrearCuenta = new javax.swing.JLabel();
+        LabelNombreCompleto = new javax.swing.JLabel();
         cajaDocumento = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        LabelCorreo = new javax.swing.JLabel();
         cajaCorreo = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        LabelContrasena = new javax.swing.JLabel();
         cajaContrasena = new javax.swing.JPasswordField();
-        jLabel8 = new javax.swing.JLabel();
+        LabelTengoCuenta = new javax.swing.JLabel();
         botonRegistrarse = new javax.swing.JButton();
         botonInicioSesion = new javax.swing.JButton();
         cajaNombre = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        LabelDocumento = new javax.swing.JLabel();
         cajaDireccion = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        LabelDireccion = new javax.swing.JLabel();
         campoObligatorioNombre = new javax.swing.JLabel();
         campoObligatorioCorreo = new javax.swing.JLabel();
         campoObligatorioContrasena = new javax.swing.JLabel();
@@ -46,49 +45,45 @@ public class VentanaRegistro extends javax.swing.JFrame {
         setTitle("Sign Up");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(null);
+        panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        panelPrincipal.setPreferredSize(new java.awt.Dimension(800, 500));
+        panelPrincipal.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(22, 22, 216));
+        panelIzquierda.setBackground(new java.awt.Color(22, 22, 216));
 
-        jLabel2.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("TPO BD2");
+        LabelTitulo.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
+        LabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        LabelTitulo.setText("TPO BD2");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelIzquierdaLayout = new javax.swing.GroupLayout(panelIzquierda);
+        panelIzquierda.setLayout(panelIzquierdaLayout);
+        panelIzquierdaLayout.setHorizontalGroup(
+            panelIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIzquierdaLayout.createSequentialGroup()
                 .addGap(137, 137, 137)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                .addComponent(LabelTitulo)
                 .addContainerGap(167, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jLabel1)
-                .addGap(70, 70, 70)
-                .addComponent(jLabel2)
+        panelIzquierdaLayout.setVerticalGroup(
+            panelIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIzquierdaLayout.createSequentialGroup()
+                .addGap(199, 199, 199)
+                .addComponent(LabelTitulo)
                 .addContainerGap(269, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 400, 500);
+        panelPrincipal.add(panelIzquierda);
+        panelIzquierda.setBounds(0, 0, 400, 500);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        panelDerecha.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel4.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 24)); // NOI18N
-        jLabel4.setText("Crear cuenta");
+        LabelCrearCuenta.setBackground(new java.awt.Color(0, 0, 0));
+        LabelCrearCuenta.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 24)); // NOI18N
+        LabelCrearCuenta.setText("Crear cuenta");
 
-        jLabel5.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel5.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel5.setText("Nombre completo");
+        LabelNombreCompleto.setBackground(new java.awt.Color(102, 102, 102));
+        LabelNombreCompleto.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        LabelNombreCompleto.setText("Nombre completo");
 
         cajaDocumento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cajaDocumento.setForeground(new java.awt.Color(102, 102, 102));
@@ -98,9 +93,9 @@ public class VentanaRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel6.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel6.setText("Correo electrónico");
+        LabelCorreo.setBackground(new java.awt.Color(102, 102, 102));
+        LabelCorreo.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        LabelCorreo.setText("Correo electrónico");
 
         cajaCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cajaCorreo.setForeground(new java.awt.Color(102, 102, 102));
@@ -110,15 +105,15 @@ public class VentanaRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel7.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel7.setText("Contraseña");
+        LabelContrasena.setBackground(new java.awt.Color(102, 102, 102));
+        LabelContrasena.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        LabelContrasena.setText("Contraseña");
 
         cajaContrasena.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cajaContrasena.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel8.setFont(new java.awt.Font("Microsoft YaHei", 0, 12)); // NOI18N
-        jLabel8.setText("Ya tengo una cuenta");
+        LabelTengoCuenta.setFont(new java.awt.Font("Microsoft YaHei", 0, 12)); // NOI18N
+        LabelTengoCuenta.setText("Ya tengo una cuenta");
 
         botonRegistrarse.setBackground(new java.awt.Color(22, 22, 216));
         botonRegistrarse.setFont(new java.awt.Font("Microsoft YaHei", 0, 12)); // NOI18N
@@ -149,118 +144,121 @@ public class VentanaRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel9.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel9.setText("Documento");
+        LabelDocumento.setBackground(new java.awt.Color(102, 102, 102));
+        LabelDocumento.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        LabelDocumento.setText("Documento");
 
         cajaDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cajaDireccion.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel10.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel10.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel10.setText("Dirección");
+        LabelDireccion.setBackground(new java.awt.Color(102, 102, 102));
+        LabelDireccion.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        LabelDireccion.setText("Dirección");
 
         campoObligatorioNombre.setForeground(new java.awt.Color(255, 51, 51));
         campoObligatorioNombre.setText("campo obligatorio");
+        campoObligatorioNombre.setVisible(false);
 
         campoObligatorioCorreo.setForeground(new java.awt.Color(255, 51, 51));
         campoObligatorioCorreo.setText("campo inválido");
+        campoObligatorioCorreo.setVisible(false);
 
         campoObligatorioContrasena.setForeground(new java.awt.Color(255, 51, 51));
         campoObligatorioContrasena.setText("campo obligatorio");
+        campoObligatorioContrasena.setVisible(false);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelDerechaLayout = new javax.swing.GroupLayout(panelDerecha);
+        panelDerecha.setLayout(panelDerechaLayout);
+        panelDerechaLayout.setHorizontalGroup(
+            panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDerechaLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDerechaLayout.createSequentialGroup()
+                        .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelDireccion)
+                            .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cajaDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                                 .addComponent(cajaCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                                 .addComponent(cajaContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                                 .addComponent(cajaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
+                                .addGroup(panelDerechaLayout.createSequentialGroup()
+                                    .addComponent(LabelNombreCompleto)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(campoObligatorioNombre))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
+                                .addGroup(panelDerechaLayout.createSequentialGroup()
+                                    .addComponent(LabelContrasena)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(campoObligatorioContrasena))
-                                .addComponent(jLabel9)
+                                .addComponent(LabelDocumento)
                                 .addComponent(botonRegistrarse))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                            .addGroup(panelDerechaLayout.createSequentialGroup()
+                                .addComponent(LabelCorreo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(campoObligatorioCorreo)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                    .addGroup(panelDerechaLayout.createSequentialGroup()
+                        .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelDerechaLayout.createSequentialGroup()
+                                .addComponent(LabelTengoCuenta)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botonInicioSesion))
                             .addComponent(cajaDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(LabelCrearCuenta))
                         .addGap(0, 16, Short.MAX_VALUE))))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        panelDerechaLayout.setVerticalGroup(
+            panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDerechaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addComponent(LabelCrearCuenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelNombreCompleto)
                     .addComponent(campoObligatorioNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addComponent(LabelDocumento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(LabelDireccion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelCorreo)
                     .addComponent(campoObligatorioCorreo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelContrasena)
                     .addComponent(campoObligatorioContrasena))
                 .addGap(7, 7, 7)
                 .addComponent(cajaContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelTengoCuenta)
                     .addComponent(botonInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(400, 0, 400, 500);
+        panelPrincipal.add(panelDerecha);
+        panelDerecha.setBounds(400, 0, 400, 500);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -311,7 +309,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
                     break;
                 case USUARIO_CREADO:
                     controlador.cargarSesion();
-                    VentanaHomePage vd = new VentanaHomePage(controlador);
+                    VentanaInicio vd = new VentanaInicio(controlador);
                     vd.addWindowListener(new WindowAdapter() {
                         public void windowClosed(WindowEvent e) {
                             controlador.cerrarSesion();
@@ -364,6 +362,14 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelContrasena;
+    private javax.swing.JLabel LabelCorreo;
+    private javax.swing.JLabel LabelCrearCuenta;
+    private javax.swing.JLabel LabelDireccion;
+    private javax.swing.JLabel LabelDocumento;
+    private javax.swing.JLabel LabelNombreCompleto;
+    private javax.swing.JLabel LabelTengoCuenta;
+    private javax.swing.JLabel LabelTitulo;
     private javax.swing.JButton botonInicioSesion;
     private javax.swing.JButton botonRegistrarse;
     private javax.swing.JPasswordField cajaContrasena;
@@ -374,17 +380,8 @@ public class VentanaRegistro extends javax.swing.JFrame {
     private javax.swing.JLabel campoObligatorioContrasena;
     private javax.swing.JLabel campoObligatorioCorreo;
     private javax.swing.JLabel campoObligatorioNombre;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel panelDerecha;
+    private javax.swing.JPanel panelIzquierda;
+    private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

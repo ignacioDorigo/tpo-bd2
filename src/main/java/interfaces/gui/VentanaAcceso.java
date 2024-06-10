@@ -209,7 +209,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
         String contrasena = new String(aux);
         if (controlador.validarDatosSesion(correo, contrasena)) {
             controlador.cargarSesion();
-            VentanaHomePage vd = new VentanaHomePage(controlador);
+            VentanaInicio vd = new VentanaInicio(controlador);
             vd.addWindowListener(new WindowAdapter() {
                 public void windowClosed(WindowEvent e) {
                     controlador.cerrarSesion();

@@ -22,12 +22,14 @@ public class Controlador {
     private MongoClient mongoClient;
     private MongoDatabase mongoDatabase;
     private MongoCollection<Document> coleccionUsuarios;
-    private MongoCollection<Document> coleccionProductos;
-    private MongoCollection<Document> coleccionCarritos;
     private Usuario usuario;
     private String referenciaMongo;
     public Carrito carrito; // CAMBIAR
     private List<Carrito> estadosCarrito;
+
+
+    private String clienteMongo = "mongodb://localhost:27017";
+    private String mongoDB = "TPO_BD2";
 
 
     public Controlador() {
@@ -39,8 +41,6 @@ public class Controlador {
             this.mongoClient = MongoClients.create("mongodb://localhost:27017"); // conexion al puerto
             this.mongoDatabase = mongoClient.getDatabase("TPO_BD2"); // conexion a la base de datos correspondiente
             this.coleccionUsuarios = mongoDatabase.getCollection("usuarios"); // conexion a las distintas colecciones
-            this.coleccionProductos = mongoDatabase.getCollection("productos");
-            this.coleccionCarritos = mongoDatabase.getCollection("carritos");
             logger.info("Carga exitosa de las base de datos");
         }
         catch (Exception e) {
@@ -198,7 +198,9 @@ public class Controlador {
         // guarda el carrito en la coleccion carritos de la base de datos de mongo
         try{
             Document documentoCarrito = carrito.CarritoToDocument();
-            coleccionCarritos.insertOne(documentoCarrito);
+            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "carritos");
+            mongoService.guardarCarrito(documentoCarrito);
+            mongoService.close();
             logger.info("Carrito guardado.");
         }
         catch(Exception e){
@@ -207,6 +209,21 @@ public class Controlador {
         }
     }
 
+    private Carrito buscarCarritoMongo(String referenciaMongo){
+        try{
+            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "carritos");
+            Carrito carrito = mongoService.buscarCarrito(referenciaMongo);
+            mongoService.close();
+            return carrito;
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    public void guardarEstadoCarrito(Carrito estadoActualCarrito){
+        this.estadosCarrito.add(estadoActualCarrito);
+    }
     public Carrito estadoAnteriorCarrito(){
         // devuelve la referencia al estado anterior del carrito, null si no hay estado anterior
         if (estadosCarrito.size() > 1){
@@ -215,16 +232,6 @@ public class Controlador {
         else {
             return null;
         }
-    }
-
-    public Carrito buscarCarritoMongo(String referenciaMongo){
-        Document consulta = new Document("_id", referenciaMongo);
-        Document carritoDocumento = this.coleccionCarritos.find(consulta).first();
-
-        if (carritoDocumento != null){
-            return new Carrito(carritoDocumento);
-        }
-        return null;
     }
 
     public void cargarSesion() {
@@ -254,5 +261,11 @@ public class Controlador {
         this.carrito = null;
         this.estadosCarrito = null;
         logger.info("Sesion cerrada");
+    }
+
+    public void crearProductoMongo(InfoCreacionProducto infoProducto){
+
+
+
     }
 }

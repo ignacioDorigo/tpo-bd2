@@ -14,9 +14,23 @@ public class Carrito {
         this.items = new ArrayList<Item>();
     }
 
-    public Carrito(Document document) {
-        this.referenciaUsuario = document.getString("referenciaUsuario");
-        List<String> itemsDocumento = document.getList("items", String.class);
+    public Carrito(Document carritoDoc) {
+        this.referenciaUsuario = carritoDoc.getString("referenciaUsuario");
+        this.items = new ArrayList<>();
+        for (Document itemDoc : carritoDoc.getList("items", Document.class)) {
+            Item item = new Item();
+            item.setCantidad(itemDoc.getInteger("cantidad"));
+
+            Document productoDoc = itemDoc.get("producto", Document.class);
+            Producto producto = new Producto();
+            producto.setId(productoDoc.getString("id"));
+            producto.setNombre(productoDoc.getString("nombre"));
+            producto.setPrecio(productoDoc.getDouble("precio"));
+            producto.setStock(productoDoc.getInteger("stock"));
+
+            item.setProducto(producto);
+            items.add(item);
+        }
     }
 
     public void agregarItem(Item item) {
