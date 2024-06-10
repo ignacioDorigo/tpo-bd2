@@ -1,6 +1,4 @@
-
 package interfaces.gui;
-
 
 import aplicacion.Controlador;
 

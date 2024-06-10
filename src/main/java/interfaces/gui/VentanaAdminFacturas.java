@@ -1,11 +1,6 @@
-
 package interfaces.gui;
 
-
 import aplicacion.Controlador;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class VentanaAdminFacturas extends javax.swing.JFrame {
     private Controlador controlador;
@@ -53,9 +48,9 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
         });
 
         botonMiPerfil.setBackground(new java.awt.Color(22, 22, 216));
-        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         botonMiPerfil.setForeground(new java.awt.Color(255, 255, 255));
-        botonMiPerfil.setText("Facturas");
+        botonMiPerfil.setText("<HTML><U>Facturas</U></HTML>");
         botonMiPerfil.setBorder(null);
         botonMiPerfil.setContentAreaFilled(false);
         botonMiPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -74,7 +69,7 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonMiPerfil)
                     .addComponent(BotonInicio))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

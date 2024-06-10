@@ -1,11 +1,6 @@
-
 package interfaces.gui;
 
-
 import aplicacion.Controlador;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class VentanaInicio extends javax.swing.JFrame {
     private Controlador controlador;
@@ -13,7 +8,6 @@ public class VentanaInicio extends javax.swing.JFrame {
     public VentanaInicio(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
-        setExtendedState(VentanaInicio.MAXIMIZED_BOTH);
     }
 
  

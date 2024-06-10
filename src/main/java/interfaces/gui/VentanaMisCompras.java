@@ -1,21 +1,13 @@
-
 package interfaces.gui;
 
-
 import aplicacion.Controlador;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class VentanaMisCompras extends javax.swing.JFrame {
     private Controlador controlador;
 
     public VentanaMisCompras(Controlador controlador) {
         this.controlador = controlador;
-        
         initComponents();
-        
-
     }
 
 

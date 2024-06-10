@@ -3,22 +3,12 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
-import java.awt.*;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     private Controlador controlador;
     public VentanaPrincipal() {
         this.controlador = new Controlador();
-
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
-        int alturaDisponible = (int) pantalla.getHeight() - insets.bottom;
-
-        setSize(300, alturaDisponible);
-        setLocation((int) pantalla.getWidth() - getWidth(), 0);
-
-
         initComponents();
     }
 
@@ -103,7 +93,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAdministradorActionPerformed
-        // TODO add your handling code here:
+        VentanaAdminUsuarios ventana = new VentanaAdminUsuarios(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonAdministradorActionPerformed
 
     private void BotonUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonUsuarioActionPerformed

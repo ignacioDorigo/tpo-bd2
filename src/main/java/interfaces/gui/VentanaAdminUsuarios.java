@@ -2,10 +2,10 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
-public class VentanaMiPerfil extends javax.swing.JFrame {
+public class VentanaAdminUsuarios extends javax.swing.JFrame {
     private Controlador controlador;
   
-    public VentanaMiPerfil(Controlador controlador) {
+    public VentanaAdminUsuarios(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
     }
@@ -19,9 +19,6 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         Izquierda = new javax.swing.JPanel();
         BotonInicio = new javax.swing.JButton();
         botonMiPerfil = new javax.swing.JButton();
-        botonCarrito = new javax.swing.JButton();
-        BotonMisCompras = new javax.swing.JButton();
-        BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -36,9 +33,9 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         Izquierda.setMaximumSize(null);
 
         BotonInicio.setBackground(new java.awt.Color(22, 22, 216));
-        BotonInicio.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        BotonInicio.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         BotonInicio.setForeground(new java.awt.Color(255, 255, 255));
-        BotonInicio.setText("Inicio");
+        BotonInicio.setText("<HTML><U>Usuarios</U></HTML>");
         BotonInicio.setToolTipText("");
         BotonInicio.setBorder(null);
         BotonInicio.setContentAreaFilled(false);
@@ -50,54 +47,15 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         });
 
         botonMiPerfil.setBackground(new java.awt.Color(22, 22, 216));
-        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         botonMiPerfil.setForeground(new java.awt.Color(255, 255, 255));
-        botonMiPerfil.setText("<HTML><U>Mi Perfil</U></HTML>");
+        botonMiPerfil.setText("Facturas");
         botonMiPerfil.setBorder(null);
         botonMiPerfil.setContentAreaFilled(false);
         botonMiPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonMiPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonMiPerfilActionPerformed(evt);
-            }
-        });
-
-        botonCarrito.setBackground(new java.awt.Color(22, 22, 216));
-        botonCarrito.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        botonCarrito.setForeground(new java.awt.Color(255, 255, 255));
-        botonCarrito.setText("Carrito");
-        botonCarrito.setBorder(null);
-        botonCarrito.setContentAreaFilled(false);
-        botonCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonCarrito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCarritoActionPerformed(evt);
-            }
-        });
-
-        BotonMisCompras.setBackground(new java.awt.Color(22, 22, 216));
-        BotonMisCompras.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        BotonMisCompras.setForeground(new java.awt.Color(255, 255, 255));
-        BotonMisCompras.setText("Mis compras");
-        BotonMisCompras.setBorder(null);
-        BotonMisCompras.setContentAreaFilled(false);
-        BotonMisCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonMisCompras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonMisComprasActionPerformed(evt);
-            }
-        });
-
-        BotonCerrarSesion.setBackground(new java.awt.Color(22, 22, 216));
-        BotonCerrarSesion.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        BotonCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        BotonCerrarSesion.setText("Cerrar sesión");
-        BotonCerrarSesion.setBorder(null);
-        BotonCerrarSesion.setContentAreaFilled(false);
-        BotonCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -109,26 +67,17 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonMiPerfil)
-                    .addComponent(botonCarrito)
-                    .addComponent(BotonMisCompras)
-                    .addComponent(BotonCerrarSesion)
                     .addComponent(BotonInicio))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(50, 50, 50)
                 .addComponent(BotonInicio)
                 .addGap(18, 18, 18)
                 .addComponent(botonMiPerfil)
-                .addGap(18, 18, 18)
-                .addComponent(botonCarrito)
-                .addGap(18, 18, 18)
-                .addComponent(BotonMisCompras)
-                .addGap(18, 18, 18)
-                .addComponent(BotonCerrarSesion)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
         jPanel1.add(Izquierda);
@@ -174,30 +123,10 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
-    private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonCarritoActionPerformed
-
-    private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotonMisComprasActionPerformed
-
-    private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed
-        VentanaAcceso va = new VentanaAcceso(controlador);
-        va.setLocationRelativeTo(null);
-        va.pack();
-        this.dispose();
-        va.setVisible(true);
-        controlador.cerrarSesion();
-    }//GEN-LAST:event_BotonCerrarSesionActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonCerrarSesion;
     private javax.swing.JButton BotonInicio;
-    private javax.swing.JButton BotonMisCompras;
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
-    private javax.swing.JButton botonCarrito;
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
