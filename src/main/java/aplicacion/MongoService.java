@@ -3,6 +3,7 @@ package aplicacion;
 import com.mongodb.client.*;
 import negocio.Carrito;
 import negocio.Producto;
+import negocio.Usuario;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -26,6 +27,23 @@ public class MongoService {
             this.clienteMongo.close();
         }
     }
+
+
+    public List<Usuario> todosLosUsuarios(){
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+        try{
+            MongoCollection<Document> coleccionUsuarios = baseDeDatos.getCollection("usuarios");
+            for (Document doc : coleccionUsuarios.find()) {
+                Usuario usuario = new Usuario(doc);
+                usuarios.add(usuario);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return usuarios;
+    }
+
 
     public Carrito buscarCarrito(String referenciaMongo){
         // Busca y devuelve el carrito de la base de datos. Devuelve null si no lo encuentra
@@ -72,7 +90,7 @@ public class MongoService {
         }
     }
 
-    public List<Producto> buscarProductos(){
+    public List<Producto> todosLosProductos(){
         // devuelve una lista con todos los productos
         FindIterable<Document> documentos = coleccion.find();
         List<Producto> productos = new ArrayList<>();

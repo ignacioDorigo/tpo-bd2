@@ -286,8 +286,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         // Carga los datos de las cajas
         String nombre = cajaNombre.getText();
         String correo = cajaCorreo.getText();
-        char[] aux = cajaContrasena.getPassword();
-        String contrasena = new String(aux);
+        String contrasena = String.valueOf(cajaContrasena.getPassword());
 
         // Valida que se ingrese nombre, un correo con formato valido y contrasena para registrar usuario
         if (camposObligatorios(nombre, correo, contrasena)){

@@ -55,6 +55,33 @@ public class Controlador {
         return usuario;
     }
 
+    public Object[][] datosTablaUsuarios(){
+        try{
+            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "usuarios");
+            List<Usuario> usuarios = mongoService.todosLosUsuarios();
+            mongoService.close();
+
+            Object[][] data = new Object[usuarios.size()][7];
+
+            for (int i = 0; i < usuarios.size(); i++) {
+                Usuario usuario = usuarios.get(i);
+                data[i][0] = usuario.getId();
+                data[i][1] = usuario.getCorreo();
+                data[i][2] = usuario.getNombre();
+                data[i][3] = usuario.getDocumento();
+                data[i][4] = usuario.getDireccion();
+                data[i][5] = usuario.getCategoria();
+                data[i][6] = usuario.getMinutos();
+            }
+            return data;
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+
     public ResultadoRegistroUsuario registrarUsuario(InfoRegistroDTO info){
         // Recibe un contenedor con datos del usuario. Verifica que no existan usuarios con el correo ingresado y
         // crea el usuario en las distintas bases de datos.
@@ -291,7 +318,7 @@ public class Controlador {
     public boolean cargarTodosLosProductos(){
         try{
             MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "productos");
-            this.productos = mongoService.buscarProductos();
+            this.productos = mongoService.todosLosProductos();
             mongoService.close();
             logger.info("Productos cargados con exito.");
             return true;

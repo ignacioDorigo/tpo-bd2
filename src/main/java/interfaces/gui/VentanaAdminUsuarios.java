@@ -1,6 +1,7 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaAdminUsuarios extends javax.swing.JFrame {
     private Controlador controlador;
@@ -9,7 +10,6 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
         this.controlador = controlador;
         initComponents();
     }
-
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -20,6 +20,8 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
         botonUsuarios = new javax.swing.JButton();
         botonFacturas = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaUsuarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador - Usuarios");
@@ -90,25 +92,46 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
         Derecha.setMaximumSize(null);
         Derecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
+        DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
+            new String [] {
+                "ID", "Correo", "Nombre", "Documento", "Direccion", "Categoria", "Minutos"
+            }
+        );
+
+        Object[][] datos = controlador.datosTablaUsuarios();
+
+        for(Object[] fila : datos){
+            tableModel.addRow(fila);
+        }
+        tablaUsuarios.setModel(tableModel);
+        tablaUsuarios.setDefaultEditor(Object.class, null);
+        jScrollPane1.setViewportView(tablaUsuarios);
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(DerechaLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1215, Short.MAX_VALUE)
+                .addContainerGap())
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelPrincipal.add(Derecha);
-        Derecha.setBounds(160, 0, 640, 500);
+        Derecha.setBounds(160, 0, 1240, 500);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +140,8 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
     private void botonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonUsuariosActionPerformed
@@ -134,6 +158,8 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel Izquierda;
     private javax.swing.JButton botonFacturas;
     private javax.swing.JButton botonUsuarios;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JTable tablaUsuarios;
     // End of variables declaration//GEN-END:variables
 }

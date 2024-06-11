@@ -25,13 +25,13 @@ public class Usuario {
     public Usuario(Document datosUsuario){
         // recibe un documento y devuelve un usuario con todos los datos guardados en ese documento
 
-        this.id = datosUsuario.getString("id");
+        this.id = datosUsuario.getString("_id");
         this.nombre = datosUsuario.getString("nombre");
         this.correo = datosUsuario.getString("correo");
         this.categoria = Categoria.valueOf(datosUsuario.getString("categoria"));
         this.minutos = datosUsuario.getInteger("minutos");
         this.direccion = datosUsuario.containsKey("direccion") ? datosUsuario.getString("direccion") : null;
-        this.documento = datosUsuario.containsKey("direccion") ? datosUsuario.getString("direccion") : null;
+        this.documento = datosUsuario.containsKey("documento") ? datosUsuario.getString("documento") : null;
     }
 
     // Getters y Setters
@@ -64,6 +64,18 @@ public class Usuario {
     public String getDocumento() {return documento;}
 
     public void setDocumento(String documento) {this.documento = documento;}
+
+    public int getMinutos(){
+        return minutos;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Document usuarioToDocument(){
         Document doc = new Document("_id", id)
