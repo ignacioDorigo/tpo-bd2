@@ -1,38 +1,31 @@
 package interfaces.cli;
 
 import aplicacion.*;
-import interfaces.gui.VentanaInicio;
-import interfaces.gui.VentanaMisCompras;
 import negocio.*;
 
 public class AppConsola {
+
+
     public static void main(String[] args) {
         Controlador controlador = new Controlador();
+        crearProducto("tv LG 50 pulgadas", 600000, 5, controlador);
+        crearProducto("tv SAMSUNG 60 pulgadas", 850000, 22, controlador);
+        crearProducto("tv LG 70 pulgadas", 1000000, 11, controlador);
+        crearProducto("tv SONY 80 pulgadas", 2000000, 9, controlador);
 
+        controlador.cargarTodosLosProductos();
 
-//        Producto tv = new Producto();
-//        tv.setId("1234");
-//        tv.setNombre("TV");
-//        tv.setPrecio(20);
-//        tv.setStock(10);
-//
-//        Item tvs = new Item();
-//        tvs.setProducto(tv);
-//        tvs.setCantidad(1);
-//
-//        Item teles = new Item();
-//        teles.setProducto(tv);
-//        teles.setCantidad(2);
-//
-//        Carrito carrito = new Carrito("1234");
-//
-//        carrito.agregarItem(tvs);
-//        carrito.agregarItem(teles);
-//        controlador.guardarCarrito(carrito);
+        for (Producto producto : controlador.productos){
+            System.out.println("id:" + producto.getId() + producto.getNombre() + " "+producto.getPrecio() + " "+producto.getStock());
+            System.out.println();
+        }
+    }
 
-
-
-
-
+    private static void crearProducto(String nombre, double precio, int stock, Controlador controlador){
+        InfoCreacionProducto info = new InfoCreacionProducto();
+        info.nombre = nombre;
+        info.precio = precio;
+        info.stock = stock;
+        controlador.crearProducto(info);
     }
 }

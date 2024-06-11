@@ -15,47 +15,48 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelPrincipal = new javax.swing.JPanel();
         Izquierda = new javax.swing.JPanel();
-        BotonInicio = new javax.swing.JButton();
-        botonMiPerfil = new javax.swing.JButton();
+        botonUsuarios = new javax.swing.JButton();
+        botonFacturas = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Administrador - Usuarios");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(null);
+        panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        panelPrincipal.setPreferredSize(new java.awt.Dimension(800, 500));
+        panelPrincipal.setLayout(null);
 
         Izquierda.setBackground(new java.awt.Color(22, 22, 216));
         Izquierda.setMaximumSize(null);
 
-        BotonInicio.setBackground(new java.awt.Color(22, 22, 216));
-        BotonInicio.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        BotonInicio.setForeground(new java.awt.Color(255, 255, 255));
-        BotonInicio.setText("<HTML><U>Usuarios</U></HTML>");
-        BotonInicio.setToolTipText("");
-        BotonInicio.setBorder(null);
-        BotonInicio.setContentAreaFilled(false);
-        BotonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonInicio.addActionListener(new java.awt.event.ActionListener() {
+        botonUsuarios.setBackground(new java.awt.Color(22, 22, 216));
+        botonUsuarios.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        botonUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        botonUsuarios.setText("<HTML><U>Usuarios</U></HTML>");
+        botonUsuarios.setToolTipText("");
+        botonUsuarios.setBorder(null);
+        botonUsuarios.setContentAreaFilled(false);
+        botonUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonUsuarios.setFocusPainted(false);
+        botonUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonInicioActionPerformed(evt);
+                botonUsuariosActionPerformed(evt);
             }
         });
 
-        botonMiPerfil.setBackground(new java.awt.Color(22, 22, 216));
-        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        botonMiPerfil.setForeground(new java.awt.Color(255, 255, 255));
-        botonMiPerfil.setText("Facturas");
-        botonMiPerfil.setBorder(null);
-        botonMiPerfil.setContentAreaFilled(false);
-        botonMiPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonMiPerfil.addActionListener(new java.awt.event.ActionListener() {
+        botonFacturas.setBackground(new java.awt.Color(22, 22, 216));
+        botonFacturas.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        botonFacturas.setForeground(new java.awt.Color(255, 255, 255));
+        botonFacturas.setText("Facturas");
+        botonFacturas.setBorder(null);
+        botonFacturas.setContentAreaFilled(false);
+        botonFacturas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonFacturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMiPerfilActionPerformed(evt);
+                botonFacturasActionPerformed(evt);
             }
         });
 
@@ -66,21 +67,23 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
             .addGroup(IzquierdaLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
-                    .addComponent(BotonInicio))
+                    .addComponent(botonUsuarios)
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(botonFacturas)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(BotonInicio)
+                .addComponent(botonUsuarios)
                 .addGap(18, 18, 18)
-                .addComponent(botonMiPerfil)
+                .addComponent(botonFacturas)
                 .addContainerGap(382, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Izquierda);
+        panelPrincipal.add(Izquierda);
         Izquierda.setBounds(0, 0, 160, 500);
 
         Derecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -98,36 +101,39 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Derecha);
+        panelPrincipal.add(Derecha);
         Derecha.setBounds(160, 0, 640, 500);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
+    private void botonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BotonInicioActionPerformed
+    }//GEN-LAST:event_botonUsuariosActionPerformed
 
-    private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonMiPerfilActionPerformed
+    private void botonFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturasActionPerformed
+        VentanaAdminFacturas ventana = new VentanaAdminFacturas(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonFacturasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonInicio;
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
-    private javax.swing.JButton botonMiPerfil;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton botonFacturas;
+    private javax.swing.JButton botonUsuarios;
+    private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

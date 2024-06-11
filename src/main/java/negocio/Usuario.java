@@ -18,6 +18,7 @@ public class Usuario {
         this.id = new ObjectId().toHexString();
         this.nombre = nombre;
         this.correo = correo;
+        this.categoria = Categoria.LOW;
         this.minutos = 0;
     }
 
@@ -64,12 +65,12 @@ public class Usuario {
 
     public void setDocumento(String documento) {this.documento = documento;}
 
-    public Document toDocument(){
+    public Document usuarioToDocument(){
         Document doc = new Document("_id", id)
                 .append("nombre", nombre)
                 .append("correo", correo)
                 .append("minutos", minutos)
-                .append("categoria", "LOW");
+                .append("categoria", categoria);
 
         if (!documento.isEmpty()) {
             doc.append("documento", documento);

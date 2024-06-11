@@ -42,7 +42,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         campoObligatorioContrasena = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sign Up");
+        setTitle("Crear Cuenta");
         setResizable(false);
 
         panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));

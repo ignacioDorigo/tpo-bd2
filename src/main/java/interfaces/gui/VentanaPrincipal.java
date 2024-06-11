@@ -43,7 +43,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         BotonAdministrador.setForeground(new java.awt.Color(255, 255, 255));
         BotonAdministrador.setText("ADMINISTRADOR");
         BotonAdministrador.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BotonAdministrador.setBorderPainted(false);
         BotonAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonAdministrador.setFocusPainted(false);
         BotonAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonAdministradorActionPerformed(evt);
@@ -55,6 +57,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         BotonUsuario.setForeground(new java.awt.Color(255, 255, 255));
         BotonUsuario.setText("USUARIO");
         BotonUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BotonUsuario.setBorderPainted(false);
         BotonUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -26,7 +26,7 @@ public class VentanaMisCompras extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Mis Compras");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

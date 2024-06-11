@@ -25,7 +25,7 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         Derecha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Mi Perfil");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

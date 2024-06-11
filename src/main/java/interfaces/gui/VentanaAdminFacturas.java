@@ -8,7 +8,6 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
     public VentanaAdminFacturas(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
-        setExtendedState(VentanaAdminFacturas.MAXIMIZED_BOTH);
     }
 
  
@@ -18,12 +17,12 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Izquierda = new javax.swing.JPanel();
-        BotonInicio = new javax.swing.JButton();
-        botonMiPerfil = new javax.swing.JButton();
+        botonUsuarios = new javax.swing.JButton();
+        botonFacturas = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Administrador - Facturas");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -33,30 +32,33 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
         Izquierda.setBackground(new java.awt.Color(22, 22, 216));
         Izquierda.setMaximumSize(null);
 
-        BotonInicio.setBackground(new java.awt.Color(22, 22, 216));
-        BotonInicio.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        BotonInicio.setForeground(new java.awt.Color(255, 255, 255));
-        BotonInicio.setText("Usuarios");
-        BotonInicio.setToolTipText("");
-        BotonInicio.setBorder(null);
-        BotonInicio.setContentAreaFilled(false);
-        BotonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonInicio.addActionListener(new java.awt.event.ActionListener() {
+        botonUsuarios.setBackground(new java.awt.Color(22, 22, 216));
+        botonUsuarios.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        botonUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        botonUsuarios.setText("Usuarios");
+        botonUsuarios.setToolTipText("");
+        botonUsuarios.setBorder(null);
+        botonUsuarios.setBorderPainted(false);
+        botonUsuarios.setContentAreaFilled(false);
+        botonUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonInicioActionPerformed(evt);
+                botonUsuariosActionPerformed(evt);
             }
         });
 
-        botonMiPerfil.setBackground(new java.awt.Color(22, 22, 216));
-        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        botonMiPerfil.setForeground(new java.awt.Color(255, 255, 255));
-        botonMiPerfil.setText("<HTML><U>Facturas</U></HTML>");
-        botonMiPerfil.setBorder(null);
-        botonMiPerfil.setContentAreaFilled(false);
-        botonMiPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonMiPerfil.addActionListener(new java.awt.event.ActionListener() {
+        botonFacturas.setBackground(new java.awt.Color(22, 22, 216));
+        botonFacturas.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        botonFacturas.setForeground(new java.awt.Color(255, 255, 255));
+        botonFacturas.setText("<HTML><U>Facturas</U></HTML>");
+        botonFacturas.setBorder(null);
+        botonFacturas.setBorderPainted(false);
+        botonFacturas.setContentAreaFilled(false);
+        botonFacturas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonFacturas.setFocusPainted(false);
+        botonFacturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMiPerfilActionPerformed(evt);
+                botonFacturasActionPerformed(evt);
             }
         });
 
@@ -67,17 +69,19 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
             .addGroup(IzquierdaLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
-                    .addComponent(BotonInicio))
+                    .addComponent(botonFacturas)
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(botonUsuarios)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(BotonInicio)
+                .addComponent(botonUsuarios)
                 .addGap(18, 18, 18)
-                .addComponent(botonMiPerfil)
+                .addComponent(botonFacturas)
                 .addContainerGap(382, Short.MAX_VALUE))
         );
 
@@ -116,19 +120,22 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotonInicioActionPerformed
+    private void botonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuariosActionPerformed
+        VentanaAdminUsuarios ventana = new VentanaAdminUsuarios(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonUsuariosActionPerformed
 
-    private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
+    private void botonFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonMiPerfilActionPerformed
+    }//GEN-LAST:event_botonFacturasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonInicio;
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
-    private javax.swing.JButton botonMiPerfil;
+    private javax.swing.JButton botonFacturas;
+    private javax.swing.JButton botonUsuarios;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

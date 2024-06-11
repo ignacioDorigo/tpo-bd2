@@ -1,11 +1,24 @@
 package negocio;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class Producto {
     private String id;
     private String nombre;
     private double precio;
     private int stock;
+
+    public Producto() {
+        this.id = new ObjectId().toHexString();
+    }
+
+    public Producto(Document documentoProducto) {
+        this.id = documentoProducto.getString("_id");
+        this.nombre = documentoProducto.getString("nombre");
+        this.precio = documentoProducto.getDouble("precio");
+        this.stock = documentoProducto.getInteger("stock");
+    }
 
     public String getId() {
         return id;
@@ -31,4 +44,18 @@ public class Producto {
 
     public void setStock(int stock) {this.stock = stock;}
 
+    public Document productoToDocument(){
+        try{
+            Document doc = new Document();
+            doc.append("_id", id);
+            doc.append("nombre", nombre);
+            doc.append("precio", precio);
+            doc.append("stock", stock);
+            return doc;
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

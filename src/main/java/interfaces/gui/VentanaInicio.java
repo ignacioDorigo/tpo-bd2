@@ -26,7 +26,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Inicio");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

@@ -18,73 +18,65 @@ public class VentanaAcceso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        Right = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        panelPrincipal = new javax.swing.JPanel();
+        panelIzquierda = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        Left = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        panelDerecha = new javax.swing.JPanel();
+        iniciarSesion = new javax.swing.JLabel();
+        labelCorreoElectronico = new javax.swing.JLabel();
         cajaCorreo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        labelContrasena = new javax.swing.JLabel();
         cajaContrasena = new javax.swing.JPasswordField();
         botonInicioSesion = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        labelNotienesCuenta = new javax.swing.JLabel();
         botonRegistrarme = new javax.swing.JButton();
         mensajeError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Iniciar Sesión");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(null);
+        panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        panelPrincipal.setPreferredSize(new java.awt.Dimension(800, 500));
+        panelPrincipal.setLayout(null);
 
-        Right.setBackground(new java.awt.Color(22, 22, 216));
-        Right.setMaximumSize(null);
+        panelIzquierda.setBackground(new java.awt.Color(22, 22, 216));
+        panelIzquierda.setMaximumSize(null);
 
         jLabel6.setFont(new java.awt.Font("SimSun", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Bienvenidos");
 
-        javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
-        Right.setLayout(RightLayout);
-        RightLayout.setHorizontalGroup(
-            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightLayout.createSequentialGroup()
-                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel5))
-                    .addGroup(RightLayout.createSequentialGroup()
-                        .addContainerGap(130, Short.MAX_VALUE)
-                        .addComponent(jLabel6)))
+        javax.swing.GroupLayout panelIzquierdaLayout = new javax.swing.GroupLayout(panelIzquierda);
+        panelIzquierda.setLayout(panelIzquierdaLayout);
+        panelIzquierdaLayout.setHorizontalGroup(
+            panelIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIzquierdaLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(jLabel6)
                 .addContainerGap(130, Short.MAX_VALUE))
         );
-        RightLayout.setVerticalGroup(
-            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(jLabel5)
-                .addGap(45, 45, 45)
+        panelIzquierdaLayout.setVerticalGroup(
+            panelIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIzquierdaLayout.createSequentialGroup()
+                .addGap(181, 181, 181)
                 .addComponent(jLabel6)
                 .addContainerGap(291, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Right);
-        Right.setBounds(0, 0, 400, 500);
+        panelPrincipal.add(panelIzquierda);
+        panelIzquierda.setBounds(0, 0, 400, 500);
 
-        Left.setBackground(new java.awt.Color(255, 255, 255));
-        Left.setMaximumSize(null);
-        Left.setPreferredSize(new java.awt.Dimension(400, 500));
+        panelDerecha.setBackground(new java.awt.Color(255, 255, 255));
+        panelDerecha.setMaximumSize(null);
+        panelDerecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        jLabel1.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
-        jLabel1.setText("Iniciar Sesión");
+        iniciarSesion.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
+        iniciarSesion.setText("Iniciar Sesión");
 
-        jLabel2.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel2.setText("Correo electrónico");
+        labelCorreoElectronico.setBackground(new java.awt.Color(102, 102, 102));
+        labelCorreoElectronico.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        labelCorreoElectronico.setText("Correo electrónico");
 
         cajaCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cajaCorreo.setForeground(new java.awt.Color(102, 102, 102));
@@ -94,9 +86,9 @@ public class VentanaAcceso extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel3.setText("Contraseña");
+        labelContrasena.setBackground(new java.awt.Color(102, 102, 102));
+        labelContrasena.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        labelContrasena.setText("Contraseña");
 
         cajaContrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,8 +107,8 @@ public class VentanaAcceso extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel4.setText("¿No tienes una cuenta?");
+        labelNotienesCuenta.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        labelNotienesCuenta.setText("¿No tienes una cuenta?");
 
         botonRegistrarme.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
         botonRegistrarme.setForeground(new java.awt.Color(22, 22, 216));
@@ -129,65 +121,65 @@ public class VentanaAcceso extends javax.swing.JFrame {
         });
 
         mensajeError.setForeground(new java.awt.Color(255, 51, 51));
-        mensajeError.setText("El correo electrónico o la contraseña proporcionados son incorrectos");
+        mensajeError.setText("El correo o la contraseña proporcionados son incorrectos");
         mensajeError.setVisible(false);
 
-        javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
-        Left.setLayout(LeftLayout);
-        LeftLayout.setHorizontalGroup(
-            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelDerechaLayout = new javax.swing.GroupLayout(panelDerecha);
+        panelDerecha.setLayout(panelDerechaLayout);
+        panelDerechaLayout.setHorizontalGroup(
+            panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDerechaLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mensajeError)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
+                    .addComponent(labelCorreoElectronico)
+                    .addComponent(labelContrasena)
                     .addComponent(botonInicioSesion)
-                    .addGroup(LeftLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                    .addGroup(panelDerechaLayout.createSequentialGroup()
+                        .addComponent(labelNotienesCuenta)
                         .addGap(18, 18, 18)
                         .addComponent(botonRegistrarme, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cajaContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
+                    .addComponent(iniciarSesion)
                     .addComponent(cajaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        LeftLayout.setVerticalGroup(
-            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
+        panelDerechaLayout.setVerticalGroup(
+            panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDerechaLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1)
+                .addComponent(iniciarSesion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mensajeError)
                 .addGap(2, 2, 2)
-                .addComponent(jLabel2)
+                .addComponent(labelCorreoElectronico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jLabel3)
+                .addComponent(labelContrasena)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cajaContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(botonInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                .addGroup(panelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelNotienesCuenta)
                     .addComponent(botonRegistrarme))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Left);
-        Left.setBounds(400, 0, 400, 500);
+        panelPrincipal.add(panelDerecha);
+        panelDerecha.setBounds(400, 0, 400, 500);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -234,19 +226,18 @@ public class VentanaAcceso extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Left;
-    private javax.swing.JPanel Right;
     private javax.swing.JButton botonInicioSesion;
     private javax.swing.JButton botonRegistrarme;
     private javax.swing.JPasswordField cajaContrasena;
     private javax.swing.JTextField cajaCorreo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel iniciarSesion;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelContrasena;
+    private javax.swing.JLabel labelCorreoElectronico;
+    private javax.swing.JLabel labelNotienesCuenta;
     private javax.swing.JLabel mensajeError;
+    private javax.swing.JPanel panelDerecha;
+    private javax.swing.JPanel panelIzquierda;
+    private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }
