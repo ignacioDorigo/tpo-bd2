@@ -5,9 +5,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentanaInicio extends javax.swing.JFrame {
     private Controlador controlador;
-  
+    private Object[][] datos;
     public VentanaInicio(Controlador controlador) {
         this.controlador = controlador;
+        this.datos = controlador.datosTablaProductos();
         initComponents();
     }
 
@@ -26,6 +27,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         Derecha = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProductos = new javax.swing.JTable();
+        cajaID = new javax.swing.JTextField();
+        cajaCantidad = new javax.swing.JTextField();
+        botonAgregarAlCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio");
@@ -150,18 +154,33 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
             new String [] {
-                "FILA","ID", "Nombre", "Precio", "Stock"
+                "ID", "Nombre", "Precio", "Stock"
             }
         );
 
-        Object[][] datos = controlador.datosTablaProductos();
-
-        for(Object[] fila : datos){
+        for(Object[] fila : this.datos){
             tableModel.addRow(fila);
         }
         tablaProductos.setModel(tableModel);
         tablaProductos.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tablaProductos);
+
+        cajaID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cajaIDActionPerformed(evt);
+            }
+        });
+
+        botonAgregarAlCarrito.setBackground(new java.awt.Color(22, 22, 216));
+        botonAgregarAlCarrito.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        botonAgregarAlCarrito.setForeground(new java.awt.Color(255, 255, 255));
+        botonAgregarAlCarrito.setText("AGREGAR");
+        botonAgregarAlCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAgregarAlCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarAlCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
@@ -171,13 +190,26 @@ public class VentanaInicio extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
+            .addGroup(DerechaLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(cajaID, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cajaCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonAgregarAlCarrito)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cajaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonAgregarAlCarrito))
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         jPanel1.add(Derecha);
@@ -234,14 +266,48 @@ public class VentanaInicio extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
+    private void botonAgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarAlCarritoActionPerformed
+        String identificador = cajaID.getText();
+        String textoCantidad = cajaCantidad.getText();
+
+        if (identificador.isEmpty() || textoCantidad.isEmpty() || !textoCantidad.matches("\\d+")) {
+            // si cualquiera de las cajas de texto estan vacias o el texto cantidad no es un numero termina el metodo
+            return;
+        }
+        int cantidad = Integer.parseInt(textoCantidad);
+        // valida que el id ingresado este en la tabla productos.
+        if (controlador.existeProductoEnMatriz(this.datos, identificador)){
+            controlador.agregarProductoCarrito(identificador, cantidad);
+        }
+        else {
+            errorNoExisteProducto();
+        }
+
+    }//GEN-LAST:event_botonAgregarAlCarritoActionPerformed
+
+    private void cajaIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cajaIDActionPerformed
+
+    private void errorNoExisteProducto(){
+        // muestre mensaje de error en la pantalla
+        VentanaError ventana = new VentanaError();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCerrarSesion;
     private javax.swing.JButton BotonInicio;
     private javax.swing.JButton BotonMisCompras;
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
+    private javax.swing.JButton botonAgregarAlCarrito;
     private javax.swing.JButton botonCarrito;
     private javax.swing.JButton botonMiPerfil;
+    private javax.swing.JTextField cajaCantidad;
+    private javax.swing.JTextField cajaID;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaProductos;

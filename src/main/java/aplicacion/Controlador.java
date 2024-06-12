@@ -244,13 +244,39 @@ public class Controlador {
         }
     }
 
-    public void agregarProductoCarrito(Producto producto, int cantidad){
+    public void agregarMismoProductoCarrito(String idProducto, int cantidad){
+        // A la cantidad de un producto ya existente en el carrito, le suma la cantidad pasada como parametro.
+    }
+
+    public void modificarCantidadProducto(String idProducto, int cantidad){
+        // A un producto existente en el carrito le modifica la cantidad antigua por la nueva.
+    }
+
+    public void eliminarProductoCarrito(String idProducto){
+        // A un producto existente en el carrito,
+    }
+
+
+    public void agregarProductoCarrito(String idProducto, int cantidad){
+        // verifica que no este el producto en el carrito.
+        // si esta le suma la cantidad pasada. si no lo esta lo crea y agrega al carrito
+
+        if(productoEnCarrito(idProducto)){
+
+        }
+
+
+
         Item item  = new Item();
-        item.setProducto(producto);
+//        item.setProducto(producto);
         item.setCantidad(cantidad);
         this.carrito.agregarItem(item);
         guardarEstadoCarrito(this.carrito);
         guardarCarritoMongo(this.carrito);
+    }
+
+    public boolean productoEnCarrito(String idProducto){
+        return true;
     }
 
     public void guardarEstadoCarrito(Carrito estadoActualCarrito){
@@ -267,16 +293,26 @@ public class Controlador {
         }
     }
 
-    public List<InfoItemsCarrito> generarCarritoVista(){
-        List<InfoItemsCarrito> listaItems = new ArrayList<>();
-        for (Item item : this.carrito.getItems()){
-            InfoItemsCarrito infoCarrito = new InfoItemsCarrito();
-            infoCarrito.nombreProducto =item.getProducto().getNombre();
-            infoCarrito.cantidad =item.getCantidad();
-            infoCarrito.precioTotal = item.getProducto().getPrecio() * item.getCantidad();
-            listaItems.add(infoCarrito);
+    public Object[][] datosTablaCarrito(){
+        try{
+
+            List<Item> items = this.carrito.getItems();
+            Object[][] data = new Object[items.size()][5];
+
+            for (int i = 0; i < items.size(); i++) {
+                Item item = items.get(i);
+                data[i][0] = i; // numero de fila
+                data[i][1] = item.getProducto().getNombre(); // nombre producto
+                data[i][2] = item.getCantidad(); // cantidad
+                data[i][3] = item.getProducto().getPrecio() * item.getCantidad(); // precio total
+            }
+            logger.info("Productos cargados con exito.");
+            return data;
         }
-        return listaItems;
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return null;
+        }
     }
 
 
@@ -306,15 +342,14 @@ public class Controlador {
             List<Producto> productos = mongoService.todosLosProductos();
             mongoService.close();
 
-            Object[][] data = new Object[productos.size()][5];
+            Object[][] data = new Object[productos.size()][4];
 
             for (int i = 0; i < productos.size(); i++) {
                 Producto producto = productos.get(i);
-                data[i][0] = i; // numero de fila
-                data[i][1] = producto.getId();
-                data[i][2] = producto.getNombre();
-                data[i][3] = producto.getPrecio();
-                data[i][4] = producto.getStock();
+                data[i][0] = producto.getId();
+                data[i][1] = producto.getNombre();
+                data[i][2] = producto.getPrecio();
+                data[i][3] = producto.getStock();
             }
             logger.info("Productos cargados con exito.");
             return data;
@@ -352,5 +387,17 @@ public class Controlador {
         this.carrito = null;
         this.estadosCarrito = null;
         logger.info("Sesion cerrada");
+    }
+
+
+    public boolean existeProductoEnMatriz(Object[][]data, String idProducto){
+        for (int i = 0; i < data.length; i++) {
+            if (data[i][0].equals(idProducto)) {
+                logger.info("Producto encontrado en data: " + idProducto);
+                return true;
+            }
+        }
+        logger.info("Producto no encontrado en data: " + idProducto);
+        return false;
     }
 }

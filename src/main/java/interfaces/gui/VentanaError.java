@@ -13,16 +13,14 @@ public class VentanaError extends javax.swing.JFrame {
         imagenError = new javax.swing.JLabel();
         botonCerrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Error");
-        setPreferredSize(new java.awt.Dimension(400, 200));
         setResizable(false);
 
         imagenError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imagenError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/error.png"))); // NOI18N
         imagenError.setAlignmentY(0.0F);
         imagenError.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        imagenError.setMinimumSize(new java.awt.Dimension(128, 128));
 
         botonCerrar.setText("CERRAR");
         botonCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -39,7 +37,7 @@ public class VentanaError extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
-                        .addComponent(imagenError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(imagenError))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(botonCerrar)))
@@ -49,7 +47,7 @@ public class VentanaError extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(imagenError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagenError)
                 .addGap(18, 18, 18)
                 .addComponent(botonCerrar)
                 .addContainerGap(7, Short.MAX_VALUE))

@@ -5,9 +5,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentanaAdminProductos extends javax.swing.JFrame {
     private Controlador controlador;
-  
+    private Object[][] datos;
     public VentanaAdminProductos(Controlador controlador) {
         this.controlador = controlador;
+        this.datos = controlador.datosTablaProductos();
         initComponents();
     }
  
@@ -23,11 +24,11 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
         Derecha = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProductos = new javax.swing.JTable();
-        botonModificarPrecio = new javax.swing.JButton();
-        cajaNumeroFila = new javax.swing.JTextField();
+        cajaIdentificador = new javax.swing.JTextField();
         cajaNuevoPrecio = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelIDProducto = new javax.swing.JLabel();
+        labelNuevoPrecio = new javax.swing.JLabel();
+        botonModificarPrecio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador - Usuarios");
@@ -117,24 +118,19 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
 
         DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
             new String [] {
-                "FILA","ID", "Nombre", "Precio", "Stock"
+                "ID", "Nombre", "Precio", "Stock"
             }
         );
 
-        Object[][] datos = controlador.datosTablaProductos();
-
-        for(Object[] fila : datos){
+        for(Object[] fila : this.datos){
             tableModel.addRow(fila);
         }
         tablaProductos.setModel(tableModel);
-        tablaProductos.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(tablaProductos);
 
-        botonModificarPrecio.setText("MODIFICAR PRECIO");
-
-        cajaNumeroFila.addActionListener(new java.awt.event.ActionListener() {
+        cajaIdentificador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaNumeroFilaActionPerformed(evt);
+                cajaIdentificadorActionPerformed(evt);
             }
         });
 
@@ -144,9 +140,20 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Numero");
+        labelIDProducto.setText("ID Producto");
 
-        jLabel2.setText("Nuevo Precio");
+        labelNuevoPrecio.setText("Nuevo Precio");
+
+        botonModificarPrecio.setBackground(new java.awt.Color(22, 22, 216));
+        botonModificarPrecio.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        botonModificarPrecio.setForeground(new java.awt.Color(255, 255, 255));
+        botonModificarPrecio.setText("MODIFICAR");
+        botonModificarPrecio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonModificarPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarPrecioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
@@ -159,29 +166,29 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
             .addGroup(DerechaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cajaNumeroFila, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(cajaIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIDProducto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DerechaLayout.createSequentialGroup()
                         .addComponent(cajaNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(botonModificarPrecio))
-                    .addComponent(jLabel2))
+                    .addComponent(labelNuevoPrecio))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(labelIDProducto)
+                    .addComponent(labelNuevoPrecio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonModificarPrecio)
-                    .addComponent(cajaNumeroFila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cajaNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonModificarPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -228,13 +235,18 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonFacturasActionPerformed
 
-    private void cajaNumeroFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaNumeroFilaActionPerformed
+    private void cajaIdentificadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaIdentificadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cajaNumeroFilaActionPerformed
+    }//GEN-LAST:event_cajaIdentificadorActionPerformed
 
     private void cajaNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaNuevoPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cajaNuevoPrecioActionPerformed
+
+    private void botonModificarPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPrecioActionPerformed
+        String identificador = cajaIdentificador.getText();
+        String precio = cajaNuevoPrecio.getText();
+    }//GEN-LAST:event_botonModificarPrecioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Derecha;
@@ -243,11 +255,11 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
     private javax.swing.JButton botonModificarPrecio;
     private javax.swing.JButton botonProductos;
     private javax.swing.JButton botonUsuarios;
+    private javax.swing.JTextField cajaIdentificador;
     private javax.swing.JTextField cajaNuevoPrecio;
-    private javax.swing.JTextField cajaNumeroFila;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelIDProducto;
+    private javax.swing.JLabel labelNuevoPrecio;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTable tablaProductos;
     // End of variables declaration//GEN-END:variables

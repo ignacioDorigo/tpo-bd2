@@ -1,12 +1,14 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaCarrito extends javax.swing.JFrame {
     private Controlador controlador;
-  
+    private Object[][] datos;
     public VentanaCarrito(Controlador controlador) {
         this.controlador = controlador;
+        this.datos = controlador.datosTablaCarrito();
         initComponents();
     }
 
@@ -23,8 +25,9 @@ public class VentanaCarrito extends javax.swing.JFrame {
         BotonMisCompras = new javax.swing.JButton();
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         botonConfirmarCarrito = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaCarrito = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Carrito");
@@ -153,27 +156,39 @@ public class VentanaCarrito extends javax.swing.JFrame {
             }
         });
 
+        DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
+            new String [] {
+                "FILA","Nombre", "Cantidad", "Precio Total"
+            }
+        );
+
+        for(Object[] fila : this.datos){
+            tableModel.addRow(fila);
+        }
+        tablaCarrito.setModel(tableModel);
+        jScrollPane1.setViewportView(tablaCarrito);
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DerechaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
-                .addContainerGap(484, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonConfirmarCarrito)
-                .addGap(52, 52, 52))
+                .addGap(48, 48, 48))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DerechaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addContainerGap(180, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(85, 85, 85))
         );
 
         jPanel1.add(Derecha);
@@ -245,5 +260,6 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaCarrito;
     // End of variables declaration//GEN-END:variables
 }
