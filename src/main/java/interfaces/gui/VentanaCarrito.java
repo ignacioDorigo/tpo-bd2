@@ -24,6 +24,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        botonConfirmarCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Carrito");
@@ -139,21 +140,38 @@ public class VentanaCarrito extends javax.swing.JFrame {
         Derecha.setMaximumSize(null);
         Derecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
+        botonConfirmarCarrito.setBackground(new java.awt.Color(22, 22, 216));
+        botonConfirmarCarrito.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        botonConfirmarCarrito.setForeground(new java.awt.Color(255, 255, 255));
+        botonConfirmarCarrito.setText("CONFIRMAR");
+        botonConfirmarCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonConfirmarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConfirmarCarritoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+            .addGroup(DerechaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addContainerGap(484, Short.MAX_VALUE)
+                .addComponent(botonConfirmarCarrito)
+                .addGap(52, 52, 52))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         jPanel1.add(Derecha);
@@ -198,6 +216,10 @@ public class VentanaCarrito extends javax.swing.JFrame {
         controlador.cerrarSesion();
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
+    private void botonConfirmarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarCarritoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonConfirmarCarritoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCerrarSesion;
     private javax.swing.JButton BotonInicio;
@@ -205,6 +227,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
     private javax.swing.JButton botonCarrito;
+    private javax.swing.JButton botonConfirmarCarrito;
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

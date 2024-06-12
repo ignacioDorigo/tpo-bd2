@@ -196,7 +196,10 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        // TODO add your handling code here:
+        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
