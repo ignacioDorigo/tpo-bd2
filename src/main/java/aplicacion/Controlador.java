@@ -244,19 +244,26 @@ public class Controlador {
         }
     }
 
+    public void agregarProductoCarrito(Producto producto, int cantidad){
+        Item item  = new Item();
+        item.setProducto(producto);
+        item.setCantidad(cantidad);
+        this.carrito.agregarItem(item);
+        guardarEstadoCarrito(this.carrito);
+        guardarCarritoMongo(this.carrito);
+    }
 
     public void guardarEstadoCarrito(Carrito estadoActualCarrito){
         this.estadosCarrito.add(estadoActualCarrito);
     }
 
 
-    public Carrito estadoAnteriorCarrito(){
-        // devuelve la referencia al estado anterior del carrito, null si no hay estado anterior
+    public void estadoAnteriorCarrito(){
+        //establece el carrito actual con el valor del carrito anterior guardado en estadosCarrito.
+        //elimina el ultimo estado carrito que quedo obsoleto.
         if (estadosCarrito.size() > 1){
-            return estadosCarrito.get(estadosCarrito.size()-2);
-        }
-        else {
-            return null;
+            this.carrito = estadosCarrito.get(estadosCarrito.size()-2);
+            this.estadosCarrito.remove(estadosCarrito.size()-1);
         }
     }
 
