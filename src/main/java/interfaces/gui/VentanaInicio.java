@@ -30,6 +30,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         cajaID = new javax.swing.JTextField();
         cajaCantidad = new javax.swing.JTextField();
         botonAgregarAlCarrito = new javax.swing.JButton();
+        labelIDProducto = new javax.swing.JLabel();
+        labelCantidad = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio");
@@ -182,6 +184,10 @@ public class VentanaInicio extends javax.swing.JFrame {
             }
         });
 
+        labelIDProducto.setText("ID Producto");
+
+        labelCantidad.setText("Cantidad");
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
@@ -192,17 +198,26 @@ public class VentanaInicio extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
             .addGroup(DerechaLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(cajaID, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cajaID, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIDProducto))
                 .addGap(18, 18, 18)
-                .addComponent(cajaCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonAgregarAlCarrito)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DerechaLayout.createSequentialGroup()
+                        .addComponent(cajaCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonAgregarAlCarrito))
+                    .addComponent(labelCantidad))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelIDProducto)
+                    .addComponent(labelCantidad))
+                .addGap(18, 18, 18)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cajaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cajaCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,7 +295,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             controlador.agregarProductoCarrito(identificador, cantidad);
         }
         else {
-            errorNoExisteProducto();
+            controlador.ventanaError();
         }
 
     }//GEN-LAST:event_botonAgregarAlCarritoActionPerformed
@@ -288,13 +303,6 @@ public class VentanaInicio extends javax.swing.JFrame {
     private void cajaIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cajaIDActionPerformed
-
-    private void errorNoExisteProducto(){
-        // muestre mensaje de error en la pantalla
-        VentanaError ventana = new VentanaError();
-        ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -310,6 +318,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JTextField cajaID;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelCantidad;
+    private javax.swing.JLabel labelIDProducto;
     private javax.swing.JTable tablaProductos;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,7 @@
 package aplicacion;
 
 import com.mongodb.client.*;
+import com.mongodb.client.result.UpdateResult;
 import negocio.Carrito;
 import negocio.Producto;
 import negocio.Usuario;
@@ -129,4 +130,20 @@ public class MongoService {
         }
         return productos;
     }
+
+    public boolean modificarPrecioProducto(String idProducto, double precio){
+        try {
+            Document consulta = new Document("_id", idProducto);
+            Document actualizado = new Document("$set", new Document("precio", precio));
+            UpdateResult resultado = this.coleccion.updateOne(consulta, actualizado);
+
+            return resultado.getModifiedCount() > 0;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
+
 }

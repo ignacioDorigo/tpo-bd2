@@ -245,7 +245,26 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
 
     private void botonModificarPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPrecioActionPerformed
         String identificador = cajaIdentificador.getText();
-        String precio = cajaNuevoPrecio.getText();
+        String textoPrecio = cajaNuevoPrecio.getText();
+
+        if (identificador.isEmpty() || textoPrecio.isEmpty() || !textoPrecio.matches("\\d+")) {
+            // si cualquiera de las cajas de texto estan vacias o el texto cantidad no es un numero termina el metodo
+            return;
+        }
+        double precio = Double.parseDouble(textoPrecio);
+
+        if (controlador.modificarPrecioProductoMongo(identificador, precio)){
+            System.out.println("precio modificado con exito");
+            VentanaAdminProductos ventana = new VentanaAdminProductos(controlador);
+            ventana.setLocationRelativeTo(null);
+            ventana.setVisible(true);
+            this.dispose();
+        }
+        else {
+            System.out.println("Ocurrio algun error al modificar el precio.");
+            controlador.ventanaError();
+        }
+
     }//GEN-LAST:event_botonModificarPrecioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

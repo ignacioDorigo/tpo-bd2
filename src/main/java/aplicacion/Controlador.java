@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
 
+import interfaces.gui.VentanaError;
 import negocio.*;
 import redis.clients.jedis.JedisPooled;
 
@@ -360,6 +361,21 @@ public class Controlador {
         }
     }
 
+
+    public boolean modificarPrecioProductoMongo(String idProducto, double precio){
+        try{
+            MongoService mongoService = new MongoService("productos");
+            boolean resultado = mongoService.modificarPrecioProducto(idProducto, precio);
+            mongoService.close();
+            return resultado;
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+
     public void cargarSesion() {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
@@ -400,4 +416,12 @@ public class Controlador {
         logger.info("Producto no encontrado en data: " + idProducto);
         return false;
     }
+
+    public void ventanaError(){
+        // muestre mensaje de error en la pantalla
+        VentanaError ventana = new VentanaError();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }
+
 }
