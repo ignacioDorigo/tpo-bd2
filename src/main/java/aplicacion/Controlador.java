@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
 
-import org.bson.Document;
 import negocio.*;
 import redis.clients.jedis.JedisPooled;
 
@@ -200,6 +199,7 @@ public class Controlador {
         try{
             MongoService mongoService = new MongoService("usuarios");
             Usuario usuario = mongoService.buscarUsuario(refMongo);
+            System.out.println(refMongo);
             mongoService.close();
             return usuario;
         }
@@ -267,8 +267,16 @@ public class Controlador {
         }
     }
 
-    public void generarCarritoVista(){
-
+    public List<InfoItemsCarrito> generarCarritoVista(){
+        List<InfoItemsCarrito> listaItems = new ArrayList<>();
+        for (Item item : this.carrito.getItems()){
+            InfoItemsCarrito infoCarrito = new InfoItemsCarrito();
+            infoCarrito.nombreProducto =item.getProducto().getNombre();
+            infoCarrito.cantidad =item.getCantidad();
+            infoCarrito.precioTotal = item.getProducto().getPrecio() * item.getCantidad();
+            listaItems.add(infoCarrito);
+        }
+        return listaItems;
     }
 
 
@@ -321,7 +329,7 @@ public class Controlador {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
             this.usuario = buscarUsuarioMongo(this.referenciaMongo);
-            if (usuario != null){
+            if (this.usuario != null){
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
                 this.estadosCarrito.add(carrito);

@@ -2,8 +2,6 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class VentanaAcceso extends javax.swing.JFrame {
     private Controlador controlador;
@@ -200,11 +198,6 @@ public class VentanaAcceso extends javax.swing.JFrame {
         if (controlador.validarDatosSesion(correo, contrasena)) {
             controlador.cargarSesion();
             VentanaInicio vd = new VentanaInicio(controlador);
-            vd.addWindowListener(new WindowAdapter() {
-                public void windowClosed(WindowEvent e) {
-                    controlador.cerrarSesion();
-                }
-            });
             vd.setLocationRelativeTo(null);
             vd.setVisible(true);
             this.dispose();

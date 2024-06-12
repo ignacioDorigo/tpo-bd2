@@ -108,18 +108,16 @@ public class VentanaInicio extends javax.swing.JFrame {
         IzquierdaLayout.setHorizontalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(IzquierdaLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonMiPerfil)
-                            .addComponent(botonCarrito)
-                            .addComponent(BotonMisCompras)
-                            .addComponent(BotonCerrarSesion)))
-                    .addGroup(IzquierdaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BotonInicio)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(botonMiPerfil)
+                    .addComponent(botonCarrito)
+                    .addComponent(BotonMisCompras)
+                    .addComponent(BotonCerrarSesion))
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(IzquierdaLayout.createSequentialGroup()
+                .addComponent(BotonInicio)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +194,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        VentanaCarritoBOCETO2 ventana = new VentanaCarritoBOCETO2(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();

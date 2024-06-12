@@ -1,16 +1,23 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
+import aplicacion.InfoItemsCarrito;
+import java.util.List;
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle;
 
-public class VentanaCarritoBOCETO extends javax.swing.JFrame {
+public class VentanaCarritoBOCETO2 extends javax.swing.JFrame {
     private Controlador controlador;
-  
-    public VentanaCarritoBOCETO(Controlador controlador) {
+    private List<InfoItemsCarrito> listadoItems;
+
+    public VentanaCarritoBOCETO2(Controlador controlador) {
         this.controlador = controlador;
+        this.listadoItems = controlador.generarCarritoVista();
         initComponents();
+        agregarItemsAlPanel();
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,14 +32,6 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         Derecha = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelCarritoItem = new javax.swing.JPanel();
-        ItemCarrito = new javax.swing.JPanel();
-        labelNombreProducto = new javax.swing.JLabel();
-        labelPrecio = new javax.swing.JLabel();
-        labelCantidad = new javax.swing.JLabel();
-        ItemCarrito1 = new javax.swing.JPanel();
-        labelNombreProducto1 = new javax.swing.JLabel();
-        labelPrecio1 = new javax.swing.JLabel();
-        labelCantidad1 = new javax.swing.JLabel();
         botonConfirmarCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -115,31 +114,31 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         javax.swing.GroupLayout IzquierdaLayout = new javax.swing.GroupLayout(Izquierda);
         Izquierda.setLayout(IzquierdaLayout);
         IzquierdaLayout.setHorizontalGroup(
-            IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
-                    .addComponent(botonCarrito)
-                    .addComponent(BotonMisCompras)
-                    .addComponent(BotonCerrarSesion)
-                    .addComponent(BotonInicio))
-                .addContainerGap(33, Short.MAX_VALUE))
+                IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(IzquierdaLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(botonMiPerfil)
+                                        .addComponent(botonCarrito)
+                                        .addComponent(BotonMisCompras)
+                                        .addComponent(BotonCerrarSesion)
+                                        .addComponent(BotonInicio))
+                                .addContainerGap(33, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
-            IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(BotonInicio)
-                .addGap(18, 18, 18)
-                .addComponent(botonMiPerfil)
-                .addGap(18, 18, 18)
-                .addComponent(botonCarrito)
-                .addGap(18, 18, 18)
-                .addComponent(BotonMisCompras)
-                .addGap(18, 18, 18)
-                .addComponent(BotonCerrarSesion)
-                .addContainerGap(228, Short.MAX_VALUE))
+                IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(IzquierdaLayout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(BotonInicio)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonMiPerfil)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonCarrito)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotonMisCompras)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotonCerrarSesion)
+                                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         jPanel1.add(Izquierda);
@@ -149,92 +148,16 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         Derecha.setMaximumSize(null);
         Derecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        ItemCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        labelNombreProducto.setText("Nombre");
-
-        labelPrecio.setText("Precio Total");
-
-        labelCantidad.setText("Cantidad");
-
-        javax.swing.GroupLayout ItemCarritoLayout = new javax.swing.GroupLayout(ItemCarrito);
-        ItemCarrito.setLayout(ItemCarritoLayout);
-        ItemCarritoLayout.setHorizontalGroup(
-            ItemCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ItemCarritoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(labelNombreProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(labelCantidad)
-                .addGap(46, 46, 46)
-                .addComponent(labelPrecio)
-                .addGap(30, 30, 30))
-        );
-        ItemCarritoLayout.setVerticalGroup(
-            ItemCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ItemCarritoLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(ItemCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNombreProducto)
-                    .addComponent(labelPrecio)
-                    .addComponent(labelCantidad))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
-        ItemCarrito1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        labelNombreProducto1.setText("Nombre");
-
-        labelPrecio1.setText("Precio Total");
-
-        labelCantidad1.setText("Cantidad");
-
-        javax.swing.GroupLayout ItemCarrito1Layout = new javax.swing.GroupLayout(ItemCarrito1);
-        ItemCarrito1.setLayout(ItemCarrito1Layout);
-        ItemCarrito1Layout.setHorizontalGroup(
-            ItemCarrito1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ItemCarrito1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(labelNombreProducto1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(labelCantidad1)
-                .addGap(46, 46, 46)
-                .addComponent(labelPrecio1)
-                .addGap(30, 30, 30))
-        );
-        ItemCarrito1Layout.setVerticalGroup(
-            ItemCarrito1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ItemCarrito1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(ItemCarrito1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNombreProducto1)
-                    .addComponent(labelPrecio1)
-                    .addComponent(labelCantidad1))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout panelCarritoItemLayout = new javax.swing.GroupLayout(panelCarritoItem);
         panelCarritoItem.setLayout(panelCarritoItemLayout);
         panelCarritoItemLayout.setHorizontalGroup(
-            panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCarritoItemLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ItemCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ItemCarrito1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 675, Short.MAX_VALUE)
         );
         panelCarritoItemLayout.setVerticalGroup(
-            panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCarritoItemLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(ItemCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ItemCarrito1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 396, Short.MAX_VALUE)
         );
-
-        ItemCarrito.getAccessibleContext().setAccessibleParent(jScrollPane1);
 
         jScrollPane1.setViewportView(panelCarritoItem);
 
@@ -252,24 +175,24 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
-            DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonConfirmarCarrito)
-                .addGap(38, 38, 38))
+                DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                                .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonConfirmarCarrito)
+                                .addGap(38, 38, 38))
         );
         DerechaLayout.setVerticalGroup(
-            DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DerechaLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jPanel1.add(Derecha);
@@ -278,12 +201,12 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -318,25 +241,49 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonConfirmarCarritoActionPerformed
 
+    private void agregarItemsAlPanel() {
+        GroupLayout panelCarritoItemLayout = new GroupLayout(panelCarritoItem);
+        panelCarritoItem.setLayout(panelCarritoItemLayout);
+
+        GroupLayout.SequentialGroup horizontalGroup = panelCarritoItemLayout.createSequentialGroup();
+        GroupLayout.ParallelGroup labelsGroup = panelCarritoItemLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+        GroupLayout.ParallelGroup fieldsGroup = panelCarritoItemLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+        GroupLayout.SequentialGroup verticalGroup = panelCarritoItemLayout.createSequentialGroup();
+
+        for (InfoItemsCarrito item : listadoItems) {
+            JLabel labelNombre = new JLabel("Nombre: " + item.nombreProducto);
+            JLabel labelCantidad = new JLabel("Cantidad: " + item.cantidad);
+            JLabel labelPrecioTotal = new JLabel("Precio: " + item.precioTotal);
+
+            labelsGroup.addComponent(labelNombre);
+            fieldsGroup.addGroup(panelCarritoItemLayout.createSequentialGroup()
+                    .addComponent(labelCantidad)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(labelPrecioTotal));
+            verticalGroup.addGroup(panelCarritoItemLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNombre)
+                    .addComponent(labelCantidad)
+                    .addComponent(labelPrecioTotal));
+        }
+
+        horizontalGroup.addGroup(labelsGroup);
+        horizontalGroup.addGroup(fieldsGroup);
+
+        panelCarritoItemLayout.setHorizontalGroup(horizontalGroup);
+        panelCarritoItemLayout.setVerticalGroup(verticalGroup);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCerrarSesion;
     private javax.swing.JButton BotonInicio;
     private javax.swing.JButton BotonMisCompras;
     private javax.swing.JPanel Derecha;
-    private javax.swing.JPanel ItemCarrito;
-    private javax.swing.JPanel ItemCarrito1;
     private javax.swing.JPanel Izquierda;
     private javax.swing.JButton botonCarrito;
     private javax.swing.JButton botonConfirmarCarrito;
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelCantidad;
-    private javax.swing.JLabel labelCantidad1;
-    private javax.swing.JLabel labelNombreProducto;
-    private javax.swing.JLabel labelNombreProducto1;
-    private javax.swing.JLabel labelPrecio;
-    private javax.swing.JLabel labelPrecio1;
     private javax.swing.JPanel panelCarritoItem;
     // End of variables declaration//GEN-END:variables
 }
