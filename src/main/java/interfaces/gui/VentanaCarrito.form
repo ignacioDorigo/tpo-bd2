@@ -71,12 +71,15 @@
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="botonMiPerfil" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="botonCarrito" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="BotonMisCompras" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="BotonCerrarSesion" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="BotonInicio" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <EmptySpace pref="43" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="botonCarrito" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

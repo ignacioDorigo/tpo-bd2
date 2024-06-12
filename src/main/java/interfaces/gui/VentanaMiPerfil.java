@@ -108,12 +108,14 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
             .addGroup(IzquierdaLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
                     .addComponent(botonCarrito)
                     .addComponent(BotonMisCompras)
                     .addComponent(BotonCerrarSesion)
                     .addComponent(BotonInicio))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(IzquierdaLayout.createSequentialGroup()
+                .addComponent(botonMiPerfil)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,19 +169,31 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
-        // TODO add your handling code here:
+        VentanaInicio ventana = new VentanaInicio(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();      
     }//GEN-LAST:event_BotonInicioActionPerformed
 
     private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
-        // TODO add your handling code here:
+        VentanaMiPerfil ventana = new VentanaMiPerfil(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();  
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        // TODO add your handling code here:
+        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();  
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        // TODO add your handling code here:
+        VentanaMisCompras ventana = new VentanaMisCompras(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();  
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed

@@ -161,7 +161,10 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
     
     
     private void botonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuariosActionPerformed
-        // TODO add your handling code here:
+        VentanaAdminUsuarios ventana = new VentanaAdminUsuarios(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonUsuariosActionPerformed
 
     private void botonProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductosActionPerformed

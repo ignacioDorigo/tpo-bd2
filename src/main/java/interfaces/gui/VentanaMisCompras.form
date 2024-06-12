@@ -72,11 +72,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="botonMiPerfil" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="botonCarrito" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="BotonMisCompras" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="BotonCerrarSesion" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="BotonInicio" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <EmptySpace pref="43" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="BotonMisCompras" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -187,7 +190,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&quot;&lt;HTML&gt;&lt;U&gt;Inicio&lt;/U&gt;&lt;/HTML&gt;&quot;" type="code"/>
+                  <Connection code="&quot;&lt;HTML&gt;&lt;U&gt;Mis Compras&lt;/U&gt;&lt;/HTML&gt;&quot;" type="code"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>

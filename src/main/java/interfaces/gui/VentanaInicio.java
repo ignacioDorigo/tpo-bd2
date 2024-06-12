@@ -1,6 +1,7 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaInicio extends javax.swing.JFrame {
     private Controlador controlador;
@@ -24,13 +25,14 @@ public class VentanaInicio extends javax.swing.JFrame {
         botonMiPerfil = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        tablaProductos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 500));
         jPanel1.setLayout(null);
 
         Izquierda.setBackground(new java.awt.Color(22, 22, 216));
@@ -108,16 +110,18 @@ public class VentanaInicio extends javax.swing.JFrame {
         IzquierdaLayout.setHorizontalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
-                    .addComponent(botonCarrito)
-                    .addComponent(BotonMisCompras)
-                    .addComponent(BotonCerrarSesion))
-                .addContainerGap(43, Short.MAX_VALUE))
-            .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addComponent(BotonInicio)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonMiPerfil)
+                            .addComponent(botonCarrito)
+                            .addComponent(BotonMisCompras)
+                            .addComponent(BotonCerrarSesion)))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BotonInicio)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,25 +146,42 @@ public class VentanaInicio extends javax.swing.JFrame {
         Derecha.setMaximumSize(null);
         Derecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
+        jScrollPane1.setBorder(null);
+
+        DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
+            new String [] {
+                "FILA","ID", "Nombre", "Precio", "Stock"
+            }
+        );
+
+        Object[][] datos = controlador.datosTablaProductos();
+
+        for(Object[] fila : datos){
+            tableModel.addRow(fila);
+        }
+        tablaProductos.setModel(tableModel);
+        tablaProductos.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(tablaProductos);
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(68, 68, 68)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jPanel1.add(Derecha);
-        Derecha.setBounds(160, 0, 640, 500);
+        Derecha.setBounds(160, 0, 840, 500);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,22 +207,31 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
     private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
-        // TODO add your handling code here:
+        VentanaInicio ventana = new VentanaInicio(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonInicioActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        // TODO add your handling code here:
+        VentanaMisCompras ventana = new VentanaMisCompras(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        VentanaCarritoBOCETO2 ventana = new VentanaCarritoBOCETO2(controlador);
+        VentanaCarrito ventana = new VentanaCarrito(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
-        // TODO add your handling code here:
+        VentanaMiPerfil ventana = new VentanaMiPerfil(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,5 +244,6 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaProductos;
     // End of variables declaration//GEN-END:variables
 }
