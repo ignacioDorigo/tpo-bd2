@@ -24,7 +24,7 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
+        panelCarritoItem = new javax.swing.JPanel();
         ItemCarrito = new javax.swing.JPanel();
         labelNombreProducto = new javax.swing.JLabel();
         labelPrecio = new javax.swing.JLabel();
@@ -177,24 +177,26 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelCarritoItemLayout = new javax.swing.GroupLayout(panelCarritoItem);
+        panelCarritoItem.setLayout(panelCarritoItemLayout);
+        panelCarritoItemLayout.setHorizontalGroup(
+            panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCarritoItemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ItemCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(69, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelCarritoItemLayout.setVerticalGroup(
+            panelCarritoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCarritoItemLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(ItemCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(323, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jPanel2);
+        ItemCarrito.getAccessibleContext().setAccessibleParent(jScrollPane1);
+
+        jScrollPane1.setViewportView(panelCarritoItem);
 
         botonConfirmarCarrito.setBackground(new java.awt.Color(22, 22, 216));
         botonConfirmarCarrito.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
@@ -287,10 +289,10 @@ public class VentanaCarritoBOCETO extends javax.swing.JFrame {
     private javax.swing.JButton botonConfirmarCarrito;
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelCantidad;
     private javax.swing.JLabel labelNombreProducto;
     private javax.swing.JLabel labelPrecio;
+    private javax.swing.JPanel panelCarritoItem;
     // End of variables declaration//GEN-END:variables
 }

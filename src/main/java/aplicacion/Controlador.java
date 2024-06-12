@@ -260,6 +260,11 @@ public class Controlador {
         }
     }
 
+    public void generarCarritoVista(){
+
+    }
+
+
     public boolean crearProducto(InfoCreacionProducto infoProducto){
         // se esperan campos correctos
         try{
