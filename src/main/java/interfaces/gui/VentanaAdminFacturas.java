@@ -19,6 +19,7 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
         Izquierda = new javax.swing.JPanel();
         botonUsuarios = new javax.swing.JButton();
         botonFacturas = new javax.swing.JButton();
+        botonProductos = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,6 +63,19 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
             }
         });
 
+        botonProductos.setBackground(new java.awt.Color(22, 22, 216));
+        botonProductos.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        botonProductos.setForeground(new java.awt.Color(255, 255, 255));
+        botonProductos.setText("Productos");
+        botonProductos.setBorder(null);
+        botonProductos.setContentAreaFilled(false);
+        botonProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonProductosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout IzquierdaLayout = new javax.swing.GroupLayout(Izquierda);
         Izquierda.setLayout(IzquierdaLayout);
         IzquierdaLayout.setHorizontalGroup(
@@ -72,7 +86,10 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
                     .addComponent(botonFacturas)
                     .addGroup(IzquierdaLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(botonUsuarios)))
+                        .addComponent(botonUsuarios))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(botonProductos)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
@@ -82,7 +99,9 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
                 .addComponent(botonUsuarios)
                 .addGap(18, 18, 18)
                 .addComponent(botonFacturas)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(botonProductos)
+                .addContainerGap(339, Short.MAX_VALUE))
         );
 
         jPanel1.add(Izquierda);
@@ -128,13 +147,21 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonUsuariosActionPerformed
 
     private void botonFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturasActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_botonFacturasActionPerformed
+
+    private void botonProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductosActionPerformed
+        VentanaAdminProductos ventana = new VentanaAdminProductos(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonProductosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
     private javax.swing.JButton botonFacturas;
+    private javax.swing.JButton botonProductos;
     private javax.swing.JButton botonUsuarios;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

@@ -6,31 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
+
 import org.bson.Document;
-
 import negocio.*;
-
-import com.mongodb.client.*;
 import redis.clients.jedis.JedisPooled;
 
 public class Controlador {
 
     public static final Logger logger = Logger.getLogger(Controlador.class.getName());
+    private final JedisPooled jedisPool;
 
-    private JedisPooled jedisPool;
-
-    private MongoClient mongoClient;
-    private MongoDatabase mongoDatabase;
-    private MongoCollection<Document> coleccionUsuarios;
-
-    private Usuario usuario;
     private String referenciaMongo;
-    public Carrito carrito; // CAMBIAR
+    private Usuario usuario;
+    private Carrito carrito;
     private List<Carrito> estadosCarrito;
-    public List<Producto> productos; //CAMBIAR
-
-    private String clienteMongo = "mongodb://localhost:27017";
-    private String mongoDB = "TPO_BD2";
 
 
     public Controlador() {
@@ -38,10 +27,6 @@ public class Controlador {
             // conexion a base de datos redis
             this.jedisPool = new JedisPooled("localhost", 6379);
 
-            // conexion a mongoDB
-            this.mongoClient = MongoClients.create("mongodb://localhost:27017"); // conexion al puerto
-            this.mongoDatabase = mongoClient.getDatabase("TPO_BD2"); // conexion a la base de datos correspondiente
-            this.coleccionUsuarios = mongoDatabase.getCollection("usuarios"); // conexion a las distintas colecciones
             logger.info("Carga exitosa de las base de datos");
         }
         catch (Exception e) {
@@ -57,7 +42,7 @@ public class Controlador {
 
     public Object[][] datosTablaUsuarios(){
         try{
-            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "usuarios");
+            MongoService mongoService = new MongoService("usuarios");
             List<Usuario> usuarios = mongoService.todosLosUsuarios();
             mongoService.close();
 
@@ -108,10 +93,9 @@ public class Controlador {
             this.usuario = new Usuario(info.nombre, info.correo);
             this.usuario.setDocumento(info.documento);
             this.usuario.setDireccion(info.direccion);
-
             String id = usuario.getId();
             // Mongo--> Creacion del usuario en coleccion usuarios y su carrito en coleccion carritos
-            guardarUsuarioMongo(info, id);
+            guardarUsuarioMongo(this.usuario);
 
             // Redis --> Creacion de los datos de acceso
             guardarUsuarioRedis(id, info);
@@ -124,12 +108,14 @@ public class Controlador {
         }
     }
 
-    private void guardarUsuarioMongo(InfoRegistroDTO info, String id){
+    private void guardarUsuarioMongo(Usuario usuario){
         // SEPARAR DE CONTROLADOR
 
         try{
-            Document doc = usuario.usuarioToDocument();
-            coleccionUsuarios.insertOne(doc);
+            MongoService mongoService = new MongoService("usuarios");
+            mongoService.guardarUsuario(usuario);
+            mongoService.close();
+
             logger.info("Mongo-->Usuario registrado con exito.");
         }
         catch (Exception e) {
@@ -148,7 +134,7 @@ public class Controlador {
             logger.info("Usuario creado en redis con exito.");
         }
         catch(Exception e){
-            logger.info("Error: " + e.getMessage());
+            logger.info("Error en la creacion del usuario en redis: " + e.getMessage());
         }
     }
 
@@ -208,12 +194,21 @@ public class Controlador {
         return jedisPool.exists("correo:" + correo);
     }
 
-    private Document buscarUsuarioMongo(String refMongo){
-        // busca el usuario con id correspondiente. si no lo encuentra retorna null
+    private Usuario buscarUsuarioMongo(String refMongo){
+        // busca el usuario con id correspondiente. Si no lo encuentra devuelve null
 
-        Document consulta = new Document("_id", refMongo);
-        return this.coleccionUsuarios.find(consulta).first();
+        try{
+            MongoService mongoService = new MongoService("usuarios");
+            Usuario usuario = mongoService.buscarUsuario(refMongo);
+            mongoService.close();
+            return usuario;
+        }
+        catch (Exception e){
+            logger.info("Error: " + e.getMessage());
+            return null;
+        }
     }
+
 
     private void crearCarrito(String id){
         // el carrito tiene una referencia al usuario
@@ -225,9 +220,8 @@ public class Controlador {
     public void guardarCarritoMongo(Carrito carrito){
         // guarda el carrito en la coleccion carritos de la base de datos de mongo
         try{
-            Document documentoCarrito = carrito.CarritoToDocument();
-            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "carritos");
-            mongoService.guardarCarrito(documentoCarrito);
+            MongoService mongoService = new MongoService("carritos");
+            mongoService.guardarCarrito(carrito);
             mongoService.close();
             logger.info("Carrito guardado.");
         }
@@ -239,7 +233,7 @@ public class Controlador {
 
     private Carrito buscarCarritoMongo(String referenciaMongo){
         try{
-            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "carritos");
+            MongoService mongoService = new MongoService("carritos");
             Carrito carrito = mongoService.buscarCarrito(referenciaMongo);
             mongoService.close();
             return carrito;
@@ -266,17 +260,63 @@ public class Controlador {
         }
     }
 
+    public boolean crearProducto(InfoCreacionProducto infoProducto){
+        // se esperan campos correctos
+        try{
+            Producto producto = new Producto();
+            producto.setNombre(infoProducto.nombre);
+            producto.setPrecio(infoProducto.precio);
+            producto.setStock(infoProducto.stock);
+            MongoService mongoService = new MongoService("productos");
+            mongoService.guardarProducto(producto);
+            mongoService.close();
+            logger.info("Producto creado con exito.");
+            return true;
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Object[][] datosTablaProductos(){
+        // Crea y devuelve una matriz con los datos de todos los productos almacenados en mongoDB.
+        try{
+            MongoService mongoService = new MongoService("productos");
+            List<Producto> productos = mongoService.todosLosProductos();
+            mongoService.close();
+
+            Object[][] data = new Object[productos.size()][5];
+
+            for (int i = 0; i < productos.size(); i++) {
+                Producto producto = productos.get(i);
+                data[i][0] = i; // numero de fila
+                data[i][1] = producto.getId();
+                data[i][2] = producto.getNombre();
+                data[i][3] = producto.getPrecio();
+                data[i][4] = producto.getStock();
+            }
+            logger.info("Productos cargados con exito.");
+            return data;
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return null;
+        }
+    }
 
     public void cargarSesion() {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
-            Document datosUsuario = buscarUsuarioMongo(this.referenciaMongo);
-            if (datosUsuario != null){
-                this.usuario = new Usuario(datosUsuario);
+            this.usuario = buscarUsuarioMongo(this.referenciaMongo);
+            if (usuario != null){
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
                 this.estadosCarrito.add(carrito);
                 logger.info("Sesion cargada con exito.");
+            }
+            else {
+                logger.info("Usuario no encontrado.");
             }
         }
         catch(Exception e){
@@ -293,41 +333,4 @@ public class Controlador {
         this.estadosCarrito = null;
         logger.info("Sesion cerrada");
     }
-
-
-    public boolean crearProducto(InfoCreacionProducto infoProducto){
-        // se esperan campos correctos
-        try{
-            Producto producto = new Producto();
-            producto.setNombre(infoProducto.nombre);
-            producto.setPrecio(infoProducto.precio);
-            producto.setStock(infoProducto.stock);
-            Document documentoProducto = producto.productoToDocument();
-            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "productos");
-            mongoService.guardarProducto(documentoProducto);
-            mongoService.close();
-            logger.info("Producto creado con exito.");
-            return true;
-        }
-        catch(Exception e){
-            logger.info("Error: " + e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean cargarTodosLosProductos(){
-        try{
-            MongoService mongoService = new MongoService(this.clienteMongo, this.mongoDB, "productos");
-            this.productos = mongoService.todosLosProductos();
-            mongoService.close();
-            logger.info("Productos cargados con exito.");
-            return true;
-        }
-        catch(Exception e){
-            logger.info("Error al cargar los productos: " + e.getMessage());
-            return false;
-        }
-    }
-
-
 }

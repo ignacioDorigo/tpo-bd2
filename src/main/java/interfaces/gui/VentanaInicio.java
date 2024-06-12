@@ -57,6 +57,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         BotonInicio.setBorder(null);
         BotonInicio.setContentAreaFilled(false);
         BotonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonInicio.setFocusPainted(false);
         BotonInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonInicioActionPerformed(evt);
@@ -107,14 +108,18 @@ public class VentanaInicio extends javax.swing.JFrame {
         IzquierdaLayout.setHorizontalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
-                    .addComponent(botonCarrito)
-                    .addComponent(BotonMisCompras)
-                    .addComponent(BotonCerrarSesion)
-                    .addComponent(BotonInicio))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonMiPerfil)
+                            .addComponent(botonCarrito)
+                            .addComponent(BotonMisCompras)
+                            .addComponent(BotonCerrarSesion)))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BotonInicio)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

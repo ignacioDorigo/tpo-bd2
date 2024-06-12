@@ -14,10 +14,10 @@ public class MongoService {
     private MongoDatabase baseDeDatos;
     private MongoCollection<Document> coleccion;
 
-    public MongoService(String nombreCliente, String nombreBD, String nombreColeccion) {
+    public MongoService(String nombreColeccion) {
         // recibe la direccion y el nombre de la base de datos y la coleccion que se va a consultar
-        this.clienteMongo = MongoClients.create(nombreCliente);
-        this.baseDeDatos = clienteMongo.getDatabase(nombreBD);
+        this.clienteMongo = MongoClients.create("mongodb://localhost:27017");
+        this.baseDeDatos = clienteMongo.getDatabase("TPO_BD2");
         this.coleccion = baseDeDatos.getCollection(nombreColeccion);
     }
 
@@ -25,6 +25,33 @@ public class MongoService {
         // Cierra la conexion a la base de datos
         if (this.clienteMongo != null){
             this.clienteMongo.close();
+        }
+    }
+
+    public void guardarUsuario(Usuario usuario) {
+        try{
+            Document documentoUsuario = usuario.usuarioToDocument();
+            coleccion.insertOne(documentoUsuario);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Usuario buscarUsuario(String refMongo){
+        // Busca el usuario en MongoDB. Si lo encuentra devuelve un Usuario con sus datos, si no lo encuentra devuelve null.
+        try{
+            Usuario usuario = null;
+            Document consulta = new Document("_id", refMongo);
+            Document documentoUsuario = coleccion.find(consulta).first();
+            if (documentoUsuario != null){
+                usuario = new Usuario(documentoUsuario);
+            }
+            return usuario;
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -55,8 +82,9 @@ public class MongoService {
         return null;
     }
 
-    public void guardarCarrito(Document documentoCarrito){
+    public void guardarCarrito(Carrito carrito){
         try{
+            Document documentoCarrito = carrito.CarritoToDocument();
             coleccion.insertOne(documentoCarrito);
         }
         catch (Exception e){
@@ -81,9 +109,11 @@ public class MongoService {
         }
     }
 
-    public void guardarProducto(Document documentoProducto){
+    public void guardarProducto(Producto producto){
         try{
+            Document documentoProducto = producto.productoToDocument();
             coleccion.insertOne(documentoProducto);
+            System.out.println("El producto se ha guardado correctamente");
         }
         catch (Exception e){
             System.out.println("Error al guardar el producto: " + e.getMessage());
@@ -99,5 +129,4 @@ public class MongoService {
         }
         return productos;
     }
-
 }
