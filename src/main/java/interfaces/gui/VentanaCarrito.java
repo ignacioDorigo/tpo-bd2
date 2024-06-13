@@ -28,6 +28,10 @@ public class VentanaCarrito extends javax.swing.JFrame {
         botonConfirmarCarrito = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCarrito = new javax.swing.JTable();
+        labelTextoTotal = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
+        botonCarritoAnterior = new javax.swing.JButton();
+        botonVaciarCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Carrito");
@@ -168,28 +172,71 @@ public class VentanaCarrito extends javax.swing.JFrame {
         tablaCarrito.setModel(tableModel);
         jScrollPane1.setViewportView(tablaCarrito);
 
+        labelTextoTotal.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
+        labelTextoTotal.setText("TOTAL");
+
+        botonCarritoAnterior.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
+        botonCarritoAnterior.setForeground(new java.awt.Color(22, 22, 216));
+        botonCarritoAnterior.setText("Carrito Anterior");
+        botonCarritoAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCarritoAnterior.setOpaque(false);
+        botonCarritoAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCarritoAnteriorActionPerformed(evt);
+            }
+        });
+
+        botonVaciarCarrito.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
+        botonVaciarCarrito.setForeground(new java.awt.Color(22, 22, 216));
+        botonVaciarCarrito.setText("Vaciar Carrito");
+        botonVaciarCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonVaciarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVaciarCarritoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DerechaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelTextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66))
+            .addGroup(DerechaLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(botonCarritoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(botonVaciarCarrito)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonConfirmarCarrito)
                 .addGap(48, 48, 48))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DerechaLayout.createSequentialGroup()
-                .addContainerGap(180, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(botonCarritoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonVaciarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57))
         );
+
+        labelTotal.setText("");
 
         jPanel1.add(Derecha);
         Derecha.setBounds(160, 0, 640, 500);
@@ -248,8 +295,28 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private void botonConfirmarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarCarritoActionPerformed
         if(controlador.confirmarCarrito()){
             
+            
         }
     }//GEN-LAST:event_botonConfirmarCarritoActionPerformed
+
+    private void botonCarritoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoAnteriorActionPerformed
+        if(controlador.estadoAnteriorCarrito()){
+            VentanaCarrito ventana = new VentanaCarrito(controlador);
+            ventana.setLocationRelativeTo(null);
+            ventana.setVisible(true);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_botonCarritoAnteriorActionPerformed
+
+    private void botonVaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarCarritoActionPerformed
+        
+        controlador.vaciarCarrito();
+        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonVaciarCarritoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCerrarSesion;
@@ -258,10 +325,14 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
     private javax.swing.JButton botonCarrito;
+    private javax.swing.JButton botonCarritoAnterior;
     private javax.swing.JButton botonConfirmarCarrito;
     private javax.swing.JButton botonMiPerfil;
+    private javax.swing.JButton botonVaciarCarrito;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTextoTotal;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JTable tablaCarrito;
     // End of variables declaration//GEN-END:variables
 }

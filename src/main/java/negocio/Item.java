@@ -21,6 +21,12 @@ public class Item {
         this.producto = producto;
     }
 
+    public void calcularSubtotal(){
+        if (this.producto != null){
+            this.subtotal = cantidad * this.producto.getPrecio();
+        }
+    }
+
     @Override
     public String toString() {
         return "Item{" +

@@ -2,6 +2,7 @@ package aplicacion;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import negocio.Carrito;
 import negocio.Item;
@@ -9,6 +10,7 @@ import negocio.Producto;
 import negocio.Usuario;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,9 +83,7 @@ public class MongoService {
         Document consulta = new Document("referenciaUsuario", referenciaMongo);
         Document documentoCarrito = this.coleccion.find(consulta).first();
         if (documentoCarrito != null){
-            System.out.println("Carrito encontrado");
             Carrito carrito = new Carrito(documentoCarrito);
-            System.out.println(carrito);
             return carrito;
         }
         System.out.println("Carrito no encontrado");
@@ -91,7 +91,6 @@ public class MongoService {
     }
 
     public void crearCarrito(Carrito carrito){
-
         try{
             Document documentoCarrito = carrito.CarritoToDocument();
             coleccion.insertOne(documentoCarrito);
@@ -113,6 +112,28 @@ public class MongoService {
         }
     }
 
+    public void vaciarCarrito(Carrito carrito) {
+        Document carritoDocument = carrito.CarritoToDocument();
+
+        // Obtener el _id del carrito
+        ObjectId id = carritoDocument.getObjectId("_id");
+
+        // Crear el filtro para encontrar el carrito en la colección
+        Bson filtro = Filters.eq("_id", id);
+
+        // Crear el documento de actualización para vaciar la lista de items
+        Bson update = Updates.set("items", new ArrayList<>());
+
+        // Actualizar el carrito en la colección para vaciar la lista de items
+        UpdateResult result = coleccion.updateOne(filtro, update);
+
+        // Verificar si la actualización fue exitosa
+        if (result.getModifiedCount() > 0) {
+            System.out.println("Carrito vaciado con éxito.");
+        } else {
+            System.out.println("No se pudo vaciar el carrito.");
+        }
+    }
 
     public Producto buscarProducto(String idProducto){
         // busca y devuelve el producto. null si no lo encuentra o si ocurre un error inesperado.

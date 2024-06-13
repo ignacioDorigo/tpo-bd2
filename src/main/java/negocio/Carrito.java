@@ -23,22 +23,22 @@ public class Carrito {
         this.referenciaUsuario = carritoDoc.getString("referenciaUsuario");
         this.items = new ArrayList<>();
 
-        List<Document> itemsDoc = carritoDoc.getList("items", Document.class);
+        List<Document> listadoDocItems = carritoDoc.getList("items", Document.class);
 
-        if (itemsDoc != null) {
-            for (Document itemDoc : itemsDoc) {
+        if (listadoDocItems != null) {
+            for (Document docItem : listadoDocItems) {
 
                 Item item = new Item();
-                item.setCantidad(itemDoc.getInteger("cantidad", 0));
+                item.setCantidad(docItem.getInteger("cantidad", 0));
 
                 Producto producto = new Producto();
-                producto.setNombre(itemDoc.getString("producto"));
-                producto.setPrecio(itemDoc.getDouble("precio"));
+                producto.setNombre(docItem.getString("nombre"));
+                producto.setPrecio(docItem.getDouble("precio"));
                 item.setProducto(producto);
+                item.calcularSubtotal();
                 items.add(item);
             }
         }
-
     }
 
 
@@ -68,7 +68,7 @@ public class Carrito {
         List<Document> listaItems = new ArrayList<>();
         for (Item item : this.items) {
             Document documentoItem = new Document();
-            documentoItem.append("producto:", item.getProducto().getNombre());
+            documentoItem.append("nombre", item.getProducto().getNombre());
             documentoItem.append("precio", item.getProducto().getPrecio());
             documentoItem.append("cantidad", item.getCantidad());
             listaItems.add(documentoItem);
@@ -88,16 +88,6 @@ public class Carrito {
             }
         }
         return resultado;
-    }
-
-    public void mostrarCarrito(){
-        System.out.println("ID: " + this.id);
-        System.out.println("Carrito: ref usuario" + this.referenciaUsuario);
-        for (Item item : this.items) {
-            System.out.println("Item: " + item.getProducto().getNombre());
-            System.out.println("Cantidad: " + item.getCantidad());
-            System.out.println("Precio: " + item.getProducto().getPrecio());
-        }
     }
 
     @Override

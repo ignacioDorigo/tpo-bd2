@@ -266,18 +266,19 @@ public class Controlador {
         // si esta en el carrito le sumo la cantidad ingresada
         if(item != null){
             item.setCantidad(item.getCantidad() + cantidad);
-            item.setCantidad(item.getCantidad() + cantidad);
         }
         // si no esta en el carrito, creo el nuevo item
 
         else{
             MongoService mongoService = new MongoService("productos");
             Producto producto = mongoService.buscarProducto(idProducto);
+            System.out.println("producto: ");System.out.println(producto);
             mongoService.close();
 
             Item nuevoItem = new Item();
             nuevoItem.setCantidad(cantidad);
             nuevoItem.setProducto(producto);
+            nuevoItem.calcularSubtotal();
             this.carrito.agregarItem(nuevoItem);
         }
 
@@ -296,13 +297,15 @@ public class Controlador {
     }
 
 
-    public void estadoAnteriorCarrito(){
+    public boolean estadoAnteriorCarrito(){
         //establece el carrito actual con el valor del carrito anterior guardado en estadosCarrito.
         //elimina el ultimo estado carrito que quedo obsoleto.
         if (estadosCarrito.size() > 1){
             this.carrito = estadosCarrito.get(estadosCarrito.size()-2);
             this.estadosCarrito.remove(estadosCarrito.size()-1);
+            return true;
         }
+        return false;
     }
 
     public Object[][] datosTablaCarrito(){
@@ -327,6 +330,14 @@ public class Controlador {
         }
     }
 
+    public void vaciarCarrito(){
+
+        MongoService mongoService = new MongoService("carritos");
+        mongoService.vaciarCarrito(this.carrito);
+        this.carrito = mongoService.buscarCarrito(this.referenciaMongo);
+        mongoService.close();
+
+    }
 
     public boolean crearProducto(InfoCreacionProducto infoProducto){
         // se esperan campos correctos
@@ -391,12 +402,12 @@ public class Controlador {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
             this.usuario = buscarUsuarioMongo(this.referenciaMongo);
-            System.out.println(this.usuario);
+
 
             if (this.usuario != null){
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
-                System.out.println(this.carrito);
+
 
                 this.estadosCarrito.add(carrito);
                 logger.info("Sesion cargada con exito.\n");
@@ -456,6 +467,4 @@ public class Controlador {
             return false;
         }
     }
-
-
 }

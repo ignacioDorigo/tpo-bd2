@@ -16,7 +16,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaPrincipal vp = new VentanaPrincipal();
         vp.setLocationRelativeTo(null);
         vp.setVisible(true);
-
     }
 
     @SuppressWarnings("unchecked")

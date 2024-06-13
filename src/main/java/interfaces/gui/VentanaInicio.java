@@ -297,6 +297,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         else {
             controlador.ventanaError();
         }
+        cajaID.setText("");
+        cajaCantidad.setText("");
 
     }//GEN-LAST:event_botonAgregarAlCarritoActionPerformed
 
