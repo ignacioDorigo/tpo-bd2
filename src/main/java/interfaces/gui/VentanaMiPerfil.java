@@ -23,6 +23,8 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         BotonMisCompras = new javax.swing.JButton();
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
+        labelNombre = new javax.swing.JLabel();
+        labelNombre1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mi Perfil");
@@ -140,15 +142,33 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         Derecha.setMaximumSize(null);
         Derecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
+        labelNombre1.setText("Bienvenido");
+
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(234, 234, 234))
+            .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DerechaLayout.createSequentialGroup()
+                    .addGap(51, 51, 51)
+                    .addComponent(labelNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(420, Short.MAX_VALUE)))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(DerechaLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(387, Short.MAX_VALUE))
+            .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DerechaLayout.createSequentialGroup()
+                    .addGap(38, 38, 38)
+                    .addComponent(labelNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(390, Short.MAX_VALUE)))
         );
 
         jPanel1.add(Derecha);
@@ -214,5 +234,7 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
     private javax.swing.JButton botonCarrito;
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelNombre1;
     // End of variables declaration//GEN-END:variables
 }

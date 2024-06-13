@@ -22,20 +22,26 @@ public class Carrito {
         this.id = carritoDoc.getObjectId("_id");
         this.referenciaUsuario = carritoDoc.getString("referenciaUsuario");
         this.items = new ArrayList<>();
-        for (Document itemDoc : carritoDoc.getList("items", Document.class)) {
-            Item item = new Item();
-            item.setCantidad(itemDoc.getInteger("cantidad"));
-            Document productoDoc = itemDoc.get("producto", Document.class);
-            Producto producto = new Producto();
-            producto.setId(productoDoc.getString("id"));
-            producto.setNombre(productoDoc.getString("nombre"));
-            producto.setPrecio(productoDoc.getDouble("precio"));
-            producto.setStock(productoDoc.getInteger("stock"));
 
-            item.setProducto(producto);
-            items.add(item);
+        List<Document> itemsDoc = carritoDoc.getList("items", Document.class);
+
+        if (itemsDoc != null) {
+            for (Document itemDoc : itemsDoc) {
+
+                Item item = new Item();
+                item.setCantidad(itemDoc.getInteger("cantidad", 0));
+
+                Producto producto = new Producto();
+                producto.setNombre(itemDoc.getString("producto"));
+                producto.setPrecio(itemDoc.getDouble("precio"));
+                item.setProducto(producto);
+                items.add(item);
+            }
         }
+
     }
+
+
     public ObjectId getId() {
         return id;
     }
@@ -59,14 +65,15 @@ public class Carrito {
         documentoCarrito.append("_id", this.id);
         documentoCarrito.append("referenciaUsuario", this.referenciaUsuario);
 
-        List<Document> ListaItems = new ArrayList<>();
+        List<Document> listaItems = new ArrayList<>();
         for (Item item : this.items) {
             Document documentoItem = new Document();
             documentoItem.append("producto:", item.getProducto().getNombre());
             documentoItem.append("precio", item.getProducto().getPrecio());
-            ListaItems.add(documentoItem);
+            documentoItem.append("cantidad", item.getCantidad());
+            listaItems.add(documentoItem);
         }
-        documentoCarrito.append("items", ListaItems);
+        documentoCarrito.append("items", listaItems);
         return documentoCarrito;
     }
 
@@ -81,7 +88,6 @@ public class Carrito {
             }
         }
         return resultado;
-
     }
 
     public void mostrarCarrito(){
@@ -94,6 +100,12 @@ public class Carrito {
         }
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Carrito{" +
+                "id=" + id +
+                ", items=" + items +
+                ", referenciaUsuario='" + referenciaUsuario + '\'' +
+                '}';
+    }
 }

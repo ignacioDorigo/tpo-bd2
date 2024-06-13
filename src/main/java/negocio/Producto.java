@@ -58,4 +58,14 @@ public class Producto {
             return null;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                ", stock=" + stock +
+                '}';
+    }
 }

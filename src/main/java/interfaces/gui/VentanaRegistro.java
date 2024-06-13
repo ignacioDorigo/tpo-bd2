@@ -305,7 +305,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
                     Controlador.logger.info("Registro fallido. Ocurrio un error inesperado.");
                     break;
                 case USUARIO_CREADO:
-                    controlador.cargarSesion();
                     VentanaInicio vd = new VentanaInicio(controlador);
                     vd.setLocationRelativeTo(null);
                     vd.setVisible(true);

@@ -285,7 +285,6 @@ public class Controlador {
         mongoServ.reemplazarCarrito(this.carrito);
         mongoServ.close();
         guardarEstadoCarrito(this.carrito);
-
     }
 
     public boolean productoEnCarrito(String idProducto){
@@ -392,9 +391,13 @@ public class Controlador {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
             this.usuario = buscarUsuarioMongo(this.referenciaMongo);
+            System.out.println(this.usuario);
+
             if (this.usuario != null){
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
+                System.out.println(this.carrito);
+                
                 this.estadosCarrito.add(carrito);
                 logger.info("Sesion cargada con exito.\n");
                 return true;

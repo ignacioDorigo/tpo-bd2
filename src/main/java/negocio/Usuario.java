@@ -93,4 +93,17 @@ public class Usuario {
         }
         return doc;
     }
+
+
+    @Override
+    public String toString() {
+        return "Usuario" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", documento='" + documento + '\'' +
+                ", categoria=" + categoria +
+                ", minutos=" + minutos;
+    }
 }

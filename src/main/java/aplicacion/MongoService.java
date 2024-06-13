@@ -82,8 +82,9 @@ public class MongoService {
         Document documentoCarrito = this.coleccion.find(consulta).first();
         if (documentoCarrito != null){
             System.out.println("Carrito encontrado");
-            System.out.println(documentoCarrito.toJson());
-            return new Carrito(documentoCarrito); // convierte el bson carrito al tipo de dato Carrito
+            Carrito carrito = new Carrito(documentoCarrito);
+            System.out.println(carrito);
+            return carrito;
         }
         System.out.println("Carrito no encontrado");
         return null;
