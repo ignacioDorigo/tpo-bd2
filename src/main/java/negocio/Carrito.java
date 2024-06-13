@@ -32,6 +32,7 @@ public class Carrito {
                 item.setCantidad(docItem.getInteger("cantidad", 0));
 
                 Producto producto = new Producto();
+                producto.setId(docItem.getString("idProducto"));
                 producto.setNombre(docItem.getString("nombre"));
                 producto.setPrecio(docItem.getDouble("precio"));
                 item.setProducto(producto);
@@ -68,6 +69,7 @@ public class Carrito {
         List<Document> listaItems = new ArrayList<>();
         for (Item item : this.items) {
             Document documentoItem = new Document();
+            documentoItem.append("_id", item.getProducto().getId());
             documentoItem.append("nombre", item.getProducto().getNombre());
             documentoItem.append("precio", item.getProducto().getPrecio());
             documentoItem.append("cantidad", item.getCantidad());

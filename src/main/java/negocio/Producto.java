@@ -53,7 +53,6 @@ public class Producto {
             doc.append("nombre", nombre);
             doc.append("precio", precio);
             doc.append("stock", stock);
-            System.out.println("TODO BIEN MAQUINOLA");
             return doc;
         }
         catch(Exception e){

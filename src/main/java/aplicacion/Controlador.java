@@ -272,7 +272,6 @@ public class Controlador {
         else{
             MongoService mongoService = new MongoService("productos");
             Producto producto = mongoService.buscarProducto(idProducto);
-            System.out.println("producto: ");System.out.println(producto);
             mongoService.close();
 
             Item nuevoItem = new Item();
@@ -336,7 +335,6 @@ public class Controlador {
         mongoService.vaciarCarrito(this.carrito);
         this.carrito = mongoService.buscarCarrito(this.referenciaMongo);
         mongoService.close();
-
     }
 
     public boolean crearProducto(InfoCreacionProducto infoProducto){
