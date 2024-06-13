@@ -2,10 +2,10 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
-public class VentanaAdminFacturas extends javax.swing.JFrame {
+public class VentanaAdminPedidos extends javax.swing.JFrame {
     private Controlador controlador;
   
-    public VentanaAdminFacturas(Controlador controlador) {
+    public VentanaAdminPedidos(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
     }
@@ -147,7 +147,7 @@ public class VentanaAdminFacturas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonUsuariosActionPerformed
 
     private void botonFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturasActionPerformed
-        VentanaAdminFacturas ventana = new VentanaAdminFacturas(controlador);
+        VentanaAdminPedidos ventana = new VentanaAdminPedidos(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();

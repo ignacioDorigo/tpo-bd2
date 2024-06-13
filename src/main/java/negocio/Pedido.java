@@ -1,5 +1,8 @@
 package negocio;
 
+import org.bson.Document;
+
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,25 @@ public class Pedido {
     private String nombreUsuario;
     List<Item> items = new ArrayList<Item>();
     private double total;
+
+
+    public Pedido(){
+    }
+    public Pedido(Document documentoPedido){
+
+    }
+
+
+
+
+    public Document PedidoToDocument(){
+        // Transforma el pedido en un documento bson para interactuar con mongo.
+
+        return null;
+    }
+
+
+
 
     public String getReferenciaMongo() {
         return referenciaMongo;
@@ -58,4 +80,7 @@ public class Pedido {
         }
         this.total = aux;
     }
+
+
+
 }

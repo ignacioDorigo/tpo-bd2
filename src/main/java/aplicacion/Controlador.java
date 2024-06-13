@@ -433,8 +433,8 @@ public class Controlador {
 
 
     public boolean existeProductoEnMatriz(Object[][]data, String idProducto){
-        for (int i = 0; i < data.length; i++) {
-            if (data[i][0].equals(idProducto)) {
+        for (Object[] datum : data) {
+            if (datum[0].equals(idProducto)) {
                 logger.info("Producto encontrado en data: " + idProducto + "\n");
                 return true;
             }
@@ -458,6 +458,11 @@ public class Controlador {
             pedido.setCodigo(1);
             pedido.setItems(this.carrito.getItems());
             pedido.calcularTotal();
+
+            MongoService mongoService = new MongoService("pedidos");
+            mongoService.crearPedido(pedido);
+            mongoService.close();
+
             return true;
         }
         catch (Exception e) {

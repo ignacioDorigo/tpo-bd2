@@ -2,10 +2,10 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
-public class VentanaMisCompras extends javax.swing.JFrame {
+public class VentanaMisPedidos extends javax.swing.JFrame {
     private Controlador controlador;
 
-    public VentanaMisCompras(Controlador controlador) {
+    public VentanaMisPedidos(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
     }
@@ -135,7 +135,7 @@ public class VentanaMisCompras extends javax.swing.JFrame {
         );
 
         jPanel1.add(Izquierda);
-        Izquierda.setBounds(0, 0, 160, 500);
+        Izquierda.setBounds(0, 0, 160, 0);
 
         Derecha.setBackground(new java.awt.Color(255, 255, 255));
         Derecha.setMaximumSize(null);
@@ -197,7 +197,7 @@ public class VentanaMisCompras extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        VentanaMisCompras ventana = new VentanaMisCompras(controlador);
+        VentanaMisPedidos ventana = new VentanaMisPedidos(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();

@@ -175,7 +175,7 @@ public class VentanaAdminUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_botonProductosActionPerformed
 
     private void botonFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturasActionPerformed
-        VentanaAdminFacturas ventana = new VentanaAdminFacturas(controlador);
+        VentanaAdminPedidos ventana = new VentanaAdminPedidos(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();

@@ -5,9 +5,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import negocio.Carrito;
-import negocio.Item;
-import negocio.Producto;
-import negocio.Usuario;
+import negocio.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -185,6 +183,20 @@ public class MongoService {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+
+    public void crearPedido(Pedido pedido){
+        try{
+            Document documentoPedido = pedido.PedidoToDocument();
+            coleccion.insertOne(documentoPedido);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+
+
 
     }
 

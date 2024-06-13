@@ -210,7 +210,7 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        VentanaMisCompras ventana = new VentanaMisCompras(controlador);
+        VentanaMisPedidos ventana = new VentanaMisPedidos(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();  
