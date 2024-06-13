@@ -397,7 +397,7 @@ public class Controlador {
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
                 System.out.println(this.carrito);
-                
+
                 this.estadosCarrito.add(carrito);
                 logger.info("Sesion cargada con exito.\n");
                 return true;
@@ -440,5 +440,22 @@ public class Controlador {
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
     }
+
+    public boolean confirmarCarrito(){
+        try {
+            // falta guarda pedido
+            Pedido pedido = new Pedido();
+            pedido.setReferenciaMongo(this.referenciaMongo);
+            pedido.setCodigo(1);
+            pedido.setItems(this.carrito.getItems());
+            pedido.calcularTotal();
+            return true;
+        }
+        catch (Exception e) {
+            logger.info("Error: " + e.getMessage()+ "\n");
+            return false;
+        }
+    }
+
 
 }
