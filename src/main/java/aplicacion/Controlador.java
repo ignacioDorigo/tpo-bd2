@@ -24,10 +24,12 @@ public class Controlador {
 
     public Controlador() {
         try {
+            this.estadosCarrito = new ArrayList<>();
+
             // conexion a base de datos redis
             this.jedisPool = new JedisPooled("localhost", 6379);
 
-            logger.info("Carga exitosa de las base de datos");
+            logger.info("Carga exitosa del controlador\n");
         }
         catch (Exception e) {
             logger.info("Error: " + e.getMessage());
@@ -72,7 +74,7 @@ public class Controlador {
         // crea el usuario en las distintas bases de datos.
         try{
             if(cuentaExiste(info.correo)){
-                logger.info("Registro fallido. Ya existe un usuario con el correo ingresado.");
+                logger.info("Registro fallido. Ya existe un usuario con el correo ingresado.\n");
                 return ResultadoRegistroUsuario.USUARIO_EXISTENTE;
             }
             if (crearUsuario(info)){
@@ -116,10 +118,10 @@ public class Controlador {
             mongoService.guardarUsuario(usuario);
             mongoService.close();
 
-            logger.info("Mongo-->Usuario registrado con exito.");
+            logger.info("Mongo-->Usuario registrado con exito.\n");
         }
         catch (Exception e) {
-            logger.info("Mongo-->Error al crear usuario: " + e.getMessage());
+            logger.info("Mongo-->Error al crear usuario: " + e.getMessage() + "\n");
             throw new RuntimeException(e);
         }
     }
@@ -131,10 +133,10 @@ public class Controlador {
             hash.put("contrasena", info.contrasena);
             hash.put("mongoRef", usuarioMongoID);
             jedisPool.hset("correo:" + info.correo, hash);
-            logger.info("Usuario creado en redis con exito.");
+            logger.info("Usuario creado en redis con exito." + "\n");
         }
         catch(Exception e){
-            logger.info("Error en la creacion del usuario en redis: " + e.getMessage());
+            logger.info("Error en la creacion del usuario en redis: " + e.getMessage() + "\n");
         }
     }
 
@@ -153,7 +155,7 @@ public class Controlador {
             InternetAddress direccionCorreo = new InternetAddress(correo);
             direccionCorreo.validate();
         } catch (Exception e) {
-            logger.info("Correo electrónico inválido.");
+            logger.info("Correo electrónico inválido.\n");
             return false;
         }
         return true;
@@ -170,20 +172,20 @@ public class Controlador {
             // si existe una cuenta con el correo ingresado, compara las contrasenas
             if (!valores_campo.isEmpty()){
                 if (contrasena.equals(valores_campo.get("contrasena"))){
-                    logger.info("La contraseña ingresada es la correcta.");
+                    logger.info("La contraseña ingresada es la correcta.\n");
                     // GUARDA REFERENCIA AL USUARIO EN MONGODB
                     this.referenciaMongo = valores_campo.get("mongoRef");
                     return true;
                 }
                 else {
-                    logger.info("CONTRASENA INCORRECTA.");
+                    logger.info("CONTRASENA INCORRECTA.\n");
                     return false;
                 }
             }
-            logger.info("No existe una cuenta con esta dirección de correo.");
+            logger.info("No existe una cuenta con esta dirección de correo.\n");
         }
         catch (Exception e){
-            logger.info("Error al conectar con redis: " + e.getMessage());
+            logger.info("Error al conectar con redis: " + e.getMessage() + "\n");
         }
         return false;
     }
@@ -200,12 +202,11 @@ public class Controlador {
         try{
             MongoService mongoService = new MongoService("usuarios");
             Usuario usuario = mongoService.buscarUsuario(refMongo);
-            System.out.println(refMongo);
             mongoService.close();
             return usuario;
         }
         catch (Exception e){
-            logger.info("Error: " + e.getMessage());
+            logger.info("Error: " + e.getMessage() + "\n");
             return null;
         }
     }
@@ -214,20 +215,20 @@ public class Controlador {
     private void crearCarrito(String id){
         // el carrito tiene una referencia al usuario
         this.carrito = new Carrito(id);
-        guardarCarritoMongo(this.carrito);
+        crearCarritoMongo(this.carrito);
     }
 
 
-    public void guardarCarritoMongo(Carrito carrito){
+    public void crearCarritoMongo(Carrito carrito){
         // guarda el carrito en la coleccion carritos de la base de datos de mongo
         try{
             MongoService mongoService = new MongoService("carritos");
-            mongoService.guardarCarrito(carrito);
+            mongoService.crearCarrito(carrito);
             mongoService.close();
-            logger.info("Carrito guardado.");
+            logger.info("Carrito guardado.\n");
         }
         catch(Exception e){
-            logger.info("Error: " + e.getMessage());
+            logger.info("Error: " + e.getMessage() + "\n");
             throw new RuntimeException();
         }
     }
@@ -261,19 +262,30 @@ public class Controlador {
     public void agregarProductoCarrito(String idProducto, int cantidad){
         // verifica que no este el producto en el carrito.
         // si esta le suma la cantidad pasada. si no lo esta lo crea y agrega al carrito
+        Item item = this.carrito.productoEnCarrito(idProducto);
+        // si esta en el carrito le sumo la cantidad ingresada
+        if(item != null){
+            item.setCantidad(item.getCantidad() + cantidad);
+            item.setCantidad(item.getCantidad() + cantidad);
+        }
+        // si no esta en el carrito, creo el nuevo item
 
-        if(productoEnCarrito(idProducto)){
+        else{
+            MongoService mongoService = new MongoService("productos");
+            Producto producto = mongoService.buscarProducto(idProducto);
+            mongoService.close();
 
+            Item nuevoItem = new Item();
+            nuevoItem.setCantidad(cantidad);
+            nuevoItem.setProducto(producto);
+            this.carrito.agregarItem(nuevoItem);
         }
 
-
-
-        Item item  = new Item();
-//        item.setProducto(producto);
-        item.setCantidad(cantidad);
-        this.carrito.agregarItem(item);
+        MongoService mongoServ = new MongoService("carritos");
+        mongoServ.reemplazarCarrito(this.carrito);
+        mongoServ.close();
         guardarEstadoCarrito(this.carrito);
-        guardarCarritoMongo(this.carrito);
+
     }
 
     public boolean productoEnCarrito(String idProducto){
@@ -302,12 +314,12 @@ public class Controlador {
 
             for (int i = 0; i < items.size(); i++) {
                 Item item = items.get(i);
-                data[i][0] = i; // numero de fila
+                data[i][0] = item.getProducto().getId(); // id PRODUCTO
                 data[i][1] = item.getProducto().getNombre(); // nombre producto
                 data[i][2] = item.getCantidad(); // cantidad
                 data[i][3] = item.getProducto().getPrecio() * item.getCantidad(); // precio total
             }
-            logger.info("Productos cargados con exito.");
+            logger.info("Productos del carrito local cargados con exito." + "\n");
             return data;
         }
         catch(Exception e){
@@ -327,7 +339,7 @@ public class Controlador {
             MongoService mongoService = new MongoService("productos");
             mongoService.guardarProducto(producto);
             mongoService.close();
-            logger.info("Producto creado con exito.");
+            logger.info("Producto creado con exito.\n");
             return true;
         }
         catch(Exception e){
@@ -352,11 +364,11 @@ public class Controlador {
                 data[i][2] = producto.getPrecio();
                 data[i][3] = producto.getStock();
             }
-            logger.info("Productos cargados con exito.");
+            logger.info("Productos cargados con exito.\n");
             return data;
         }
         catch(Exception e){
-            logger.info("Error: " + e.getMessage());
+            logger.info("Error: " + e.getMessage() + "\n");
             return null;
         }
     }
@@ -376,7 +388,7 @@ public class Controlador {
     }
 
 
-    public void cargarSesion() {
+    public boolean cargarSesion() {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
             this.usuario = buscarUsuarioMongo(this.referenciaMongo);
@@ -384,36 +396,38 @@ public class Controlador {
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
                 this.estadosCarrito.add(carrito);
-                logger.info("Sesion cargada con exito.");
+                logger.info("Sesion cargada con exito.\n");
+                return true;
             }
             else {
-                logger.info("Usuario no encontrado.");
+                logger.info("Usuario no encontrado. \n");
+                return false;
             }
         }
         catch(Exception e){
-            logger.info("Error al cargar la sesion: " + e.getMessage());
+            logger.info("Error al cargar la sesion: " + e.getMessage() + "\n");
+            return false;
         }
     }
 
     public void cerrarSesion(){
         // guarda los estados que deben persistir en sus bases de datos correspondientes y borra todas las variables locales
-        guardarCarritoMongo(this.carrito);
         this.usuario = null;
         this.referenciaMongo = null;
         this.carrito = null;
         this.estadosCarrito = null;
-        logger.info("Sesion cerrada");
+        logger.info("Sesion cerrada \n");
     }
 
 
     public boolean existeProductoEnMatriz(Object[][]data, String idProducto){
         for (int i = 0; i < data.length; i++) {
             if (data[i][0].equals(idProducto)) {
-                logger.info("Producto encontrado en data: " + idProducto);
+                logger.info("Producto encontrado en data: " + idProducto + "\n");
                 return true;
             }
         }
-        logger.info("Producto no encontrado en data: " + idProducto);
+        logger.info("Producto no encontrado en data: " + idProducto + "\n");
         return false;
     }
 

@@ -4,8 +4,6 @@ import aplicacion.Controlador;
 import aplicacion.InfoRegistroDTO;
 import aplicacion.ResultadoRegistroUsuario;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class VentanaRegistro extends javax.swing.JFrame {
     private final Controlador controlador;
@@ -309,11 +307,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
                 case USUARIO_CREADO:
                     controlador.cargarSesion();
                     VentanaInicio vd = new VentanaInicio(controlador);
-                    vd.addWindowListener(new WindowAdapter() {
-                        public void windowClosed(WindowEvent e) {
-                            controlador.cerrarSesion();
-                        }
-                    });
                     vd.setLocationRelativeTo(null);
                     vd.setVisible(true);
                     this.dispose();

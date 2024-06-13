@@ -1,11 +1,14 @@
 package aplicacion;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import negocio.Carrito;
+import negocio.Item;
 import negocio.Producto;
 import negocio.Usuario;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,15 +78,19 @@ public class MongoService {
 
     public Carrito buscarCarrito(String referenciaMongo){
         // Busca y devuelve el carrito de la base de datos. Devuelve null si no lo encuentra
-        Document consulta = new Document("_id", referenciaMongo);
+        Document consulta = new Document("referenciaUsuario", referenciaMongo);
         Document documentoCarrito = this.coleccion.find(consulta).first();
         if (documentoCarrito != null){
+            System.out.println("Carrito encontrado");
+            System.out.println(documentoCarrito.toJson());
             return new Carrito(documentoCarrito); // convierte el bson carrito al tipo de dato Carrito
         }
+        System.out.println("Carrito no encontrado");
         return null;
     }
 
-    public void guardarCarrito(Carrito carrito){
+    public void crearCarrito(Carrito carrito){
+
         try{
             Document documentoCarrito = carrito.CarritoToDocument();
             coleccion.insertOne(documentoCarrito);
@@ -92,6 +99,19 @@ public class MongoService {
             System.out.println("Error al guardar carrito: " + e.getMessage());
         }
     }
+
+    public void reemplazarCarrito(Carrito carrito){
+        // reemplaza carrito existente por carrito nuevo
+        try{
+            Document documentoCarrito = carrito.CarritoToDocument();
+            Bson filtro = Filters.eq("_id", documentoCarrito.getObjectId("_id"));
+            coleccion.replaceOne(filtro, documentoCarrito);
+        }
+        catch (Exception e){
+            System.out.println("Error al reemplazar carrito: " + e.getMessage());
+        }
+    }
+
 
     public Producto buscarProducto(String idProducto){
         // busca y devuelve el producto. null si no lo encuentra o si ocurre un error inesperado.

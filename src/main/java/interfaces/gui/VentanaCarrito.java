@@ -158,7 +158,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
         DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
             new String [] {
-                "FILA","Nombre", "Cantidad", "Precio Total"
+                "ID","Nombre", "Cantidad", "SubTotal"
             }
         );
 

@@ -196,11 +196,15 @@ public class VentanaAcceso extends javax.swing.JFrame {
         char[] aux = cajaContrasena.getPassword();
         String contrasena = new String(aux);
         if (controlador.validarDatosSesion(correo, contrasena)) {
-            controlador.cargarSesion();
-            VentanaInicio vd = new VentanaInicio(controlador);
-            vd.setLocationRelativeTo(null);
-            vd.setVisible(true);
-            this.dispose();
+            if (controlador.cargarSesion()){
+                VentanaInicio vd = new VentanaInicio(controlador);
+                vd.setLocationRelativeTo(null);
+                vd.setVisible(true);
+                this.dispose();
+            }
+            else {
+                controlador.ventanaError();
+            }
         }
         else {
             mensajeError.setVisible(true);
