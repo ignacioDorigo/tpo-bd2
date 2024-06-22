@@ -8,7 +8,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private Object[][] datos;
     public VentanaCarrito(Controlador controlador) {
         this.controlador = controlador;
-        this.datos = controlador.datosTablaCarrito();
+        //this.datos = controlador.datosTablaCarrito();
         initComponents();
     }
 
@@ -293,10 +293,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
     private void botonConfirmarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarCarritoActionPerformed
-        if(controlador.confirmarCarrito()){
-            
-            
-        }
+
     }//GEN-LAST:event_botonConfirmarCarritoActionPerformed
 
     private void botonCarritoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoAnteriorActionPerformed

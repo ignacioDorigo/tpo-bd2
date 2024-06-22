@@ -1,8 +1,9 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
-import aplicacion.InfoRegistroDTO;
 import aplicacion.ResultadoRegistroUsuario;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 
 public class VentanaRegistro extends javax.swing.JFrame {
@@ -279,8 +280,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
-    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        InfoRegistroDTO reg = new InfoRegistroDTO();
+    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {
         // Carga los datos de las cajas
         String nombre = cajaNombre.getText();
         String correo = cajaCorreo.getText();
@@ -288,13 +288,22 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
         // Valida que se ingrese nombre, un correo con formato valido y contrasena para registrar usuario
         if (camposObligatorios(nombre, correo, contrasena)){
-            reg.nombre = nombre;
-            reg.correo = correo;
-            reg.contrasena = contrasena;
-            reg.documento = cajaDocumento.getText();
-            reg.direccion = cajaDireccion.getText();
 
-            ResultadoRegistroUsuario resultado = controlador.registrarUsuario(reg);
+            Document infoUsuario = new Document("_id", new ObjectId().toHexString())
+                    .append("nombre", nombre)
+                    .append("correo", correo)
+                    .append("contraseña", contrasena);
+
+            String documento = cajaDocumento.getText();
+            if (!documento.isEmpty()){
+                infoUsuario.append("documento", documento);
+            }
+            String direccion = cajaDireccion.getText();
+            if (!direccion.isEmpty()){
+                infoUsuario.append("direccion", direccion);
+            }
+
+            ResultadoRegistroUsuario resultado = controlador.registrarUsuario(infoUsuario);
 
             switch (resultado) {
                 case USUARIO_EXISTENTE:
