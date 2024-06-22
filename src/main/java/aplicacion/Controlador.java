@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
+
+
 import interfaces.gui.VentanaError;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -62,8 +64,7 @@ public class Controlador {
         // Recibe un contenedor con datos del usuario. Crea el usuario en la base de datos de redis, mongo y su carrito.
         // Devuelve si la operacion fue exitosa o no.
         try{
-
-
+            this.referenciaMongo = infoUsuario.getObjectId("_id");
             // Redis --> Creacion de los datos de acceso
             guardarUsuarioRedis(infoUsuario);
 
@@ -230,11 +231,12 @@ public class Controlador {
         Document producto = buscarProductoMongo(idProducto);
         // si el producto no existe no se hace nada
         if (producto == null){
+            logger.info("Error al agregar el producto.\n");
             return;
         }
         // agrego el producto al carrito
         MongoService mongoService = new MongoService("carritos");
-        mongoService.agregarItemCarrito(referenciaMongo, producto, cantidad);
+        mongoService.agregarItemCarrito(this.referenciaMongo, producto, cantidad);
         mongoService.close();
     }
 
@@ -433,7 +435,25 @@ public class Controlador {
         }
     }
 
+    public Object[][] datosTablaCarrito(){
+        try{
+            ArrayList<Object> items = (ArrayList<Object>) this.carrito.get("items");
+            Object[][] data = new Object[items.size()][5];
 
-
+            for (int i = 0; i < items.size(); i++) {
+                Object item = items.get(i);
+                data[i][0] = null;// id PRODUCTO
+                data[i][1] = null;
+                data[i][2] = null;
+                data[i][3] = null;
+            }
+            logger.info("Productos del carrito local cargados con exito." + "\n");
+            return data;
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage());
+            return null;
+        }
+    }
 
 }

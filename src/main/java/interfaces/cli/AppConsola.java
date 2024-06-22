@@ -18,13 +18,15 @@ public class AppConsola {
 
         Document usuario = new Document("_id", new ObjectId())
                 .append("nombre", "Federico")
-                .append("correo", "fedeabcastillo@gmail.com")
+                .append("correo", "fede@gmail.com")
                 .append("contrasena", "fede")
-                .append("documento", "43661425")
+                .append("documento", "11111111")
                 .append("direccion", "calle 13");
 
         controlador.crearUsuario(usuario);
-        controlador.agregarProductoCarrito(new ObjectId("6669f431a820146485af2253"), 2);
+        controlador.agregarProductoCarrito(new ObjectId("667740a6e9e6dc0e5567e4db"), 2);
+        controlador.agregarProductoCarrito(new ObjectId("667740a6e9e6dc0e5567e4db"), 2);
+        controlador.agregarProductoCarrito(new ObjectId("667740a6e9e6dc0e5567e4dd"), 90);
 
     }
 

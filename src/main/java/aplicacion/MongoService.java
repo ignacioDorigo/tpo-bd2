@@ -137,7 +137,7 @@ public class MongoService {
         // busca el producto en el carrito, si esta en el carrito le suma la cantidad. si no esta lo crea.
         // el item es el producto y su cantidad.
         try{
-            String productoId = producto.getString("_id");
+            ObjectId productoId = producto.getObjectId("_id");
             // Intenta incrementar la cantidad del item si ya existe
             UpdateResult updateResult = coleccion.updateOne(
                     Filters.and(
@@ -155,6 +155,10 @@ public class MongoService {
                         Filters.eq("referenciaUsuario", referenciaMongo),
                         Updates.push("items", producto)
                 );
+                System.out.println("El producto se ha agregado correctamente.");
+            }
+            else{
+                System.out.println("Se ha modificado la cantidad del producto.");
             }
         }
         catch (Exception e){
