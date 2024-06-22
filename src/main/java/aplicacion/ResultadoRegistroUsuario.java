@@ -5,3 +5,4 @@ public enum ResultadoRegistroUsuario {
     USUARIO_CREADO,
     ERROR_INESPERADO
 }
+

@@ -8,7 +8,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private Object[][] datos;
     public VentanaCarrito(Controlador controlador) {
         this.controlador = controlador;
-        //this.datos = controlador.datosTablaCarrito();
+        this.datos = controlador.datosTablaCarrito();
         initComponents();
     }
 

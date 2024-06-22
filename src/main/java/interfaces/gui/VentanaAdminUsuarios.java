@@ -5,9 +5,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentanaAdminUsuarios extends javax.swing.JFrame {
     private Controlador controlador;
-  
+    private Object[][] datos;
     public VentanaAdminUsuarios(Controlador controlador) {
         this.controlador = controlador;
+        this.datos = controlador.datosTablaUsuarios();
         initComponents();
     }
  

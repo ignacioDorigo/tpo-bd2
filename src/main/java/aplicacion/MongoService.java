@@ -39,7 +39,7 @@ public class MongoService {
         }
     }
 
-    public Document buscarUsuario(String refMongo){
+    public Document buscarUsuario(ObjectId refMongo){
         // Busca el usuario en MongoDB. Si lo encuentra devuelve un Usuario con sus datos, si no lo encuentra devuelve null.
         try{
             Document consulta = new Document("_id", refMongo);
@@ -55,9 +55,7 @@ public class MongoService {
     public List<Document> todosLosUsuarios(){
         List<Document> usuarios = new ArrayList<>();
         try{
-
             FindIterable<Document> usuariosDocumentos = coleccion.find();
-
             for (Document doc : usuariosDocumentos) {
                 usuarios.add(doc);
             }
@@ -69,7 +67,7 @@ public class MongoService {
     }
 
 
-    public Document buscarCarrito(String referenciaMongo){
+    public Document buscarCarrito(ObjectId referenciaMongo){
         // Busca y devuelve el carrito de la base de datos. Devuelve null si no lo encuentra
         Document consulta = new Document("referenciaUsuario", referenciaMongo);
         Document documentoCarrito = this.coleccion.find(consulta).first();
@@ -112,7 +110,8 @@ public class MongoService {
         }
     }
 
-    public Document buscarProducto(String idProducto){
+
+    public Document buscarProducto(ObjectId idProducto){
         // busca y devuelve el producto. null si no lo encuentra o si ocurre un error inesperado.
         try{
             Document consulta = new Document("_id", idProducto);
@@ -133,6 +132,36 @@ public class MongoService {
             System.out.println("Error al guardar el producto: " + e.getMessage());
         }
     }
+
+    public void agregarItemCarrito(ObjectId referenciaMongo, Document producto, int cantidad){
+        // busca el producto en el carrito, si esta en el carrito le suma la cantidad. si no esta lo crea.
+        // el item es el producto y su cantidad.
+        try{
+            String productoId = producto.getString("_id");
+            // Intenta incrementar la cantidad del item si ya existe
+            UpdateResult updateResult = coleccion.updateOne(
+                    Filters.and(
+                            Filters.eq("referenciaUsuario", referenciaMongo),
+                            Filters.eq("items._id", productoId)
+                    ),
+                    Updates.inc("items.$.cantidad", cantidad)
+            );
+            // Si no se encontro ni actualizo ningun documento, el producto no esta en el carrito
+            if (updateResult.getMatchedCount() == 0) {
+                // Agrega el campo cantidad al producto
+                producto.append("cantidad", cantidad);
+                // Agrega el nuevo item al carrito
+                coleccion.updateOne(
+                        Filters.eq("referenciaUsuario", referenciaMongo),
+                        Updates.push("items", producto)
+                );
+            }
+        }
+        catch (Exception e){
+            System.out.println("Error al agregar item carrito: " + e.getMessage());
+        }
+    }
+
 
     public boolean modificarPrecioProducto(String idProducto, double precio){
         try {

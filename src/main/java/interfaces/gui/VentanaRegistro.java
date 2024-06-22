@@ -289,10 +289,10 @@ public class VentanaRegistro extends javax.swing.JFrame {
         // Valida que se ingrese nombre, un correo con formato valido y contrasena para registrar usuario
         if (camposObligatorios(nombre, correo, contrasena)){
 
-            Document infoUsuario = new Document("_id", new ObjectId().toHexString())
+            Document infoUsuario = new Document("_id", new ObjectId())
                     .append("nombre", nombre)
                     .append("correo", correo)
-                    .append("contraseña", contrasena);
+                    .append("contrasena", contrasena);
 
             String documento = cajaDocumento.getText();
             if (!documento.isEmpty()){

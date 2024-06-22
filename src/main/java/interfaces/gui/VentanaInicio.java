@@ -1,11 +1,14 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
+import org.bson.types.ObjectId;
+
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaInicio extends javax.swing.JFrame {
     private Controlador controlador;
     private Object[][] datos;
+
     public VentanaInicio(Controlador controlador) {
         this.controlador = controlador;
         this.datos = controlador.datosTablaProductos();
@@ -282,16 +285,17 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
     private void botonAgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarAlCarritoActionPerformed
-        String identificador = cajaID.getText();
+        String textoIdentificador = cajaID.getText();
         String textoCantidad = cajaCantidad.getText();
 
-        if (identificador.isEmpty() || textoCantidad.isEmpty() || !textoCantidad.matches("\\d+")) {
+        if (textoIdentificador.isEmpty() || textoCantidad.isEmpty() || !textoCantidad.matches("\\d+")) {
             // si cualquiera de las cajas de texto estan vacias o el texto cantidad no es un numero termina el metodo
             return;
         }
         int cantidad = Integer.parseInt(textoCantidad);
+        ObjectId identificador = new ObjectId(textoIdentificador);
         // valida que el id ingresado este en la tabla productos.
-        if (controlador.existeProductoEnMatriz(this.datos, identificador)){
+        if (controlador.existeProductoEnMatriz(this.datos, textoIdentificador)){
             controlador.agregarProductoCarrito(identificador, cantidad);
         }
         else {
