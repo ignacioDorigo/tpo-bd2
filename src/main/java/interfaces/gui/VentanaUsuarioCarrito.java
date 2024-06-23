@@ -1,14 +1,24 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
-import javax.swing.table.DefaultTableModel;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import org.bson.Document;
+
+import java.util.ArrayList;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 
 public class VentanaUsuarioCarrito extends javax.swing.JFrame {
     private Controlador controlador;
-    private Object[][] datos;
+    private ArrayList<Document> itemsCarrito;
+    
+    private javax.swing.JPanel itemsPanel;
+    
     public VentanaUsuarioCarrito(Controlador controlador) {
         this.controlador = controlador;
-        this.datos = controlador.datosTablaCarrito();
+        this.itemsCarrito = (ArrayList<Document>) controlador.getCarrito().get("items");
         initComponents();
     }
 
@@ -26,8 +36,16 @@ public class VentanaUsuarioCarrito extends javax.swing.JFrame {
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
         botonConfirmarCarrito = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaCarrito = new javax.swing.JTable();
+        this.itemsPanel = new javax.swing.JPanel();
+        this.itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
+
+        for (Document item : itemsCarrito){
+            CarritoItemPanel itemPanel = new CarritoItemPanel(item, controlador);
+            itemPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            itemsPanel.add(itemPanel);
+            itemsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Espacio entre ítems
+        }
+        scrollPanel = new javax.swing.JScrollPane(itemsPanel);
         labelTextoTotal = new javax.swing.JLabel();
         labelTotal = new javax.swing.JLabel();
         botonCarritoAnterior = new javax.swing.JButton();
@@ -162,17 +180,6 @@ public class VentanaUsuarioCarrito extends javax.swing.JFrame {
             }
         });
 
-        DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
-            new String [] {
-                "ID","Nombre", "Precio", "Cantidad", "SubTotal"
-            }
-        );
-        for(Object[] fila : this.datos){
-            tableModel.addRow(fila);
-        }
-        tablaCarrito.setModel(tableModel);
-        jScrollPane1.setViewportView(tablaCarrito);
-
         labelTextoTotal.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         labelTextoTotal.setText("TOTAL");
 
@@ -219,7 +226,7 @@ public class VentanaUsuarioCarrito extends javax.swing.JFrame {
                         .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         DerechaLayout.setVerticalGroup(
@@ -227,9 +234,9 @@ public class VentanaUsuarioCarrito extends javax.swing.JFrame {
             .addGroup(DerechaLayout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(botonCarritoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -311,13 +318,25 @@ public class VentanaUsuarioCarrito extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCarritoAnteriorActionPerformed
 
     private void botonVaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarCarritoActionPerformed
-        
-        controlador.vaciarCarrito();
-        VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
-        ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
-        this.dispose();
+        if (!controlador.carritoEstaVacio()){
+            controlador.vaciarCarrito();
+            VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
+            ventana.setLocationRelativeTo(null);
+            ventana.setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_botonVaciarCarritoActionPerformed
+
+//    public void actualizarCarrito(List<CarritoItem> items) {
+//        itemsPanel.removeAll();
+//        for (CarritoItem item : items) {
+//            itemsPanel.add(new CarritoItemPanel(item.getNombre(), item.getCantidad()));
+//        }
+//        itemsPanel.revalidate();
+//        itemsPanel.repaint();
+//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCerrarSesion;
@@ -331,9 +350,8 @@ public class VentanaUsuarioCarrito extends javax.swing.JFrame {
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JButton botonVaciarCarrito;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTextoTotal;
     private javax.swing.JLabel labelTotal;
-    private javax.swing.JTable tablaCarrito;
+    private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables
 }

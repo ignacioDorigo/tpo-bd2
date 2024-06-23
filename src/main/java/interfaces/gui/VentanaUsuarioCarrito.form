@@ -277,7 +277,7 @@
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jScrollPane1" min="-2" pref="824" max="-2" attributes="0"/>
+                              <Component id="scrollPanel" min="-2" pref="824" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -289,9 +289,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="15" max="32767" attributes="0"/>
                       <Component id="botonCarritoAnterior" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="251" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="scrollPanel" min="-2" pref="251" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelTotal" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="labelTextoTotal" min="-2" pref="28" max="-2" attributes="0"/>
@@ -327,24 +327,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonConfirmarCarritoActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="scrollPanel">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JScrollPane(itemsPanel)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="this.itemsPanel = new javax.swing.JPanel();&#xa;this.itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));&#xa;&#xa;for (Document item : itemsCarrito){&#xa;    CarritoItemPanel itemPanel = new CarritoItemPanel(item, controlador);&#xa;    itemPanel.setAlignmentX(Component.LEFT_ALIGNMENT);&#xa;    itemsPanel.add(itemPanel);&#xa;    itemsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Espacio entre &#xed;tems&#xa;}"/>
+              </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="tablaCarrito">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="tableModel" type="code"/>
-                    </Property>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},&#xa;    new String [] {&#xa;        &quot;ID&quot;,&quot;Nombre&quot;, &quot;Precio&quot;, &quot;Cantidad&quot;, &quot;SubTotal&quot;&#xa;    }&#xa;);&#xa;for(Object[] fila : this.datos){&#xa;    tableModel.addRow(fila);&#xa;}"/>
-                  </AuxValues>
-                </Component>
-              </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="labelTextoTotal">
               <Properties>

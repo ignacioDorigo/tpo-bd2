@@ -271,7 +271,7 @@ public class VentanaUsuarioInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        VentanaUsuarioCarrito2 ventana = new VentanaUsuarioCarrito2(controlador);
+        VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();
@@ -293,9 +293,10 @@ public class VentanaUsuarioInicio extends javax.swing.JFrame {
             return;
         }
         int cantidad = Integer.parseInt(textoCantidad);
-        ObjectId identificador = new ObjectId(textoIdentificador);
+
         // valida que el id ingresado este en la tabla productos.
         if (controlador.existeProductoEnMatriz(this.datos, textoIdentificador)){
+            ObjectId identificador = new ObjectId(textoIdentificador);
             controlador.agregarProductoCarrito(identificador, cantidad);
         }
         else {

@@ -122,27 +122,36 @@ public class MongoService {
         }
     }
 
+    public void reemplazarCarrito(Document carrito){
+        // busca el carrito y reemplaza solamente la lista de items del mismo
+        try{
+            ObjectId id = carrito.getObjectId("_id");
+            if (id == null){
+                throw new IllegalArgumentException("No se encontro id en el carrito");
+            }
+            coleccion.findOneAndReplace(Filters.eq("_id", id), carrito);
+        }
+        catch (Exception e){
+            System.out.println("Error al reemplazar carrito: " + e.getMessage());
+        }
+    }
 
-    public void vaciarCarrito(Document carrito) {
 
+    public boolean vaciarCarrito(Document carrito) {
         // Obtener el _id del carrito
         ObjectId id = carrito.getObjectId("_id");
 
-        // Crear el filtro para encontrar el carrito en la colección
+        // Crea el filtro para encontrar el carrito en la colección
         Bson filtro = Filters.eq("_id", id);
 
-        // Crear el documento de actualización para vaciar la lista de items
+        // Crea el documento de actualización para vaciar la lista de items
         Bson update = Updates.set("items", new ArrayList<Document>());
-
-        // Actualizar el carrito en la colección para vaciar la lista de items
+        // Actualiza el carrito en la colección para vaciar la lista de items
         UpdateResult result = coleccion.updateOne(filtro, update);
 
-        // Verificar si la actualización fue exitosa
-        if (result.getModifiedCount() > 0) {
-            System.out.println("Carrito vaciado con éxito.");
-        } else {
-            System.out.println("No se pudo vaciar el carrito.");
-        }
+        // Devuelve se vacio el carrito con exito
+
+        return result.getMatchedCount() > 0;
     }
 
     public void crearProducto(Document producto){

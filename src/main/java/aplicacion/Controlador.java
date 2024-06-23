@@ -244,7 +244,7 @@ public class Controlador {
         // actualizo carrito local
         this.carrito = buscarCarritoMongo(this.referenciaMongo);
         // guardo el estado del carrito
-        guardarEstadoCarrito(this.carrito);
+        this.estadosCarrito.add(this.carrito);
     }
 
     public void modificarCantidadProducto(String idProducto, int cantidad){
@@ -256,28 +256,56 @@ public class Controlador {
         // A un producto existente en el carrito,
     }
 
-    public void guardarEstadoCarrito(Document estadoActualCarrito){
-        this.estadosCarrito.add(estadoActualCarrito);
-    }
-
     public boolean estadoAnteriorCarrito(){
         //establece el carrito actual con el valor del carrito anterior guardado en estadosCarrito.
-        //elimina el ultimo estado carrito que quedo obsoleto.
+        //elimina el ultimo estado carrito que quedo obsoleto. actualiza la base de datos
         if (estadosCarrito.size() > 1){
             this.carrito = estadosCarrito.get(estadosCarrito.size()-2);
+            reemplazarCarritoMongo(this.carrito);
             this.estadosCarrito.remove(estadosCarrito.size()-1);
             return true;
         }
         return false;
     }
 
+    public void reemplazarCarritoMongo(Document carrito){
+        try{
+            MongoService mongoService = new MongoService("carritos");
+            mongoService.reemplazarCarrito(carrito);
+            logger.info("Carrito reemplazado.\n");
+            mongoService.close();
+        }
+        catch(Exception e){
+            logger.info("Error: " + e.getMessage() + "\n");
+        }
+    }
 
     public void vaciarCarrito(){
+        // intenta vaciar el carrito en la base de datos. si se vacia con exito, actualiza el carrito local y agrega el nuevo estado
+
+        // si el carrito ya esta vacio no hago nada
+        if (carritoEstaVacio()){
+            logger.info("Carrito ya esta vacio.\n");
+            return;
+        }
         MongoService mongoService = new MongoService("carritos");
-        mongoService.vaciarCarrito(this.carrito);
-        this.carrito = mongoService.buscarCarrito(this.referenciaMongo);
+        // si el carrito fue vaciado en la base de datos se actualiza el carrito local y se guarda el nuevo estado del carrito
+        if(mongoService.vaciarCarrito(this.carrito)){
+            this.carrito = mongoService.buscarCarrito(this.referenciaMongo);
+            this.estadosCarrito.add(this.carrito);
+            logger.info("Carrito vaciado con exito.\n");
+        }
+        else{
+            logger.info("No se pudo vaciar el carrito.\n");
+        }
         mongoService.close();
     }
+
+    public boolean carritoEstaVacio(){
+        ArrayList<Document> itemsCarrito = (ArrayList<Document>) this.carrito.get("items");
+        return itemsCarrito.isEmpty();
+    }
+
 
     public boolean confirmarCarrito(){
         try {
