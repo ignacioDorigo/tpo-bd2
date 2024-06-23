@@ -424,7 +424,7 @@ public class Controlador {
                 data[i][0] = (producto.getObjectId("_id")).toHexString();
                 data[i][1] = producto.getString("nombre");
                 data[i][2] = String.valueOf(producto.getDouble("precio"));
-                data[i][3] = String.valueOf(producto.getInteger("cantidad"));
+                data[i][3] = String.valueOf(producto.getInteger("cantid ad"));
             }
             logger.info("Productos cargados con exito.\n");
             return data;
