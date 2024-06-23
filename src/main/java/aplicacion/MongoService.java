@@ -122,6 +122,26 @@ public class MongoService {
         }
     }
 
+    public void eliminarProductoCarrito(ObjectId idProducto){
+        // busca y elimina item con el id de producto correspondiente
+        try{
+            // Crear el filtro para encontrar el carrito que contiene el producto
+            Bson filtro = Filters.elemMatch("items", Filters.eq("_id", idProducto));
+
+            // Crear el documento de actualización para eliminar el ítem específico
+            Bson update = Updates.pull("items", new Document("_id", idProducto));
+
+            // Actualizar el carrito en la colección para eliminar el ítem
+            coleccion.updateOne(filtro, update);
+
+            System.out.println("Producto eliminado del carrito.");
+        }
+        catch (Exception e){
+            System.out.println("Error al eliminar producto carrito: " + e.getMessage());
+        }
+    }
+
+
     public void reemplazarCarrito(Document carrito){
         // busca el carrito y reemplaza solamente la lista de items del mismo
         try{

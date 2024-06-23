@@ -4,14 +4,17 @@ import aplicacion.Controlador;
 import org.bson.Document;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CarritoItemPanel extends JPanel {
     private JLabel nombreLabel;
     private JLabel cantidadLabel;
     private JButton eliminarButton;
 
-
     public CarritoItemPanel(Document item, Controlador controlador) {
+
+
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -39,6 +42,24 @@ public class CarritoItemPanel extends JPanel {
 
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, getPreferredSize().height));
+
+        eliminarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Lógica para eliminar el ítem del carrito
+                controlador.eliminarProductoCarritoMongo(item.getObjectId("_id"));
+
+                // Actualizar la interfaz gráfica después de eliminar el ítem
+                Container parent = getParent();
+                if (parent != null) {
+                    parent.remove(CarritoItemPanel.this);
+                    parent.revalidate();
+                    parent.repaint();
+                }
+            }
+        });
+
+
+
     }
 }
 

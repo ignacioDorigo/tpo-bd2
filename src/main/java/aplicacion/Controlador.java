@@ -252,8 +252,11 @@ public class Controlador {
     }
 
 
-    public void eliminarProductoCarrito(String idProducto){
-        // A un producto existente en el carrito,
+    public void eliminarProductoCarritoMongo(ObjectId idProducto){
+        // se elimina un item del carrito
+        MongoService mongoService = new MongoService("carritos");
+        mongoService.eliminarProductoCarrito(idProducto);
+        mongoService.close();
     }
 
     public boolean estadoAnteriorCarrito(){
