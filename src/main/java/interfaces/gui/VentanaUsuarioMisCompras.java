@@ -2,15 +2,15 @@ package interfaces.gui;
 
 import aplicacion.Controlador;
 
-public class VentanaMiPedido extends javax.swing.JFrame {
+public class VentanaUsuarioMisCompras extends javax.swing.JFrame {
     private Controlador controlador;
-  
-    public VentanaMiPedido(Controlador controlador) {
+
+    public VentanaUsuarioMisCompras(Controlador controlador) {
         this.controlador = controlador;
         initComponents();
     }
 
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -23,9 +23,10 @@ public class VentanaMiPedido extends javax.swing.JFrame {
         BotonMisCompras = new javax.swing.JButton();
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Mi Perfil");
+        setTitle("Mis Compras");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -76,9 +77,9 @@ public class VentanaMiPedido extends javax.swing.JFrame {
         });
 
         BotonMisCompras.setBackground(new java.awt.Color(22, 22, 216));
-        BotonMisCompras.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        BotonMisCompras.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         BotonMisCompras.setForeground(new java.awt.Color(255, 255, 255));
-        BotonMisCompras.setText("Mis compras");
+        BotonMisCompras.setText("<HTML><U>Mis Compras</U></HTML>");
         BotonMisCompras.setBorder(null);
         BotonMisCompras.setContentAreaFilled(false);
         BotonMisCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -106,14 +107,18 @@ public class VentanaMiPedido extends javax.swing.JFrame {
         IzquierdaLayout.setHorizontalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonMiPerfil)
-                    .addComponent(botonCarrito)
-                    .addComponent(BotonMisCompras)
-                    .addComponent(BotonCerrarSesion)
-                    .addComponent(BotonInicio))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonMiPerfil)
+                            .addComponent(botonCarrito)
+                            .addComponent(BotonCerrarSesion)
+                            .addComponent(BotonInicio)))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BotonMisCompras)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,11 +147,17 @@ public class VentanaMiPedido extends javax.swing.JFrame {
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(DerechaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addContainerGap())
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel1.add(Derecha);
@@ -167,31 +178,31 @@ public class VentanaMiPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
-        VentanaInicio ventana = new VentanaInicio(controlador);
+        VentanaUsuarioInicio ventana = new VentanaUsuarioInicio(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();      
+        this.dispose();
     }//GEN-LAST:event_BotonInicioActionPerformed
 
     private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
-        VentanaMiPedido ventana = new VentanaMiPedido(controlador);
+        VentanaUsuarioMiPerfil ventana = new VentanaUsuarioMiPerfil(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        VentanaMisPedidos ventana = new VentanaMisPedidos(controlador);
+        VentanaUsuarioMisCompras ventana = new VentanaUsuarioMisCompras(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed
@@ -212,5 +223,6 @@ public class VentanaMiPedido extends javax.swing.JFrame {
     private javax.swing.JButton botonCarrito;
     private javax.swing.JButton botonMiPerfil;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

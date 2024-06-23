@@ -1,6 +1,8 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
+import org.bson.types.ObjectId;
+
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaAdminProductos extends javax.swing.JFrame {
@@ -251,9 +253,8 @@ public class VentanaAdminProductos extends javax.swing.JFrame {
             // si cualquiera de las cajas de texto estan vacias o el texto cantidad no es un numero termina el metodo
             return;
         }
-        double precio = Double.parseDouble(textoPrecio);
 
-        if (controlador.modificarPrecioProductoMongo(identificador, precio)){
+        if (controlador.modificarPrecioProductoMongo(new ObjectId(identificador), Double.parseDouble(textoPrecio))){
             System.out.println("precio modificado con exito");
             VentanaAdminProductos ventana = new VentanaAdminProductos(controlador);
             ventana.setLocationRelativeTo(null);

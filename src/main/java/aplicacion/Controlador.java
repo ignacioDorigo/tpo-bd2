@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.mail.internet.InternetAddress;
 
-
 import interfaces.gui.VentanaError;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -94,7 +93,7 @@ public class Controlador {
 
         try{
             MongoService mongoService = new MongoService("usuarios");
-            mongoService.guardarUsuario(usuario);
+            mongoService.crearUsuario(usuario);
             mongoService.close();
 
             logger.info("Mongo-->Usuario registrado con exito.\n");
@@ -212,6 +211,10 @@ public class Controlador {
         }
     }
 
+    public Document getCarrito(){
+        return this.carrito;
+    }
+
     private Document buscarCarritoMongo(ObjectId referenciaMongo){
         try{
             MongoService mongoService = new MongoService("carritos");
@@ -238,6 +241,10 @@ public class Controlador {
         MongoService mongoService = new MongoService("carritos");
         mongoService.agregarItemCarrito(this.referenciaMongo, producto, cantidad);
         mongoService.close();
+        // actualizo carrito local
+        this.carrito = buscarCarritoMongo(this.referenciaMongo);
+        // guardo el estado del carrito
+        guardarEstadoCarrito(this.carrito);
     }
 
     public void modificarCantidadProducto(String idProducto, int cantidad){
@@ -252,7 +259,6 @@ public class Controlador {
     public void guardarEstadoCarrito(Document estadoActualCarrito){
         this.estadosCarrito.add(estadoActualCarrito);
     }
-
 
     public boolean estadoAnteriorCarrito(){
         //establece el carrito actual con el valor del carrito anterior guardado en estadosCarrito.
@@ -273,11 +279,23 @@ public class Controlador {
         mongoService.close();
     }
 
+    public boolean confirmarCarrito(){
+        try {
+            // falta guarda pedido
+            return true;
+        }
+        catch (Exception e) {
+            logger.info("Error: " + e.getMessage()+ "\n");
+            return false;
+        }
+    }
+
+
     public boolean crearProducto(Document producto){
         // se esperan campos correctos
         try{
             MongoService mongoService = new MongoService("productos");
-            mongoService.guardarProducto(producto);
+            mongoService.crearProducto(producto);
             mongoService.close();
             logger.info("Producto creado con exito.\n");
             return true;
@@ -303,10 +321,7 @@ public class Controlador {
     }
 
 
-
-
-
-    public boolean modificarPrecioProductoMongo(String idProducto, double precio){
+    public boolean modificarPrecioProductoMongo(ObjectId idProducto, double precio){
         try{
             MongoService mongoService = new MongoService("productos");
             boolean resultado = mongoService.modificarPrecioProducto(idProducto, precio);
@@ -323,13 +338,12 @@ public class Controlador {
     public boolean cargarSesion() {
         // Carga los datos de mongodb en su variable usuario, el carrito y sus estados
         try{
+            logger.info("Cargando sesion...\n");
             this.usuario = buscarUsuarioMongo(this.referenciaMongo);
-
             if (this.usuario != null){
+
                 this.estadosCarrito = new ArrayList<>();
                 this.carrito = buscarCarritoMongo(this.referenciaMongo);
-
-
                 this.estadosCarrito.add(carrito);
                 logger.info("Sesion cargada con exito.\n");
                 return true;
@@ -352,35 +366,6 @@ public class Controlador {
         this.carrito = null;
         this.estadosCarrito = null;
         logger.info("Sesion cerrada \n");
-    }
-
-    public boolean existeProductoEnMatriz(Object[][]data, String idProducto){
-        for (Object[] datum : data) {
-            if (datum[0].equals(idProducto)) {
-                logger.info("Producto encontrado en data: " + idProducto + "\n");
-                return true;
-            }
-        }
-        logger.info("Producto no encontrado en data: " + idProducto + "\n");
-        return false;
-    }
-
-    public void ventanaError(){
-        // muestre mensaje de error en la pantalla
-        VentanaError ventana = new VentanaError();
-        ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
-    }
-
-    public boolean confirmarCarrito(){
-        try {
-            // falta guarda pedido
-            return true;
-        }
-        catch (Exception e) {
-            logger.info("Error: " + e.getMessage()+ "\n");
-            return false;
-        }
     }
 
     public Object[][] datosTablaUsuarios(){
@@ -424,7 +409,7 @@ public class Controlador {
                 data[i][0] = (producto.getObjectId("_id")).toHexString();
                 data[i][1] = producto.getString("nombre");
                 data[i][2] = String.valueOf(producto.getDouble("precio"));
-                data[i][3] = String.valueOf(producto.getInteger("cantid ad"));
+                data[i][3] = String.valueOf(producto.getInteger("stock"));
             }
             logger.info("Productos cargados con exito.\n");
             return data;
@@ -435,17 +420,30 @@ public class Controlador {
         }
     }
 
+    public boolean existeProductoEnMatriz(Object[][]data, String idProducto){
+        for (Object[] datum : data) {
+            if (datum[0].equals(idProducto)) {
+                logger.info("Producto encontrado en data: " + idProducto + "\n");
+                return true;
+            }
+        }
+        logger.info("Producto no encontrado en data: " + idProducto + "\n");
+        return false;
+    }
+
+
     public Object[][] datosTablaCarrito(){
         try{
-            ArrayList<Object> items = (ArrayList<Object>) this.carrito.get("items");
+            ArrayList<Document> items = (ArrayList<Document>) this.carrito.get("items");
             Object[][] data = new Object[items.size()][5];
 
             for (int i = 0; i < items.size(); i++) {
-                Object item = items.get(i);
-                data[i][0] = null;// id PRODUCTO
-                data[i][1] = null;
-                data[i][2] = null;
-                data[i][3] = null;
+                Document item = items.get(i);
+                data[i][0] = (item.getObjectId("_id")).toHexString();// id PRODUCTO
+                data[i][1] = item.getString("nombre");
+                data[i][2] = String.valueOf(item.getDouble("precio"));
+                data[i][3] = String.valueOf(item.getInteger("cantidad"));
+                data[i][4] = String.valueOf(item.getDouble("precio") * item.getInteger("cantidad"));
             }
             logger.info("Productos del carrito local cargados con exito." + "\n");
             return data;
@@ -454,6 +452,13 @@ public class Controlador {
             logger.info("Error: " + e.getMessage());
             return null;
         }
+    }
+
+    public void ventanaError(){
+        // muestre mensaje de error en la pantalla
+        VentanaError ventana = new VentanaError();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }
 
 }

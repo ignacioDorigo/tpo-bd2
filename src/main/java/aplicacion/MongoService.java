@@ -30,7 +30,7 @@ public class MongoService {
         }
     }
 
-    public void guardarUsuario(Document usuario) {
+    public void crearUsuario(Document usuario) {
         try{
             coleccion.insertOne(usuario);
         }
@@ -66,6 +66,15 @@ public class MongoService {
         return usuarios;
     }
 
+    public void crearCarrito(Document carrito){
+        try{
+            coleccion.insertOne(carrito);
+        }
+        catch (Exception e){
+            System.out.println("Error al guardar carrito: " + e.getMessage());
+        }
+    }
+
 
     public Document buscarCarrito(ObjectId referenciaMongo){
         // Busca y devuelve el carrito de la base de datos. Devuelve null si no lo encuentra
@@ -78,60 +87,6 @@ public class MongoService {
         return null;
     }
 
-    public void crearCarrito(Document carrito){
-        try{
-            coleccion.insertOne(carrito);
-        }
-        catch (Exception e){
-            System.out.println("Error al guardar carrito: " + e.getMessage());
-        }
-    }
-
-
-    public void vaciarCarrito(Document carrito) {
-
-        // Obtener el _id del carrito
-        ObjectId id = carrito.getObjectId("_id");
-
-        // Crear el filtro para encontrar el carrito en la colección
-        Bson filtro = Filters.eq("_id", id);
-
-        // Crear el documento de actualización para vaciar la lista de items
-        Bson update = Updates.set("items", new ArrayList<>());
-
-        // Actualizar el carrito en la colección para vaciar la lista de items
-        UpdateResult result = coleccion.updateOne(filtro, update);
-
-        // Verificar si la actualización fue exitosa
-        if (result.getModifiedCount() > 0) {
-            System.out.println("Carrito vaciado con éxito.");
-        } else {
-            System.out.println("No se pudo vaciar el carrito.");
-        }
-    }
-
-
-    public Document buscarProducto(ObjectId idProducto){
-        // busca y devuelve el producto. null si no lo encuentra o si ocurre un error inesperado.
-        try{
-            Document consulta = new Document("_id", idProducto);
-            return this.coleccion.find(consulta).first();
-        }
-        catch (Exception e){
-            System.out.println("Error al buscar producto: " + e.getMessage());
-            return null;
-        }
-    }
-
-    public void guardarProducto(Document producto){
-        try{
-            coleccion.insertOne(producto);
-            System.out.println("El producto se ha guardado correctamente");
-        }
-        catch (Exception e){
-            System.out.println("Error al guardar el producto: " + e.getMessage());
-        }
-    }
 
     public void agregarItemCarrito(ObjectId referenciaMongo, Document producto, int cantidad){
         // busca el producto en el carrito, si esta en el carrito le suma la cantidad. si no esta lo crea.
@@ -149,6 +104,7 @@ public class MongoService {
             // Si no se encontro ni actualizo ningun documento, el producto no esta en el carrito
             if (updateResult.getMatchedCount() == 0) {
                 // Agrega el campo cantidad al producto
+                producto.remove("stock");
                 producto.append("cantidad", cantidad);
                 // Agrega el nuevo item al carrito
                 coleccion.updateOne(
@@ -167,7 +123,53 @@ public class MongoService {
     }
 
 
-    public boolean modificarPrecioProducto(String idProducto, double precio){
+    public void vaciarCarrito(Document carrito) {
+
+        // Obtener el _id del carrito
+        ObjectId id = carrito.getObjectId("_id");
+
+        // Crear el filtro para encontrar el carrito en la colección
+        Bson filtro = Filters.eq("_id", id);
+
+        // Crear el documento de actualización para vaciar la lista de items
+        Bson update = Updates.set("items", new ArrayList<Document>());
+
+        // Actualizar el carrito en la colección para vaciar la lista de items
+        UpdateResult result = coleccion.updateOne(filtro, update);
+
+        // Verificar si la actualización fue exitosa
+        if (result.getModifiedCount() > 0) {
+            System.out.println("Carrito vaciado con éxito.");
+        } else {
+            System.out.println("No se pudo vaciar el carrito.");
+        }
+    }
+
+    public void crearProducto(Document producto){
+        try{
+            coleccion.insertOne(producto);
+            System.out.println("El producto se ha guardado correctamente");
+        }
+        catch (Exception e){
+            System.out.println("Error al guardar el producto: " + e.getMessage());
+        }
+    }
+
+
+    public Document buscarProducto(ObjectId idProducto){
+        // busca y devuelve el producto. null si no lo encuentra o si ocurre un error inesperado.
+        try{
+            Document consulta = new Document("_id", idProducto);
+            return this.coleccion.find(consulta).first();
+        }
+        catch (Exception e){
+            System.out.println("Error al buscar producto: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+    public boolean modificarPrecioProducto(ObjectId idProducto, double precio){
         try {
             Document consulta = new Document("_id", idProducto);
             Document actualizado = new Document("$set", new Document("precio", precio));
@@ -191,7 +193,4 @@ public class MongoService {
         }
         return productos;
     }
-
-
-
 }

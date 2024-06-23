@@ -5,11 +5,11 @@ import org.bson.types.ObjectId;
 
 import javax.swing.table.DefaultTableModel;
 
-public class VentanaInicio extends javax.swing.JFrame {
+public class VentanaUsuarioInicio extends javax.swing.JFrame {
     private Controlador controlador;
     private Object[][] datos;
 
-    public VentanaInicio(Controlador controlador) {
+    public VentanaUsuarioInicio(Controlador controlador) {
         this.controlador = controlador;
         this.datos = controlador.datosTablaProductos();
         initComponents();
@@ -78,7 +78,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         BotonMisCompras.setBackground(new java.awt.Color(22, 22, 216));
         BotonMisCompras.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         BotonMisCompras.setForeground(new java.awt.Color(255, 255, 255));
-        BotonMisCompras.setText("Mis compras");
+        BotonMisCompras.setText("Mis Compras");
         BotonMisCompras.setBorder(null);
         BotonMisCompras.setContentAreaFilled(false);
         BotonMisCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -128,9 +128,9 @@ public class VentanaInicio extends javax.swing.JFrame {
                             .addComponent(BotonMisCompras)
                             .addComponent(BotonCerrarSesion)))
                     .addGroup(IzquierdaLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(14, 14, 14)
                         .addComponent(BotonInicio)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,28 +257,28 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
     private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
-        VentanaInicio ventana = new VentanaInicio(controlador);
+        VentanaUsuarioInicio ventana = new VentanaUsuarioInicio(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BotonInicioActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        VentanaMisPedidos ventana = new VentanaMisPedidos(controlador);
+        VentanaUsuarioMisCompras ventana = new VentanaUsuarioMisCompras(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        VentanaUsuarioCarrito2 ventana = new VentanaUsuarioCarrito2(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
-        VentanaMiPerfil ventana = new VentanaMiPerfil(controlador);
+        VentanaUsuarioMiPerfil ventana = new VentanaUsuarioMiPerfil(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();

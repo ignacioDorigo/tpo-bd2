@@ -1,14 +1,14 @@
 package interfaces.gui;
 
 import aplicacion.Controlador;
-import org.bson.Document;
+import javax.swing.table.DefaultTableModel;
 
-public class VentanaMiPerfil extends javax.swing.JFrame {
+public class VentanaUsuarioCarrito extends javax.swing.JFrame {
     private Controlador controlador;
-    private Document usuario;
-    public VentanaMiPerfil(Controlador controlador) {
+    private Object[][] datos;
+    public VentanaUsuarioCarrito(Controlador controlador) {
         this.controlador = controlador;
-        this.usuario = controlador.getUsuario();
+        this.datos = controlador.datosTablaCarrito();
         initComponents();
     }
 
@@ -25,18 +25,16 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         BotonMisCompras = new javax.swing.JButton();
         BotonCerrarSesion = new javax.swing.JButton();
         Derecha = new javax.swing.JPanel();
-        labelNombre = new javax.swing.JLabel();
-        labelDatosUsuario = new javax.swing.JLabel();
-        labelCorreo = new javax.swing.JLabel();
-        labelDocumento = new javax.swing.JLabel();
-        labelDireccion = new javax.swing.JLabel();
-        infoNombre = new javax.swing.JLabel();
-        infoCorreo = new javax.swing.JLabel();
-        infoDocumento = new javax.swing.JLabel();
-        infoDireccion = new javax.swing.JLabel();
+        botonConfirmarCarrito = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaCarrito = new javax.swing.JTable();
+        labelTextoTotal = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
+        botonCarritoAnterior = new javax.swing.JButton();
+        botonVaciarCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Mi Perfil");
+        setTitle("Carrito");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -61,9 +59,9 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         });
 
         botonMiPerfil.setBackground(new java.awt.Color(22, 22, 216));
-        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        botonMiPerfil.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         botonMiPerfil.setForeground(new java.awt.Color(255, 255, 255));
-        botonMiPerfil.setText("<HTML><U>Mi Perfil</U></HTML>");
+        botonMiPerfil.setText("Mi Perfil");
         botonMiPerfil.setBorder(null);
         botonMiPerfil.setContentAreaFilled(false);
         botonMiPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -74,9 +72,9 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         });
 
         botonCarrito.setBackground(new java.awt.Color(22, 22, 216));
-        botonCarrito.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        botonCarrito.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         botonCarrito.setForeground(new java.awt.Color(255, 255, 255));
-        botonCarrito.setText("Carrito");
+        botonCarrito.setText("<HTML><U>Carrito</U></HTML>");
         botonCarrito.setBorder(null);
         botonCarrito.setContentAreaFilled(false);
         botonCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -89,7 +87,7 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         BotonMisCompras.setBackground(new java.awt.Color(22, 22, 216));
         BotonMisCompras.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         BotonMisCompras.setForeground(new java.awt.Color(255, 255, 255));
-        BotonMisCompras.setText("Mis compras");
+        BotonMisCompras.setText("Mis Compras");
         BotonMisCompras.setBorder(null);
         BotonMisCompras.setContentAreaFilled(false);
         BotonMisCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -117,16 +115,18 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         IzquierdaLayout.setHorizontalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonCarrito)
-                    .addComponent(BotonMisCompras)
-                    .addComponent(BotonCerrarSesion)
-                    .addComponent(BotonInicio))
-                .addContainerGap(43, Short.MAX_VALUE))
-            .addGroup(IzquierdaLayout.createSequentialGroup()
-                .addComponent(botonMiPerfil)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonMiPerfil)
+                            .addComponent(BotonMisCompras)
+                            .addComponent(BotonCerrarSesion)
+                            .addComponent(BotonInicio)))
+                    .addGroup(IzquierdaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(botonCarrito)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         IzquierdaLayout.setVerticalGroup(
             IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,102 +151,105 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         Derecha.setMaximumSize(null);
         Derecha.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        labelNombre.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        labelNombre.setText("Nombre: ");
+        botonConfirmarCarrito.setBackground(new java.awt.Color(22, 22, 216));
+        botonConfirmarCarrito.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        botonConfirmarCarrito.setForeground(new java.awt.Color(255, 255, 255));
+        botonConfirmarCarrito.setText("CONFIRMAR");
+        botonConfirmarCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonConfirmarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConfirmarCarritoActionPerformed(evt);
+            }
+        });
 
-        labelDatosUsuario.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        labelDatosUsuario.setText("Datos Usuario");
+        DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(new Object [][] {},
+            new String [] {
+                "ID","Nombre", "Precio", "Cantidad", "SubTotal"
+            }
+        );
+        for(Object[] fila : this.datos){
+            tableModel.addRow(fila);
+        }
+        tablaCarrito.setModel(tableModel);
+        jScrollPane1.setViewportView(tablaCarrito);
 
-        labelCorreo.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        labelCorreo.setText("Correo:");
+        labelTextoTotal.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
+        labelTextoTotal.setText("TOTAL");
 
-        labelDocumento.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        labelDocumento.setText("Documento:");
+        botonCarritoAnterior.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
+        botonCarritoAnterior.setForeground(new java.awt.Color(22, 22, 216));
+        botonCarritoAnterior.setText("Carrito Anterior");
+        botonCarritoAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCarritoAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCarritoAnteriorActionPerformed(evt);
+            }
+        });
 
-        labelDireccion.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        labelDireccion.setText("Direccion: ");
-
-        infoNombre.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        infoNombre.setText("-");
-        infoNombre.setText(this.usuario.getString("nombre"));
-
-        infoCorreo.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        infoCorreo.setText("-");
-        infoCorreo.setText(usuario.getString("correo"));
-
-        infoDocumento.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        infoDocumento.setText("-");
-        infoDocumento.setText(usuario.getString("documento"));
-
-        infoDireccion.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        infoDireccion.setText("-");
-        infoDireccion.setText(usuario.getString("direccion"));
+        botonVaciarCarrito.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
+        botonVaciarCarrito.setForeground(new java.awt.Color(22, 22, 216));
+        botonVaciarCarrito.setText("Vaciar Carrito");
+        botonVaciarCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonVaciarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVaciarCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DerechaLayout = new javax.swing.GroupLayout(Derecha);
         Derecha.setLayout(DerechaLayout);
         DerechaLayout.setHorizontalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(botonVaciarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonConfirmarCarrito)
+                .addGap(48, 48, 48))
             .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(26, 26, 26)
+                .addComponent(botonCarritoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DerechaLayout.createSequentialGroup()
-                        .addComponent(labelDireccion)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                        .addComponent(labelTextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(infoDireccion))
-                    .addGroup(DerechaLayout.createSequentialGroup()
-                        .addComponent(labelDocumento)
-                        .addGap(18, 18, 18)
-                        .addComponent(infoDocumento))
-                    .addGroup(DerechaLayout.createSequentialGroup()
-                        .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNombre)
-                            .addComponent(labelCorreo))
-                        .addGap(18, 18, 18)
-                        .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(infoNombre)
-                            .addComponent(infoCorreo))))
-                .addContainerGap(456, Short.MAX_VALUE))
-            .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(DerechaLayout.createSequentialGroup()
-                    .addGap(54, 54, 54)
-                    .addComponent(labelDatosUsuario)
-                    .addContainerGap(433, Short.MAX_VALUE)))
+                        .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DerechaLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         DerechaLayout.setVerticalGroup(
             DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DerechaLayout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNombre)
-                    .addComponent(infoNombre))
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(botonCarritoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCorreo)
-                    .addComponent(infoCorreo))
-                .addGap(18, 18, 18)
-                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDocumento)
-                    .addComponent(infoDocumento))
-                .addGap(18, 18, 18)
-                .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDireccion)
-                    .addComponent(infoDireccion))
-                .addContainerGap(221, Short.MAX_VALUE))
-            .addGroup(DerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(DerechaLayout.createSequentialGroup()
-                    .addGap(51, 51, 51)
-                    .addComponent(labelDatosUsuario)
-                    .addContainerGap(417, Short.MAX_VALUE)))
+                    .addComponent(botonConfirmarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonVaciarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57))
         );
 
+        labelTotal.setText("");
+
         jPanel1.add(Derecha);
-        Derecha.setBounds(160, 0, 640, 500);
+        Derecha.setBounds(160, 0, 840, 500);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,31 +260,31 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed
-        VentanaInicio ventana = new VentanaInicio(controlador);
+        VentanaUsuarioInicio ventana = new VentanaUsuarioInicio(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();      
+        this.dispose();
     }//GEN-LAST:event_BotonInicioActionPerformed
 
     private void botonMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMiPerfilActionPerformed
-        VentanaMiPerfil ventana = new VentanaMiPerfil(controlador);
+        VentanaUsuarioMiPerfil ventana = new VentanaUsuarioMiPerfil(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_botonMiPerfilActionPerformed
 
     private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
-        VentanaCarrito ventana = new VentanaCarrito(controlador);
+        VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_botonCarritoActionPerformed
 
     private void BotonMisComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMisComprasActionPerformed
-        VentanaMisPedidos ventana = new VentanaMisPedidos(controlador);
+        VentanaUsuarioMisCompras ventana = new VentanaUsuarioMisCompras(controlador);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_BotonMisComprasActionPerformed
 
     private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed
@@ -293,6 +296,29 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
         controlador.cerrarSesion();
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
+    private void botonConfirmarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarCarritoActionPerformed
+
+    }//GEN-LAST:event_botonConfirmarCarritoActionPerformed
+
+    private void botonCarritoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoAnteriorActionPerformed
+        if(controlador.estadoAnteriorCarrito()){
+            VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
+            ventana.setLocationRelativeTo(null);
+            ventana.setVisible(true);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_botonCarritoAnteriorActionPerformed
+
+    private void botonVaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarCarritoActionPerformed
+        
+        controlador.vaciarCarrito();
+        VentanaUsuarioCarrito ventana = new VentanaUsuarioCarrito(controlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonVaciarCarritoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCerrarSesion;
     private javax.swing.JButton BotonInicio;
@@ -300,16 +326,14 @@ public class VentanaMiPerfil extends javax.swing.JFrame {
     private javax.swing.JPanel Derecha;
     private javax.swing.JPanel Izquierda;
     private javax.swing.JButton botonCarrito;
+    private javax.swing.JButton botonCarritoAnterior;
+    private javax.swing.JButton botonConfirmarCarrito;
     private javax.swing.JButton botonMiPerfil;
-    private javax.swing.JLabel infoCorreo;
-    private javax.swing.JLabel infoDireccion;
-    private javax.swing.JLabel infoDocumento;
-    private javax.swing.JLabel infoNombre;
+    private javax.swing.JButton botonVaciarCarrito;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelCorreo;
-    private javax.swing.JLabel labelDatosUsuario;
-    private javax.swing.JLabel labelDireccion;
-    private javax.swing.JLabel labelDocumento;
-    private javax.swing.JLabel labelNombre;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTextoTotal;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JTable tablaCarrito;
     // End of variables declaration//GEN-END:variables
 }

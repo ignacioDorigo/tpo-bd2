@@ -197,7 +197,7 @@ public class VentanaAcceso extends javax.swing.JFrame {
         String contrasena = new String(aux);
         if (controlador.validarDatosSesion(correo, contrasena)) {
             if (controlador.cargarSesion()){
-                VentanaInicio vd = new VentanaInicio(controlador);
+                VentanaUsuarioInicio vd = new VentanaUsuarioInicio(controlador);
                 vd.setLocationRelativeTo(null);
                 vd.setVisible(true);
                 this.dispose();
